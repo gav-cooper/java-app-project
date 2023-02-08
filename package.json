@@ -1,11 +1,15 @@
 {
   "dependencies": {
+    "better-sqlite3": "^8.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "init-db": "node ./Database/init-db.js",
+    "start-dev": "npm run init-db && nodemon server.js"
+
   },
   "name": "java-app-project",
   "version": "1.0.0",
