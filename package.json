@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "java-app-project",
+  "version": "1.0.0",
+  "description": "Music social media site",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gav-cooper/java-app-project.git"
+  },
+  "author": "Lakresha Holley, Shota Kato, and Gavin Cooper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gav-cooper/java-app-project/issues"
+  },
+  "homepage": "https://github.com/gav-cooper/java-app-project#readme"
+}
