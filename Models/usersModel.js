@@ -49,6 +49,32 @@ async function addUser (username, email, password) {
     }
 }
 
+function getUserByUsername(username) {
+    const sql = `
+        SELECT * FROM Users WHERE username = @username;
+        `;
+    const stmt = db.prepare(sql);
+    const record = stmt.get({
+        username
+    });
+    
+    return record;
+}
+
+function getUserByEmail(email) {
+    const sql = `
+        SELECT * FROM Users WHERE email = @email;
+        `;
+    const stmt = db.prepare(sql);
+    const record = stmt.get({
+        email
+    });
+    
+    return record;
+}
+
 module.exports = {
-    addUser
+    addUser,
+    getUserByUsername,
+    getUserByEmail
 }
