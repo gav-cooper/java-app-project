@@ -1,0 +1,11 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+body{
+    margin: 0 auto;
+    background-image: url("/images/background.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+}

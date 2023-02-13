@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<!-- CSS script -->
+<style>
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+body{
+    margin: 0 auto;
+    background-image: url("/images/background.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+.topbar{
+    background-color: #8C8C8C;
+    overflow: hidden;
+}
+
+.topbar a{
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    border-bottom: 3px solid #8C8C8C;
+}
+/* END_ONLINE_BLOCK */
+
+.topbar a:hover{
+    border-bottom: 3px solid #E8B35A;
+} 
+
+.topbar .active{
+    border-bottom: 3px solid #E8B35A;
+}
+
+input{
+    height: 30px;
+
+}
+
+button {
+    border: none;
+    background-color: #E8B35A; 
+    color: #f0f0f0;
+    text-align: center;
+    font-size: 24px;
+}
+
+h1 {
+    color: #8C8C8C;
+    font-size: 24px;
+}
+
+.box {
+    border: none;
+    border-radius: 5px;
+    margin: auto;
+    border-width: .2px;
+    width: 30%;
+    height: 500px;
+    padding: 10px;
+    margin-top: 50px;
+    align-items: center;
+    box-shadow: 0px 3px 10px #aaaaaa;
+    
+}
+
+#register{
+    color: #8C8C8C;
+    font-size: 12px;
+    margin: auto;
+    align-items: center;
+    padding: 35%;
+}
+</style>
+<!-- END OF CSS script -->
+
+<body>
+
+    <nav class="topbar">
+        <a href="#page1">Page 1</a>
+        <a href="#page1">Page 2</a>
+        <a href="#page1">Page 3</a>
+    </nav>
+    <div class="box">
+        <div>
+            <h1 class="" style="text-align:center;">Sign in</h1>
+            <p></p>
+        </div>
+        <div class="content">
+            <div style="text-align: center;">
+                <form id="loginForm" action="/login" method="POST">
+                    <div class="email">
+                        <input id="email" type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="password">
+                        <input id="password" type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <br>
+                    <button> Login </button>
+                </form>
+            </div>
+            <a href = "#register" id="register"> Create Account </a>
+        </div>
+    </div>
+  
+</body>
+</html>
