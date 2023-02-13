@@ -3,6 +3,9 @@
 const usersModel = require("../Models/usersModel");
 const argon2 = require("argon2");
 
+/*
+ * Adds a new user to the site, the first user will have an admin account
+*/
 async function createNewUser(req, res){
     const {username, email, password} = req.body;
 
@@ -13,7 +16,14 @@ async function createNewUser(req, res){
     res.sendStatus(201);
 } 
 
+/*
+ * Login function allows the user to login with their username or email
+*/
 async function login(req, res){
+    if (req.session.isLoggedIn) {
+        return res.redirect("/")
+    }
+
     // Login using username or email
     const {value, password} = req.body;
 
@@ -23,7 +33,7 @@ async function login(req, res){
             return res.sendStatus(404);
         }
 
-        const {passwordHash} = user;
+        const {passwordHash, admin} = user;
         if (await argon2.verify(passwordHash,password)) {
             req.session.regenerate((err) => {
                 if (err){
@@ -35,6 +45,7 @@ async function login(req, res){
                 req.session.user.username = user.username;
                 req.session.user.userID = user.userID;
                 req.session.isLoggedIn = true;
+                req.session.isAdmin = admin;
                 res.sendStatus(200);
             });
         } else {
@@ -47,7 +58,7 @@ async function login(req, res){
             return res.sendStatus(404);
         }
         
-        const {passwordHash} = user;
+        const {passwordHash, admin} = user;
         if (await argon2.verify(passwordHash,password)) {
             req.session.regenerate((err) => {
                 if (err){
@@ -59,6 +70,7 @@ async function login(req, res){
                 req.session.user.username = user.username;
                 req.session.user.userID = user.userID;
                 req.session.isLoggedIn = true;
+                req.session.isAdmin = admin;
                 res.sendStatus(200);
             });
         } else {
@@ -68,7 +80,19 @@ async function login(req, res){
     }
 }
 
+function logout (req,res) {
+    req.session.destroy((error) =>
+        res.redirect("/"));
+}
+
+function testSession (req, res) {
+    console.log(req.session),
+    res.sendStatus(200)
+}
+
 module.exports = {
     createNewUser,
-    login
+    login,
+    logout,
+    testSession
 }

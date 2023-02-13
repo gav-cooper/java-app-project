@@ -40,8 +40,9 @@ app.get("/", (req, res) => {
     res.redirect('/login')
 });
 
-
 app.post("/register", usersController.createNewUser);
 app.post("/login",usersController.login)
+app.post("/logout",usersController.logout)
+app.post("/testSession",usersController.testSession)
 
 module.exports = app;
