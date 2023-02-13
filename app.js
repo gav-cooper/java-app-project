@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const usersController = require("./Controllers/usersController");
 	
 app.get("/", (req, res) => {
     res.send("Hello, World!");
