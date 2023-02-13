@@ -37,7 +37,7 @@ const usersController = require("./Controllers/usersController");
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.send("Hello");
+    res.redirect('/login')
 });
 
 
