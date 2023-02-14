@@ -6,3 +6,6 @@
 To initialize: 
 create .env and create variable for PORT and DB
 npm run start-dev
+
+Threads???...
+Typically, events are handled synchronously with the program flow; that is, the software may have one or more dedicated places where events are handled, frequently an event loop.
