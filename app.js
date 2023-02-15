@@ -33,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const usersController = require("./Controllers/usersController");
+const usersValidator = require("./Validators/usersValidator");
 	
 app.set("view engine", "ejs");
 
@@ -40,7 +41,7 @@ app.get("/", (req, res) => {
     res.redirect('/login')
 });
 
-app.post("/register", usersController.createNewUser);
+app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersController.login)
 app.post("/logout",usersController.logout)
 app.post("/testSession",usersController.testSession)
