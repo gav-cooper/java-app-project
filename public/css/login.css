@@ -68,9 +68,12 @@ h1 {
 }
 
 #register{
+    display:flex;
+    flex-direction:column;
+    box-sizing:border-box;
     color: #8C8C8C;
     font-size: 12px;
     margin: auto;
     align-items: center;
-    padding: 35%;
+    padding: 10px;
 }
