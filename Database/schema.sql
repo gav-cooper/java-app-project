@@ -9,7 +9,9 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Preferences (
     userID TEXT PRIMARY KEY,
-    genre TEXT,
+    rock INTEGER,
+    hiphop INTEGER,
+    classic INTEGER,
     FOREIGN KEY(userID) REFERENCES Users(userID)
 );
 

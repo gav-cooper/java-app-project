@@ -1,7 +1,9 @@
 "use strict";
 
+const db = require("/.db");
 
 async function recommandation (userID){
+    // to get the number of the user like
     const rock = `
                     SELECT rock FROM Preferences 
                     WHERE userID = ` + userID `:`;
@@ -13,20 +15,36 @@ async function recommandation (userID){
                     SELECT classic FROM Preferences 
                     WHERE userID = ` + userID;
 
-    amount = rock + hiphop + classic;
+    // to get the number from database
+    const getRock = db.prepare(rock).get();
+    const getHiphop = db.prepare(hiphop).get();
+    const getClassic = db.prepare(classic).get();
 
-    rockPercent = rock / amount;
-    hiphopPercent = hiphop / amount;
-    classicPercent = classic / amount;
+    // to calculate the amount of sum
+    amount = getRock + getHiphop + getClassic;
 
+    // to calculate the percentege of the preference
+    rockPercent = getRock / amount;
+    hiphopPercent = getHiphop / amount;
+    classicPercent = getClassic / amount;
+
+    // to get the random number 0 - 1
     recommend = Math.random();
+
+    // to choose the recommandation music
     if(recommend = Range(0-rock)){
         music = 'SELECT top(1) * FROM Music WHERE genre = rock order by NEWID()'
+        recommandMusic = db.prepare(music).get();
     }else if(reccomend = Range(rock - rock + hiphop)){
         music = 'SELECT top(1) * FROM Music WHERE genre = hiphop order by NEWID()'
+        recommandMusic = db.prepare(music).get();
     }else{
         music = 'SELECT top(1) * FROM Music WHERE genre = classic order by NEWID()'
+        recommandMusic = db.prepare(music).get();
     }
+
+    // to return the music
+    return recommandMusic;
 }
 
 module.exports = {
