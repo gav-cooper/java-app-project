@@ -21,7 +21,6 @@ async function addUser (username, email, password) {
     const checkCount = db.prepare(count).get()
     let adminAccount = 0;
 
-    console.log(!!checkCount)
     if (!!checkCount == false) {
         adminAccount = 1;
     }
