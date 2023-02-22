@@ -77,3 +77,9 @@ h1 {
     align-items: center;
     padding: 10px;
 }
+
+#errors {
+    display:flex;
+    flex-direction:column;
+    font-size: 12px;
+}

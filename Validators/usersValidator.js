@@ -19,8 +19,19 @@ const registerSchema = joi.object({
         .required()
 });
 
+const loginSchema = joi.object({
+    value: joi.string()
+        .lowercase(),
+
+    password: joi.string()
+        .min(6)
+        .required()
+});
+
 const validateRegistration = validator.makeValidator(registerSchema);
+const validateLogin = validator.makeValidator(loginSchema);
 
 module.exports = {
-    validateRegistration
+    validateRegistration,
+    validateLogin
 }
