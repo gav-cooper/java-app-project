@@ -26,10 +26,12 @@ CREATE TABLE IF NOT EXISTS Music (
     musicID TEXT PRIMARY KEY,
     originalName TEXT,
     musicPath TEXT,
+    uploader TEXT,
     artist TEXT,
     date INT NOT NULL,
     likes INTEGER NOT NULL DEFAULT 0 CHECK (likes >= 0),
-    genre TEXT
+    genre TEXT,
+    FOREIGN KEY (uploader) REFERENCES Users(username)
 );
 
 CREATE TABLE IF NOT EXISTS Comments (
