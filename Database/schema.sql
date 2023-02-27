@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS Creates (
 
 CREATE TABLE IF NOT EXISTS Music (
     musicID TEXT PRIMARY KEY,
+    originalName TEXT,
+    musicPath TEXT,
     artist TEXT,
     date INT NOT NULL,
     likes INTEGER NOT NULL DEFAULT 0 CHECK (likes >= 0),
