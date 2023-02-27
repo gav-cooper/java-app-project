@@ -4,7 +4,7 @@ const joi = require("joi");
 const validator = require("./makeValidator");
 
 const registerSchema = joi.object({
-    name: joi.string()
+    username: joi.string()
         .min(3)
         .token()
         .lowercase()

@@ -1,7 +1,5 @@
 "use strict";
 
-const { addUser } = require("../../Models/usersModel");
-
 const form = document.getElementById("registerForm");
 
 form.addEventListener("submit", submitRegisterForm);
@@ -12,23 +10,23 @@ async function submitRegisterForm (event) {
     const errorsContainer = document.getElementById("errors");
     errorsContainer.innerHTML = "";
     
-    registerUser();
+    const body = getInputs();
 
     try {
-        const response = await fetch("/login", {
+        const response = await fetch("/register", {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json"
             },
             "body": JSON.stringify(body)
         });
-        if (response.ok) {      // Account created succsessful
-            window.location.href="/login"; 
+        if (response.ok) {      // Account created
+            window.location.href="/login";
 
         } else if (response.status === 400) {   // Input parameter error
             const data = await response.json();
             const errors = data.errors;
-            
+
             for (const errorMsg of errors) {
                 console.error(errorMsg);
                 appendData(errorsContainer, errorMsg, "error");
@@ -42,12 +40,16 @@ async function submitRegisterForm (event) {
     }
 }
 
-function registerUser() {
-    const name = document.getElementById("Username").value;
+function getInputs() {
+    const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    addUser(name, email, password);
+    return {
+        username,
+        email,
+        password
+    }
 }
 
 function appendData(container, message, className) {
