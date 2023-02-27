@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/login.js" defer></script>
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="box">
+        <div>
+            <h1 class="" style="text-align:center;">Sign in</h1>
+            <p></p>
+        </div>
+        <div class="content">
+            <div style="text-align: center;">
+                <audio controls>
+                    <source src="music" type="audio/mp3">
+                </audio>
+                <form id="recommendation" action="/recommendation" method="POST">
+                    <div class="recommendation">
+                        <input id="rock" type="integer" name="rock" placeholder="rock">
+                    </div>
+                    <div class="recommendation">
+                        <input id="classic" type="integer" name="classic" placeholder="classic">
+                    </div>
+                    <div class="recommendation">
+                        <input id="hiphop" type="integer" name="hiphop" placeholder="hiphop"
+                    </div>
+                    <button id="submit"> submit recommendation </button>
+                </form>
+            </div>
+            <a href = "/register.html" id="register"> Create Account </a>
+        </div>
+        <div id = "errors"></div>
+    </div>
+  
+</body>
+</html>
