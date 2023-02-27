@@ -20,7 +20,7 @@ async function submitLoginForm (event) {
             },
             "body": JSON.stringify(body)
         });
-        if (response.ok) {      // Account created
+        if (response.ok) {      // Account logged in
             window.location.href="/main"; 
 
         } else if (response.status === 400) {   // Input parameter error
