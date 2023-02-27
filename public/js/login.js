@@ -31,7 +31,7 @@ async function submitLoginForm (event) {
                 console.error(errorMsg);
                 appendData(errorsContainer, errorMsg, "error");
             }
-        } else if( response.status === 404) {  // Username/Email already in DB
+        } else if( response.status === 404) {  // Invalid account info
             clearInputs();
             appendData(errorsContainer, "Invalid username/email or password!", "error");
         }
