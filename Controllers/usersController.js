@@ -90,9 +90,36 @@ function testSession (req, res) {
     res.sendStatus(200)
 }
 
+function uploadFiles (req, res) {
+    if (!req.session.isLoggedIn){
+        return res.redirect("/");
+    }
+    if (req.params.username !== req.session.user.username){
+        return res.redirect("/");
+    }
+
+    const user = usersModel.getUserByUsername(req.params.username);
+    const loggedIn = req.session.user;
+    return res.render("fileUploadTest.ejs", {user})
+}
+
+function setPfp (req, res) {
+    if (!req.session.isLoggedIn) {
+        return res.sendStatus(403);
+    }
+    if (req.params.userID !== req.session.user.userID) {
+        return res.sendStatus(403);
+    }
+    const {userID, pfpPath} = usersModel.getUserByUsername(req.session.user.username);
+    usersModel.updatePfp(userID, pfpPath, `/pfp/${req.file.filename}`);
+    res.redirect(`/users/${req.session.user.username}/uploads`)
+}
+
 module.exports = {
     createNewUser,
     login,
     logout,
-    testSession
+    testSession,
+    uploadFiles,
+    setPfp
 }

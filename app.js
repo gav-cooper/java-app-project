@@ -32,18 +32,28 @@ app.use(express.static("public", {index: "index.html", extensions: ["html"]}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Controllers
 const usersController = require("./Controllers/usersController");
+
+// Validators
 const usersValidator = require("./Validators/usersValidator");
 	
+// File uploads
+const pfpUpload = require("./pfpUpload");
+
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.redirect('/login')
 });
+app.get("/users/:username/uploads", usersController.uploadFiles)
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
-app.post("/login",usersValidator.validateLogin,usersController.login)
-app.post("/logout",usersController.logout)
-app.post("/testSession",usersController.testSession)
+app.post("/login",usersValidator.validateLogin,usersController.login);
+app.post("/logout",usersController.logout);
+app.post("/testSession",usersController.testSession);
+app.post("/users/:userID/pfp", 
+  pfpUpload.pfp.single("pfp"),
+  usersController.setPfp);
 
 module.exports = app;
