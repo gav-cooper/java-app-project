@@ -13,15 +13,16 @@ async function submitReccoemdationForm (event) {
     const body = getInputs();
 
     try {
-        const response = await fetch("/login", {
+        const response = await fetch("/recomendation", {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json"
             },
             "body": JSON.stringify(body)
         });
-        if (response.ok) {      // Account logged in
-            window.location.href="/main"; 
+        if (response.ok) {      // to set the reccomendation in count
+            window.location.href="/recomendation"; 
+            reccomendation();
 
         } else if (response.status === 400) {   // Input parameter error
             const data = await response.json();
@@ -33,7 +34,7 @@ async function submitReccoemdationForm (event) {
             }
         } else if( response.status === 404) {  // Invalid account info
             clearInputs();
-            appendData(errorsContainer, "Invalid username/email or password!", "error");
+            appendData(errorsContainer, "Invalid number of counts", "error");
         }
     } catch (err) {
         console.error(err);
@@ -41,12 +42,14 @@ async function submitReccoemdationForm (event) {
 }
 
 function getInputs() {
-    const value = document.getElementById("value").value;
-    const password = document.getElementById("password").value;
+    const rock = document.getElementById("rock").value;
+    const classic = document.getElementById("classic").value;
+    const hiphop = document.getElementById("hiphop").value;
 
     return {
-        value,
-        password
+        rock,
+        classic,
+        hiphop
     }
 }
 
@@ -58,6 +61,7 @@ function appendData(container, message, className) {
 }
 
 function clearInputs() {
-    document.getElementById("value").value = "";
-    document.getElementById("password").value = "";    
+    document.getElementById("rock").value = "";
+    document.getElementById("classic").value = "";    
+    document.getElementById("hiphop").value = "";
 }

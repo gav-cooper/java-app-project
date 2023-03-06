@@ -2,7 +2,7 @@
 
 const db = require("/.db");
 
-async function recommandation (userID){
+async function recommandation (){
     // to get the number of the user like
     const rock = `
                     SELECT rock FROM Preferences 
@@ -24,9 +24,17 @@ async function recommandation (userID){
     amount = getRock + getHiphop + getClassic;
 
     // to calculate the percentege of the preference
-    rockPercent = getRock / amount;
-    hiphopPercent = getHiphop / amount;
-    classicPercent = getClassic / amount;
+    if(aount != 0){
+        rockPercent = getRock / amount;
+        hiphopPercent = getHiphop / amount;
+        classicPercent = getClassic / amount;
+    }
+    else{
+        rockPercent = 100 / 3;
+        hiphopPercent = 100 / 3;
+        classicPercent = (100 / 3) + 1;
+    }
+    
 
     // to get the random number 0 - 1
     recommend = Math.random();

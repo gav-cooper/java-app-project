@@ -16,24 +16,27 @@
         </div>
         <div class="content">
             <div style="text-align: center;">
-                <audio controls>
-                    <source src="./music/rock/twisted-138700.mp3" type="audio/mp3">
-                </audio>
+                <div>
+                    <audio controls>
+                    <source src="/music/rock/twisted-138700.mp3"" type="audio/mp3">
+                    </audio>
+                    <button onclick="recommendationMusic()">
+                        to playing the reoccmendatin music
+                    </button>
+                    <script>
+                        function play()
+                    </script>
+                </div>
+                <script src = "Models/recommandationModel.js" defer></script>
+                
                 <form id="recommendation" action="/recommendation" method="POST">
                     <div class="recommendation">
-                        rock
-                        <input id="rock" type="number" name="rock" min="0" max="5" placeholder="rock">
+                        Like
+                        <button id ="submit"> Like </button>
+                        Dislike
+                        <button id ="submit"> Dislike </button>
                     </div>
-                    <div class="recommendation">
-                        classic
-                        <input id="classic" type="number" name="classic" min="0" max="5" placeholder="classic">
-                    </div>
-                    <div class="recommendation">
-                        hiphop
-                        <input id="hiphop" type="number" name="hiphop" min="0" max="5" placeholder="hiphop"
-                    </div>
-                    <br>
-                    <button id="submit"> submit recommendation </button>
+                    
                 </form>
             </div>
         </div>
