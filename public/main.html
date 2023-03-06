@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/main.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Main</title>
 </head>
 <body>
-    <h1>main page</h1>
-    <a href = "/recommendation.html" id="reccomendation">Recommendation</a>
+    <nav class="topbar">
+        <a href="main.html">Home</a>
+        <a href="#page1">Upload</a>
+        <a href="#page1">Playlist</a>
+        <a href="logout.html" style="float: right">Logout</a>
+    </nav>
+    <p style="text-align: center;">Welcome!</p>
+    <div class="post" style="text-align: left;">
+        <img src="./images/album.jpeg" style ="display:inline-block;" class="pfp">
+        <h3 style ="display:inline-block;">Username</h3>
+        <marquee behavior="scroll" direction="left" class="song">Starboy by The Weeknd</marquee>
+        <img src="./images/album.jpeg" class="album">
+        <button class="ignore" type="submit"><img src="./images/play.png" id="play"></button>
+        <br>
+        <br>
+        <img src="./images/heart.png" class="like" id="heart">
+        <img src="./images/x.png" class="like" style="display:inline-block;" id="x">
+    </div>
 </body>
 </html>
