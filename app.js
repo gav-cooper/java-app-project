@@ -34,12 +34,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // Controllers
 const usersController = require("./Controllers/usersController");
+const musicController = require("./Controllers/musicController");
 
 // Validators
 const usersValidator = require("./Validators/usersValidator");
 	
 // File uploads
-const pfpUpload = require("./pfpUpload");
+const fileUpload = require("./fileUpload");
 
 app.set("view engine", "ejs");
 
@@ -53,7 +54,10 @@ app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
 app.post("/users/:userID/pfp", 
-  pfpUpload.pfp.single("pfp"),
+  fileUpload.pfp.single("pfp"),
   usersController.setPfp);
+app.post("/users/:userID/music", 
+  fileUpload.music.single("music"),
+  musicController.test);
 
 module.exports = app;

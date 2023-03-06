@@ -18,8 +18,12 @@
     </div>
     <div class="music-wrapper">
         <form action="/users/<%= user.userID %>/music" method="POST" enctype="multipart/form-data">
+            <input id="name" type="text" name="name" placeholder="Song title" required>
+            <input id="genre" type="text" name="genre" placeholder="genre" required>
+            <input id="link" type="checkbox" name="link">
+            <label for="link">Upload file?</label>
             <span>Upload music:</span>
-            <input type="file" name="music" required>
+            <input type="file" name="music">
             <button>Submit</button>
         </form>
     </div>
