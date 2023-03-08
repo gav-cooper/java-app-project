@@ -55,6 +55,20 @@ async function recommandation (){
     return recommandMusic;
 }
 
+music = recommandation;
+
+console.output(music)
+var audio = document.createElement("audio");
+document.body.appendChild(audio);
+audio.style.width = '100%';
+audio.style.height = 'auto';
+audio.controls = true;
+audio.volume = 0.3;
+
+audio.src = music;
+
+audio.play()
+
 module.exports = {
     recommandation
 }

@@ -20,15 +20,28 @@
                     <audio controls>
                     <source src="/music/rock/twisted-138700.mp3"" type="audio/mp3">
                     </audio>
-                    <button onclick="recommendationMusic()">
-                        to playing the reoccmendatin music
-                    </button>
+                </div>
+
+                <div>
+                    <button>recommendation music</button>
+                    <p id="playing">Playing--</p>
                     <script>
-                        function play()
+                        import{recommendation}from './Models/recommendationModel.js';
+                        const playlist1=recommendation;
+                        const playlist = "/music/rock/twisted-138700.mp"
+                        const myaudio = new Audio(playlist);
+                        myaudio.play();
+                        document.getElementById("playing").textContent = "playing"
+                        + myaudio.src.match(/[^\/]+$/);
                     </script>
                 </div>
-                <script src = "Models/recommandationModel.js" defer></script>
-                
+
+                <div>
+                    <audio id="audio" controls>
+                    <script src="/Models/recomandationModel.js" type="text/javascript"></script>
+                    </audio>
+                </div>
+
                 <form id="recommendation" action="/recommendation" method="POST">
                     <div class="recommendation">
                         Like
