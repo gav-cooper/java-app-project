@@ -5,7 +5,7 @@ const db = require("./db");
 const crypto = require("crypto");
 const argon2 = require('argon2');
 
-async function addSong (fileType, name, path, uploader, artist=uploader, genre) {
+async function addSong (fileType, name, path, uploader, artist, genre) {
     const musicID = crypto.randomUUID();
 
     const date = Date.now();
@@ -34,6 +34,17 @@ async function addSong (fileType, name, path, uploader, artist=uploader, genre) 
         console.error(error);
         return false;
     }
+}
+
+function getUsersSongsByName (uploader, name) {
+    const sql = `
+        SELECT * 
+        FROM Music
+        WHERE uploader = @uploader and originalName = @name
+    `;
+
+    const stmt = db.prepare(sql);
+    return stmt.get({uploader, name})
 }
 
 module.exports = {

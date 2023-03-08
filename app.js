@@ -56,8 +56,10 @@ app.post("/testSession",usersController.testSession);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
-app.post("/users/:userID/music", 
+app.post("/users/:userID/file", 
   fileUpload.music.single("music"),
   musicController.test);
-
+app.post("/users/:userID/link", 
+  fileUpload.music.single("music"),
+  musicController.test);
 module.exports = app;
