@@ -47,6 +47,16 @@ function getUsersSongsByName (uploader, name) {
     return stmt.get({uploader, name})
 }
 
+function deleteSong (user, song) {
+    const sql = `
+        DELETE FROM Music
+        WHERE song = @song
+        `;
+
+    const stmt = db.prepare(stmt);
+    
+}
+
 module.exports = {
     addSong
 }
