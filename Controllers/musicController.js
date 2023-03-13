@@ -20,7 +20,7 @@ function makePost (req, res) {
     // User is uploading a file, set parameters
     if (!!req.file === true) {
         artist = uploader;
-        path = `/${req.file.path}`;
+        path = `/music/${req.file.filename}`;
         type = 0;
     }
     musicModel.addSong(type, name, path, uploader, artist, genre);
@@ -28,14 +28,19 @@ function makePost (req, res) {
 }
 
 function deletePost (req, res) {
-    if (!req.sesion.isLoggedIn)
+    if (!req.session.isLoggedIn)
         return res.sendStatus(403);
-    if (req.session.username != req.body.username)
+    if (req.session.user.username != req.params.username)
         return res.sendStatus(403);
     
-        
+    const {username} = req.session.user;
+    const {song} = req.body;
+
+    musicModel.deleteSong(username, song);
+    return res.sendStatus(200);
 }
 
 module.exports = {
-    makePost
+    makePost,
+    deletePost
 }

@@ -63,3 +63,4 @@ app.post("/users/:userID/link",
   fileUpload.music.single("music"),
   musicController.makePost);
 module.exports = app;
+app.delete("/users/:username", musicController.deletePost);
