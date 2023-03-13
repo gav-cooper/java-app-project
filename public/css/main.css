@@ -11,7 +11,7 @@ body{
 }
 
 .topbar{
-    background-color: #8C8C8C;
+    background-color: #1d1d1d;
     overflow: hidden;
 }
 
@@ -22,7 +22,7 @@ body{
     padding: 14px 16px;
     text-decoration: none;
     font-size: 18px;
-    border-bottom: 3px solid #8C8C8C;
+    border-bottom: 3px solid #1d1d1d;
 }
 /* END_ONLINE_BLOCK */
 
@@ -48,19 +48,19 @@ input{
    max-width: 10%; }
 
 h1,h3 {
-    color: #8C8C8C;
+    color: #1d1d1d;
     font-size: 24px;
     line-height: 5px;
 }
 
 .song{
     font-size:20px;
-    color: #8C8C8C;
+    color: #1d1d1d;
 }
 
 p {
     font-size: 16px;
-    color: #8C8C8C;
+    color: #1d1d1d;
     line-height: 5px;
 }
 
