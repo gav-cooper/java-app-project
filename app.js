@@ -58,8 +58,8 @@ app.post("/users/:userID/pfp",
   usersController.setPfp);
 app.post("/users/:userID/file", 
   fileUpload.music.single("music"),
-  musicController.test);
+  musicController.makePost);
 app.post("/users/:userID/link", 
   fileUpload.music.single("music"),
-  musicController.test);
+  musicController.makePost);
 module.exports = app;

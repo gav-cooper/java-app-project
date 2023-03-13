@@ -99,7 +99,6 @@ function uploadFiles (req, res) {
     }
 
     const user = usersModel.getUserByUsername(req.params.username);
-    const loggedIn = req.session.user;
     return res.render("fileUploadTest.ejs", {user})
 }
 
