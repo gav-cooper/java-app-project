@@ -4,7 +4,7 @@ const form = document.getElementById("reccomendationForm");
 
 form.addEventListener("submit", submitRecommendationForm);
 
-// Submits the login form
+// Submits the recommendation form
 async function submitReccoemdationForm (event) {
     event.preventDefault();
     const errorsContainer = document.getElementById("errors");
@@ -21,8 +21,7 @@ async function submitReccoemdationForm (event) {
             "body": JSON.stringify(body)
         });
         if (response.ok) {      // to set the reccomendation in count
-            window.location.href="/recomendation"; 
-            reccomendation();
+            window.location.href="/"; 
 
         } else if (response.status === 400) {   // Input parameter error
             const data = await response.json();
@@ -41,6 +40,7 @@ async function submitReccoemdationForm (event) {
     }
 }
 
+
 function getInputs() {
     const rock = document.getElementById("rock").value;
     const classic = document.getElementById("classic").value;
@@ -52,6 +52,7 @@ function getInputs() {
         hiphop
     }
 }
+
 
 function appendData(container, message, className) {
     const paragraph = document.createElement("p");

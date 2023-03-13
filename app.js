@@ -35,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 // Controllers
 const usersController = require("./Controllers/usersController");
 const musicController = require("./Controllers/musicController");
+const recommendationController = require("./Controllers/recommendationController");
 
 // Validators
 const usersValidator = require("./Validators/usersValidator");
@@ -53,6 +54,7 @@ app.post("/register", usersValidator.validateRegistration, usersController.creat
 app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
+app.post("/recommendation", recommendationController.getReccomend);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);

@@ -1,6 +1,7 @@
 "use strict";
 
-const db = require("/.db");
+const db = require("./db");
+
 
 async function recommandation (){
     // to get the number of the user like
@@ -55,20 +56,31 @@ async function recommandation (){
     return recommandMusic;
 }
 
-music = recommandation;
+function sendMusic(){
+    const music = recommandation();
+    var data_url = new XMLHttpRequest();
+    data_url.open('GET', 'localhost:8000/recommendation.html')
+    data_url.send(music)
+}
 
-console.output(music)
-var audio = document.createElement("audio");
-document.body.appendChild(audio);
-audio.style.width = '100%';
-audio.style.height = 'auto';
-audio.controls = true;
-audio.volume = 0.3;
+async function musicPlay(){
+    const music = recommandation();
 
-audio.src = music;
+    var audio = document.createElement("audio");
+    document.body.appendChild(audio);
+    audio.style.width = '100%';
+    audio.style.height = 'auto';
+    audio.controls = true;
+    audio.volume = 0.3;
 
-audio.play()
+    audio.src = music;
+
+    audio.play()
+}
+
 
 module.exports = {
-    recommandation
+    recommandation,
+    musicPlay,
+    sendMusic
 }
