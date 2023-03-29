@@ -52,6 +52,10 @@ app.get("/uploadSong", (req, res) => {
   let user = req.session.user
   res.render('uploadSong',{user})
 });
+app.get("/account", (req, res) => {
+  let user = req.session.user
+  res.render('Account',{user})
+});
 app.get("/users/:username/uploads", usersController.uploadFiles)
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
