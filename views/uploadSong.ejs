@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/fileUpload.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/fileUploadTest.js" defer></script>
+    <title>Upload New Song!</title>
+</head>
+<body>
+    <nav class="topbar">
+        <a href="main.html">Home</a>
+        <a href="/uploadSong">Upload</a>
+        <a href="#page1">Playlist</a>
+        <a href="/account">Account</a>
+        <a href="logout.html" style="float: right">Logout</a>
+    </nav>
+    <div class="post" style="text-align: center;">
+        <h1> Let's get started, <%= user.username %>!</h1>
+        <p style="line-height: 100%;">Share your music with the world? Start by adding a new post below.</p>
+        <hr>
+        <!-- <img style="width:50px"class="pfp" src="<%= user.pfpPath %>"> -->
+        <!-- <div class="pfp-wrapper">
+            <form action="/users/<%= user.userID %>/pfp" method="POST" enctype="multipart/form-data">
+                <span>Set profile picture:</span>
+                <input type="file" name="pfp" required>
+                <button>Submit</button>
+            </form>
+        </div> -->
+        <select name="choice" id="choice-select">
+            <option value="">--Select an option--</option>
+            <option value="file">Upload File</option>
+            <option value="link">Upload URL</option>
+        </select>
+        <div class="file-wrapper" style="display:None;" >
+            <form action="/users/<%= user.userID %>/file" method="POST" enctype="multipart/form-data">
+                <input id="name" type="text" name="name" placeholder="Song title" required>
+                <input id="genre" type="text" name="genre" placeholder="Genre" required>
+                
+                <input type="file" name="music">
+                <br>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div class="link-wrapper" style="display:None;">
+            <form action="/users/<%= user.userID %>/link" method="POST">
+                <input id="name" type="text" name="name" placeholder="Song title" required>
+                <input id="genre" type="text" name="genre" placeholder="Genre" required>
+                <input id="artist" type="text" name="artist" placeholder="Artist" required>
+                <input id="path" type="text" name="path" placeholder="Enter URL" required>
+                <br>
+                <button>Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

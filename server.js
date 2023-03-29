@@ -1,5 +1,6 @@
 "use strict";
 
+// npm run start-dev
 
 const app = require("./app");
 	
