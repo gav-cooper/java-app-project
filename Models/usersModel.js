@@ -5,6 +5,8 @@ const db = require("./db");
 const crypto = require("crypto");
 const argon2 = require('argon2');
 
+const fs = require('fs');
+
 // Sessions
 const redis = require('redis');
 const session = require("express-session");
@@ -72,8 +74,23 @@ function getUserByEmail(email) {
     return record;
 }
 
+function updatePfp (userID, currPath, path) {
+    if (currPath !== "/pfp/pfp.png") { // Remove file if not default
+        fs.unlinkSync("public"+currPath);
+    }
+    const sql = `
+        UPDATE Users SET
+            pfpPath = (@path)
+        WHERE
+            userID = @userID
+        `;
+        const stmt = db.prepare(sql);
+        stmt.run({userID, path})
+}
+
 module.exports = {
     addUser,
     getUserByUsername,
-    getUserByEmail
+    getUserByEmail,
+    updatePfp
 }

@@ -11,7 +11,11 @@ body{
 }
 
 .topbar{
+<<<<<<< HEAD
     background-color: #1d1d1d;
+=======
+    background-color: #8C8C8C;
+>>>>>>> refs/remotes/origin/main
     overflow: hidden;
 }
 
@@ -22,7 +26,11 @@ body{
     padding: 14px 16px;
     text-decoration: none;
     font-size: 18px;
+<<<<<<< HEAD
     border-bottom: 3px solid #1d1d1d;
+=======
+    border-bottom: 3px solid #8C8C8C;
+>>>>>>> refs/remotes/origin/main
 }
 /* END_ONLINE_BLOCK */
 
@@ -48,19 +56,31 @@ input{
    max-width: 10%; }
 
 h1,h3 {
+<<<<<<< HEAD
     color: #1d1d1d;
+=======
+    color: #8C8C8C;
+>>>>>>> refs/remotes/origin/main
     font-size: 24px;
     line-height: 5px;
 }
 
 .song{
     font-size:20px;
+<<<<<<< HEAD
     color: #1d1d1d;
+=======
+    color: #8C8C8C;
+>>>>>>> refs/remotes/origin/main
 }
 
 p {
     font-size: 16px;
+<<<<<<< HEAD
     color: #1d1d1d;
+=======
+    color: #8C8C8C;
+>>>>>>> refs/remotes/origin/main
     line-height: 5px;
 }
 

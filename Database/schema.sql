@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS Creates (
 
 CREATE TABLE IF NOT EXISTS Music (
     musicID TEXT PRIMARY KEY,
+    uploadType DEFAULT 0, -- 0: file, 1: link
     originalName TEXT,
     musicPath TEXT,
     uploader TEXT,

@@ -32,18 +32,37 @@ app.use(express.static("public", {index: "index.html", extensions: ["html"]}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Controllers
 const usersController = require("./Controllers/usersController");
+const musicController = require("./Controllers/musicController");
+const recommendationController = require("./Controllers/recommendationController");
+
+// Validators
 const usersValidator = require("./Validators/usersValidator");
 	
+// File uploads
+const fileUpload = require("./fileUpload");
+
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.redirect('/login')
 });
+app.get("/users/:username/uploads", usersController.uploadFiles)
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
-app.post("/login",usersValidator.validateLogin,usersController.login)
-app.post("/logout",usersController.logout)
-app.post("/testSession",usersController.testSession)
-
+app.post("/login",usersValidator.validateLogin,usersController.login);
+app.post("/logout",usersController.logout);
+app.post("/testSession",usersController.testSession);
+app.post("/recommendation", recommendationController.getReccomend);
+app.post("/users/:userID/pfp", 
+  fileUpload.pfp.single("pfp"),
+  usersController.setPfp);
+app.post("/users/:userID/file", 
+  fileUpload.music.single("music"),
+  musicController.makePost);
+app.post("/users/:userID/link", 
+  fileUpload.music.single("music"),
+  musicController.makePost);
 module.exports = app;
+app.delete("/users/:username", musicController.deletePost);
