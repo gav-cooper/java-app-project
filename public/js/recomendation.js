@@ -66,3 +66,13 @@ function clearInputs() {
     document.getElementById("classic").value = "";    
     document.getElementById("hiphop").value = "";
 }
+
+function play(){
+    const playlist1=recommendation();
+                    const playlist = "/music/rock/twisted-138700.mp"
+                        const myaudio = new Audio(playlist);
+                        myaudio.play();
+                        document.getElementById("playing").textContent = "playing"
+                        + myaudio.src.match(/[^\/]+$/);
+}
+
