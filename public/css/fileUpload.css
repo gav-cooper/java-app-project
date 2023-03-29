@@ -78,35 +78,27 @@ p {
     
 }
 
-.album{
-    max-height: 70%;
-    max-width: 70%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.file-wrapper{
+    margin: auto;
+    align-items: center;
 }
+
 
 .pfp{
     max-height: 8%;
     max-width: 8%;
 }
 
-.like {
-    margin-left: auto;
-    margin-right: auto;  
-}
-
-#heart{
-    max-height: 7%;
-    max-width: 7%;
-    float: right;
-}
-
-#x{
-    max-height: 6.5%;
-    max-width: 6.5%;
-    float: right;
-    margin-right: 25px;
+#uploadLabel {
+    font-size: 14px;
 }
 
 
+select,button{
+    border: none;
+    background-color: #E8B35A; 
+    color: #f0f0f0;
+    padding: 10px 22px;
+    text-align: center;
+    font-size: 14px;
+}
