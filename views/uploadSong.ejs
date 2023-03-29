@@ -11,7 +11,7 @@
 <body>
     <nav class="topbar">
         <a href="main.html">Home</a>
-        <a href="/fileUploadTest">Upload</a>
+        <a href="/uploadSong">Upload</a>
         <a href="#page1">Playlist</a>
         <a href="#myAccount">Account</a>
         <a href="logout.html" style="float: right">Logout</a>
@@ -19,14 +19,14 @@
 
     <h1> Hello <%= user.username %>!</h1>
     <p>Upload a new song</p>
-    <img style="width:50px"class="pfp" src="<%= user.pfpPath %>">
-    <div class="pfp-wrapper">
+    <!-- <img style="width:50px"class="pfp" src="<%= user.pfpPath %>"> -->
+    <!-- <div class="pfp-wrapper">
         <form action="/users/<%= user.userID %>/pfp" method="POST" enctype="multipart/form-data">
             <span>Set profile picture:</span>
             <input type="file" name="pfp" required>
             <button>Submit</button>
         </form>
-    </div>
+    </div> -->
     <select name="choice" id="choice-select">
         <option value="">--Please choose an option--</option>
         <option value="file">Upload File</option>
