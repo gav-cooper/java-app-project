@@ -18,11 +18,26 @@
         <a href="logout.html" style="float: right">Logout</a>
     </nav>
 
-    <h1> Hello!</h1>
-    <p>This is the recommendation music for you</p>
-    <audio control　onclick=play()>
+    <div class="box">
+        <div>
+            <h1 class="" style="text-align:center;">Recommendation for you</h1>
+            <p></p>
+        </div>
+        <div class="content">
+            <audio controls>
+                <source src="music/rock/twisted-138700.mp3">
+            </audio>
 
-    </audio>
+            <audio controls>
+                <script>
+                    import recommendation from recommendationModel.js
+                    music = recommendation
+                    Audio(music).play()
+                </script>
+                <source src=recommendation()
+            </audio>
+        </div>
+        <div id = "errors"></div>
     </div>
     
 </body>
