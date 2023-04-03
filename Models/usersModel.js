@@ -62,6 +62,7 @@ function getUserByUsername(username) {
     return record;
 }
 
+
 function getUserByEmail(email) {
     const sql = `
         SELECT * FROM Users WHERE email = @email;

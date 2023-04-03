@@ -4,6 +4,7 @@ const form = document.getElementById("reccomendationForm");
 
 form.addEventListener("submit", submitRecommendationForm);
 
+
 // Submits the recommendation form
 async function submitReccoemdationForm (event) {
     event.preventDefault();
@@ -21,7 +22,7 @@ async function submitReccoemdationForm (event) {
             "body": JSON.stringify(body)
         });
         if (response.ok) {      // to set the reccomendation in count
-            window.location.href="/"; 
+            window.location.href="/recommendation"; 
 
         } else if (response.status === 400) {   // Input parameter error
             const data = await response.json();

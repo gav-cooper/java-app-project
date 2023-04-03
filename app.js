@@ -60,13 +60,17 @@ app.get("/account", (req, res) => {
     return res.redirect("/login")
   res.render('Account',{user})
 });
-app.get("/users/:username/uploads", usersController.uploadFiles)
+app.get("/recommendation", (req, res) => {
+  let user = req.session.user
+  res.render('recommendation', {user})
+});
+app.get("/users/:username/uploads", usersController.uploadFiles);
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
-app.post("/recommendation", recommendationController.getReccomend);
+app.post("/users/:userID/recommendation", recommendationController.getReccomend);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);

@@ -1,14 +1,19 @@
 "use strict";
 
 const recommendModel = require("../Models/recomandationModel");
+const userModel = require("../Models/usersModel");
 
 // to get the recommendation music
-async function getReccomend(req, res){
-    const {music} = req.body;
-    if(!(await recommendModel.recommandation())){
-        return res.sendStatus(409);
+function getReccomend(req, res){
+    if (!req.session.isLoggedIn){
+        return res.redirect("/");
     }
-    res.sendStatus(201);
+    if (req.params.username !== req.session.user.username){
+        return res.redirect("/");
+    }
+
+    const user = usersModel.getUserByUsername(req.params.username);
+    return res.render("recommendation.ejs", {user})
 }
 
 module.exports = {

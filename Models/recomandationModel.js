@@ -7,14 +7,17 @@ async function recommandation (userID){
     // to get the number of the user like
     const rock = `
                     SELECT rock from Preferences
-                    WHERE userID = ` + userID;
+                    WHERE userID = @userID
+                    `;
 
     const hiphop = `
                     SELECT hiphop from Preferences
-                    WHERE userID = ` + userID;
+                    WHERE userID = @userID
+                    `;
     const classic = `
                     SELECT classic from Preferences
-                    WHERE userID = ` + userID;
+                    WHERE userID = @userID
+                    `;
 
     // to get the number from database
     const getRock = db.prepare(rock).get();
