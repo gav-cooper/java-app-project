@@ -48,14 +48,22 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
     res.redirect('/login')
 });
+
 app.get("/uploadSong", (req, res) => {
   let user = req.session.user
   res.render('uploadSong',{user})
 });
+
 app.get("/account", (req, res) => {
   let user = req.session.user
   res.render('Account',{user})
 });
+
+app.get("/fileUploadTest", (req, res) => {
+  let user = req.session.user
+  res.render('fileUploadTest',{user})
+});
+
 app.get("/users/:username/uploads", usersController.uploadFiles)
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
