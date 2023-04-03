@@ -50,10 +50,14 @@ app.get("/", (req, res) => {
 });
 app.get("/uploadSong", (req, res) => {
   let user = req.session.user
+  if (!user)
+    return res.redirect("/login");
   res.render('uploadSong',{user})
 });
 app.get("/account", (req, res) => {
   let user = req.session.user
+  if (!user)
+    return res.redirect("/login")
   res.render('Account',{user})
 });
 app.get("/users/:username/uploads", usersController.uploadFiles)
