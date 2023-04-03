@@ -85,12 +85,24 @@ function updatePfp (userID, currPath, path) {
             userID = @userID
         `;
         const stmt = db.prepare(sql);
-        stmt.run({userID, path})
+        stmt.run({userID, path});
+}
+
+function deleteUser (userID) {
+    const sql = `
+    DELETE FROM Users
+    WHERE
+        userID = @userID
+    `;
+
+    const stmt = db.prepare(sql);
+    stmt.run({userID})
 }
 
 module.exports = {
     addUser,
     getUserByUsername,
     getUserByEmail,
-    updatePfp
+    updatePfp,
+    deleteUser
 }

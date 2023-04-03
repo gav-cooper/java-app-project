@@ -66,3 +66,6 @@ function clearInputs() {
     document.getElementById("classic").value = "";    
     document.getElementById("hiphop").value = "";
 }
+
+
+

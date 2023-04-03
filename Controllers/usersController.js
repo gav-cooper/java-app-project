@@ -114,11 +114,24 @@ function setPfp (req, res) {
     res.redirect(`/users/${req.session.user.username}/uploads`)
 }
 
+function removeAccount (req, res) {
+    if (!req.session.isLoggedIn) {
+        return res.sendStatus(403)
+    }
+    if (req.session.user.userID !== req.params.user) {
+        return res.sendStatus(403)
+    }
+    usersModel.deleteUser(req.session.user.userID);
+    req.session.destroy();
+    res.sendStatus(200);
+}
+
 module.exports = {
     createNewUser,
     login,
     logout,
     testSession,
     uploadFiles,
-    setPfp
+    setPfp,
+    removeAccount
 }

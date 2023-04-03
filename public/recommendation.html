@@ -1,61 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/reccomendation.css">
+    <link rel="stylesheet" href="/css/recommendation.css">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/reccomendation.js" defer></script>
-    <title>Recommendation</title>
+    <script src="/js/recommendation.js" defer></script>
+    <title>Recommendation New Song for you!</title>
 </head>
-
 <body>
+    <nav class="topbar">
+        <a href="main.html">Home</a>
+        <a href="/uploadSong">Upload</a>
+        <a href="#page1">Playlist</a>
+        <a href="account">Account</a>
+        <a href="/recommendation">Recommendation</a>
+        <a href="logout.html" style="float: right">Logout</a>
+    </nav>
+
     <div class="box">
         <div>
-            <h1 class="" style="text-align:center;">Recommendation</h1>
+            <h1 class="" style="text-align:center;">Recommendation for you</h1>
             <p></p>
         </div>
         <div class="content">
-            <div style="text-align: center;">
-                <div>
-                    <audio controls>
-                    <source src="/music/rock/twisted-138700.mp3"" type="audio/mp3">
-                    </audio>
-                </div>
+            <audio controls>
+                <source src="music/rock/twisted-138700.mp3">
+            </audio>
 
-                <div>
-                    <button>recommendation music</button>
-                    <p id="playing">Playing--</p>
-                    <script>
-                        const playlist1=recommendation();
-                        const playlist = "/music/rock/twisted-138700.mp"
-                        const myaudio = new Audio(playlist);
-                        myaudio.play();
-                        document.getElementById("playing").textContent = "playing"
-                        + myaudio.src.match(/[^\/]+$/);
-                    </script>
-                </div>
-
-                <div>
-                    <audio id="audio" controls>
-                    <script>
-                        data_url.open('')
-                    </script>
-                    </audio>
-                </div>
-
-                <form id="recommendation" action="/recommendation" method="POST">
-                    <div class="recommendation">
-                        Like
-                        <button id ="submit"> Like </button>
-                        Dislike
-                        <button id ="submit"> Dislike </button>
-                    </div>
-                    
-                </form>
-            </div>
+            <audio controls>
+                <script>
+                    import recommendation from recommendationModel.js
+                    music = recommendation
+                    Audio(music).play()
+                </script>
+                <source src=recommendation()
+            </audio>
         </div>
         <div id = "errors"></div>
     </div>
-  
+    
 </body>
 </html>
