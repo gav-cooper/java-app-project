@@ -62,7 +62,7 @@ async function recommandation (userID){
 function sendMusic(){
     const music = recommandation();
     var data_url = new XMLHttpRequest();
-    data_url.open('GET', 'localhost:8000/recommendation.html')
+    data_url.open('GET', 'localhost:8000/recommendation')
     data_url.send(music)
 }
 
