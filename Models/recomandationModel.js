@@ -3,8 +3,12 @@
 const db = require("./db");
 
 
-async function recommandation (userID){
+async function recommandation (username){
     // to get the number of the user like
+    const userID = `
+                    SELECT userID FROM Users WHERE username=@username
+                    `;
+
     const rock = `
                     SELECT rock from Preferences
                     WHERE userID = @userID
@@ -81,9 +85,43 @@ async function musicPlay(){
     audio.play()
 }
 
+function addPreference(genre, value, user){
+    const userID = `
+                    SELECT * FROM Users WHERE username=@user
+                    `
+    const stmt = db.prepare(userID);
+    const userID_record = stmt.get({userID});
+    
+    const preference = `
+                    SELECT * FROM Preference WHERE useID=@userID_record
+                    `
+    const stmt2 = db.prepare(preference);
+    like = stmt2.get({genre})
+    like = like + value;
+    const sql = `
+                UPDATE Preference SET @genre = @like 
+                WHERE userID = @userID_record
+                `
+    const stmt3 = db.prepare(sql);
+    try {
+        stmt3.run({
+            "userID":userID_record,
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+function getGenre(){
+
+}
 
 module.exports = {
     recommandation,
     musicPlay,
-    sendMusic
+    sendMusic,
+    addPreference,
+    getGenre
 }

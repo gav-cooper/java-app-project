@@ -19,7 +19,7 @@
     </nav>
 
     <div class="post" style="text-align: center;">
-        <h1> Let's get started, <%= user.username %>!</h1>
+        <h1 id="username" value="user.username"> Let's get started, <%= user.username %>!</h1>
         <p style="line-height: 100%;">We hope that you like this music!!!</p>
         <hr>
         <div class="content">
@@ -50,7 +50,12 @@
                 }
                     
             </script>
-
+            <!-- if to get the music from database it will work
+                <div id="music" value="music.originalName">
+                    <p>Playing <%= %>!</p>
+                </div>
+            -->
+            
             <audio controls>
                 <source src="music.musicPath">
             </audio>
@@ -71,8 +76,26 @@
                 };
 
             </script>
-            
 
+            <p style="line-height: 100%;">Do you like this music?</p>
+            <div class="rate-form">
+                <form id="recommendationForm">
+                    <div>
+                    <input id="star5" type="radio" name="rate" value="5">
+                    <label for="star5">★</label>
+                    <input id="star4" type="radio" name="rate" value="4">
+                    <label for="star4">★</label>
+                    <input id="star3" type="radio" name="rate" value="3">
+                    <label for="star3">★</label>
+                    <input id="star2" type="radio" name="rate" value="2">
+                    <label for="star2">★</label>
+                    <input id="star1" type="radio" name="rate" value="1">
+                    <label for="star1">★</label>
+                    </div>
+                    <input id="preference" type="submit" value="rate">
+                </form>
+            </div>
+            
         </div>
         <div id = "errors"></div>
     </div>

@@ -44,14 +44,13 @@ async function submitReccoemdationForm (event) {
 
 
 function getInputs() {
-    const rock = document.getElementById("rock").value;
-    const classic = document.getElementById("classic").value;
-    const hiphop = document.getElementById("hiphop").value;
-
+    const preference = document.getElementById("preference").value;
+    const music = document.getElementById("music").value;
+    const user = document.getElementById("username").value;
     return {
-        rock,
-        classic,
-        hiphop
+        music,
+        preference,
+        user
     }
 }
 
