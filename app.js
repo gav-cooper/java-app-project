@@ -63,7 +63,6 @@ app.get("/account", (req, res) => {
     return res.redirect("/login")
   res.render('Account',{user})
 });
-<<<<<<< HEAD
 
 app.get("/fileUploadTest", (req, res) => {
   let user = req.session.user
@@ -76,14 +75,11 @@ app.get("/post", (req, res) => {
   res.render('post', {allPost, user})
 })
 
-app.get("/users/:username/uploads", usersController.uploadFiles)
-=======
 app.get("/recommendation", (req, res) => {
   let user = req.session.user
   res.render('recommendation', {user})
 });
 app.get("/users/:username/uploads", usersController.uploadFiles);
->>>>>>> refs/remotes/origin/main
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
