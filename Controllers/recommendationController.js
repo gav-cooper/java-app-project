@@ -13,7 +13,8 @@ function getReccomend(req, res){
     }
 
     const user = usersModel.getUserByUsername(req.params.username);
-    return res.render("recommendation.ejs", {user})
+    music = recommendModel.recommandation(req.params.userID);
+    return res.render("recommendation.ejs", {user}, {music})
 }
 
 module.exports = {

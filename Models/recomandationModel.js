@@ -45,13 +45,13 @@ async function recommandation (userID){
 
     // to choose the recommandation music
     if(recommend = Range(0-rock)){
-        music = 'SELECT top(1) musicPath FROM Music WHERE genre = rock order by NEWID()'
+        music = 'SELECT top(1) * FROM Music WHERE genre = rock order by NEWID()'
         recommandMusic = db.prepare(music).get();
     }else if(reccomend = Range(rock - rock + hiphop)){
-        music = 'SELECT top(1) musicPath FROM Music WHERE genre = hiphop order by NEWID()'
+        music = 'SELECT top(1) * FROM Music WHERE genre = hiphop order by NEWID()'
         recommandMusic = db.prepare(music).get();
     }else{
-        music = 'SELECT top(1) musicPath FROM Music WHERE genre = classic order by NEWID()'
+        music = 'SELECT top(1) * FROM Music WHERE genre = classic order by NEWID()'
         recommandMusic = db.prepare(music).get();
     }
 

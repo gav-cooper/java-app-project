@@ -23,18 +23,56 @@
         <p style="line-height: 100%;">We hope that you like this music!!!</p>
         <hr>
         <div class="content">
-            <audio controls>
-                <source src="music/rock/twisted-138700.mp3">
-            </audio>
+            <p style="line-height: 100%;">This is the sample musics: Rock, Hiphop and Classic</p>
+            
+            <div>
+            <button onclick="randomplay(playlist)">play the sample music</button>
+            </div>
+            <script>
+                /*the music list*/
+                const playlist=[
+                "music/rock/sample1.mp3",
+                "music/rock/sample2.mp3", 
+                "music/hiphop/sample1.mp3", 
+                "music/hiphop/sample2.mp3",
+                "music/classic/sample1.mp3", 
+                "music/classic/sample2.mp3" 
+                ]
+                /* audio object */
+                const myaudio = new Audio(playlist);
+
+                /* get random music */
+                function randomplay(list){
+                    myaudio.src = list[Math.floor(Math.random()*list.length)];
+                    myaudio.play();
+                    codument.getElementById("playing").textContent = 
+                    "[playing]" + +myaudio.src.match( /[^\/]+$/ );
+                }
+                    
+            </script>
 
             <audio controls>
-                <script>
-                    import recommendation from recommendationModel.js
-                    music = recommendation
-                    Audio(music).play()
-                </script>
-                <source src=recommendation(user.userID)
+                <source src="music.musicPath">
             </audio>
+
+            <div>
+                <button onclick="myaudio_play(music)">Play the recommendation music</button>
+            </div>
+            <script>
+                const getrecommend = require("../Models/recommendationModel")
+                let mybutton = document.querySelector('button')
+                mybutton.onclick = () => {
+                    music = recommend.recommendation(user.userID);
+                }
+                const myaudio1 = new Audio(music);
+                function myaudio_play(music){
+                    myaudio1.src = music;
+                    myaudio1.play()
+                };
+
+            </script>
+            
+
         </div>
         <div id = "errors"></div>
     </div>

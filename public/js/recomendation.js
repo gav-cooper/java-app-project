@@ -1,8 +1,9 @@
 "use strict";
 
 const form = document.getElementById("reccomendationForm");
+import { recommend } from "../Models/recomandationModel";
 
-form.addEventListener("submit", submitRecommendationForm);
+form.addEventListener("submit", submitReccoemdationForm);
 
 
 // Submits the recommendation form
@@ -68,5 +69,16 @@ function clearInputs() {
     document.getElementById("hiphop").value = "";
 }
 
+let myaudio = document.querySelector('audio')
+let mybutton = document.querySelector('button')
 
+window.addEventListener('DOMContentLoaded', function(){
+    const audioElement = document.querySelector("audio");
+    audioElement.addEventListener("loadstart", (e) => {
 
+    })
+})
+
+myaudio.onloadstart = () => {
+    recommend()
+}
