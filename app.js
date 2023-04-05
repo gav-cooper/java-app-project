@@ -42,29 +42,48 @@ const usersValidator = require("./Validators/usersValidator");
 	
 // File uploads
 const fileUpload = require("./fileUpload");
+const musicModel = require("./Models/musicModel");
 
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.redirect('/login')
 });
+
 app.get("/uploadSong", (req, res) => {
   let user = req.session.user
   if (!user)
     return res.redirect("/login");
   res.render('uploadSong',{user})
 });
+
 app.get("/account", (req, res) => {
   let user = req.session.user
   if (!user)
     return res.redirect("/login")
   res.render('Account',{user})
 });
+<<<<<<< HEAD
+
+app.get("/fileUploadTest", (req, res) => {
+  let user = req.session.user
+  res.render('fileUploadTest',{user})
+});
+
+app.get("/post", (req, res) => {
+  const allPost = musicModel.allMusic()
+  let user = req.session.user
+  res.render('post', {allPost, user})
+})
+
+app.get("/users/:username/uploads", usersController.uploadFiles)
+=======
 app.get("/recommendation", (req, res) => {
   let user = req.session.user
   res.render('recommendation', {user})
 });
 app.get("/users/:username/uploads", usersController.uploadFiles);
+>>>>>>> refs/remotes/origin/main
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);

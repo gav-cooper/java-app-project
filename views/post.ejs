@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/main.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/post.js" defer></script>
+    <title>Songs</title>
+</head>
+<body>
+    <nav class="topbar">
+        <%- include ('navbar.ejs') %>
+    </nav>
+    <p style="text-align: center;">Take a listen!</p>
+    
+    <div  style="text-align: left;">
+
+        <% for (const post of allPost) { %>
+            <div class="YTurl">
+                <%= post.uploader %>
+                <marquee behavior="scroll" direction="left" class="song"><%= post.originalName %> 
+                    by <%= post.artist %></marquee>
+                <hr id="titlebreak">
+                <% if (post.uploadType === 1) {%>
+                    <% let url = post.musicPath.split("=") %>
+                    <%url = url[1] %>
+                    <% link = "https://www.youtube.com/embed/" + url %>
+                    <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <% } else { %>
+                    <div>
+                        <audio controls id="audio">
+                            <source src="<%= post.musicPath%>">
+                        </audio>
+                    </div>
+                <% } %>
+                <br>
+                <br>
+                <img src="./images/heart.png" class="like" id="heart">
+                <img src="./images/x.png" class="like" style="display:inline-block;" id="x">
+            </div>
+           
+        <% } %>
+    <!-- link only reads until v= if URLs-->
+        <!-- <img src="./images/album.jpeg" class="album"> -->
+        <!-- <button class="ignore" type="submit"><img src="./images/play.png" id="play"></button> -->
+
+    </div>
+</body>
+</html>
