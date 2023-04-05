@@ -5,9 +5,11 @@ const db = require("./db");
 
 async function recommandation (username){
     // to get the number of the user like
-    const userID = `
+    const userID_sql = `
                     SELECT userID FROM Users WHERE username=@username
                     `;
+
+    const userID = db.prepare(userID_sql).get();
 
     const rock = `
                     SELECT rock from Preferences
@@ -57,6 +59,9 @@ async function recommandation (username){
     }else{
         music = 'SELECT top(1) * FROM Music WHERE genre = classic order by NEWID()'
         recommandMusic = db.prepare(music).get();
+    }
+    if(recommandMusic == ""){
+        recommandMusic = "The database is empty please upload the music"
     }
 
     // to return the music

@@ -14,7 +14,10 @@ function getReccomend(req, res){
 
     const user = usersModel.getUserByUsername(req.params.username);
     music = recommendModel.recommandation(req.params.username);
-    return res.render("recommendation.ejs", {user}, {music})
+    if(music == "The database is empty please upload the music"){
+        
+    }
+    return res.render("recommendation.ejs", {user, music})
 }
 
 function setPreference(req, res){

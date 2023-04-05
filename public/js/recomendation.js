@@ -63,9 +63,9 @@ function appendData(container, message, className) {
 }
 
 function clearInputs() {
-    document.getElementById("rock").value = "";
-    document.getElementById("classic").value = "";    
-    document.getElementById("hiphop").value = "";
+    document.getElementById("preference").value = "";
+    document.getElementById("music").value = "";    
+    document.getElementById("username").value = "";
 }
 
 let myaudio = document.querySelector('audio')
