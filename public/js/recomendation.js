@@ -1,8 +1,10 @@
 "use strict";
 
 const form = document.getElementById("reccomendationForm");
+import { recommend } from "../Models/recomandationModel";
 
-form.addEventListener("submit", submitRecommendationForm);
+form.addEventListener("submit", submitReccoemdationForm);
+
 
 // Submits the recommendation form
 async function submitReccoemdationForm (event) {
@@ -21,7 +23,7 @@ async function submitReccoemdationForm (event) {
             "body": JSON.stringify(body)
         });
         if (response.ok) {      // to set the reccomendation in count
-            window.location.href="/"; 
+            window.location.href="/recommendation"; 
 
         } else if (response.status === 400) {   // Input parameter error
             const data = await response.json();
@@ -42,14 +44,13 @@ async function submitReccoemdationForm (event) {
 
 
 function getInputs() {
-    const rock = document.getElementById("rock").value;
-    const classic = document.getElementById("classic").value;
-    const hiphop = document.getElementById("hiphop").value;
-
+    const preference = document.getElementById("preference").value;
+    const music = document.getElementById("music").value;
+    const user = document.getElementById("username").value;
     return {
-        rock,
-        classic,
-        hiphop
+        music,
+        preference,
+        user
     }
 }
 
@@ -67,5 +68,16 @@ function clearInputs() {
     document.getElementById("hiphop").value = "";
 }
 
+let myaudio = document.querySelector('audio')
+let mybutton = document.querySelector('button')
 
+window.addEventListener('DOMContentLoaded', function(){
+    const audioElement = document.querySelector("audio");
+    audioElement.addEventListener("loadstart", (e) => {
 
+    })
+})
+
+myaudio.onloadstart = () => {
+    recommend()
+}
