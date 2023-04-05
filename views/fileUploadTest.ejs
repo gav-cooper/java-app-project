@@ -10,13 +10,8 @@
 </head>
 <body>
     <nav class="topbar">
-        <a href="main.html">Home</a>
-        <a href="/uploadSong">Upload</a>
-        <a href="#page1">Playlist</a>
-        <a href="#myAccount">Account</a>
-        <a href="logout.html" style="float: right">Logout</a>
+        <%- include ('navbar.ejs') %>
     </nav>
-
     <h1> Hello <%= user.username %>!</h1>
     <p>Upload a new song</p>
     <img style="width:50px"class="pfp" src="<%= user.pfpPath %>">

@@ -21,7 +21,7 @@ async function submitLoginForm (event) {
             "body": JSON.stringify(body)
         });
         if (response.ok) {      // Account logged in
-            window.location.href="/main"; 
+            window.location.href="/post"; 
 
         } else if (response.status === 400) {   // Input parameter error
             const data = await response.json();

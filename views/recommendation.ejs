@@ -10,6 +10,19 @@
 </head>
 <body>
     <nav class="topbar">
+<<<<<<< HEAD
+        <%- include ('navbar.ejs') %>
+    </nav>
+    <h1> Hello <%= user.username %>!</h1>
+    <p>This is the recommendation music for you</p>
+    <img style="width:50px"class="pfp" src="<%= user.pfpPath %>">
+    <div class="pfp-wrapper">
+        <form action="/users/<%= user.userID %>/pfp" method="POST" enctype="multipart/form-data">
+            <span>Set profile picture:</span>
+            <input type="file" name="pfp" required>
+            <button>Submit</button>
+        </form>
+=======
         <a href="main.html">Home</a>
         <a href="/uploadSong">Upload</a>
         <a href="#page1">Playlist</a>
@@ -98,6 +111,7 @@
             
         </div>
         <div id = "errors"></div>
+>>>>>>> refs/remotes/origin/main
     </div>
     
 </body>

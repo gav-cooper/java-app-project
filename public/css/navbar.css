@@ -1,0 +1,23 @@
+.topbar{
+    background-color: #1d1d1d;
+    overflow: hidden;
+}
+
+.topbar a{
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    border-bottom: 3px solid #1d1d1d;
+}
+/* END_ONLINE_BLOCK */
+
+.topbar a:hover{
+    border-bottom: 3px solid #E8B35A;
+} 
+
+.topbar .active{
+    border-bottom: 3px solid #E8B35A;
+}

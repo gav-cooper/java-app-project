@@ -77,6 +77,20 @@ function checkType (user, song) {
         }
 }
 
+function allMusic () {
+    try{
+        const sql = `
+        SELECT *
+        FROM Music
+        `;
+
+        return db.prepare(sql).all();
+    } catch (error) {
+            console.log(error);
+            return false;
+    }
+}
+
 function deleteSong (user, song) {
     const sql = `
         DELETE FROM Music
@@ -100,7 +114,10 @@ function deleteSong (user, song) {
 
 }
 
+
+
 module.exports = {
     addSong,
-    deleteSong
+    deleteSong,
+    allMusic
 }

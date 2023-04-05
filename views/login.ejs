@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/login.js" defer></script>
+    <title>Login</title>
+</head>
+
+<body>
+    <nav class="topbar">
+        <%- include ('navbar.ejs') %>
+    </nav>
+    <div class="box">
+        <div>
+            <h1 class="" style="text-align:center;">Sign in</h1>
+            <p></p>
+        </div>
+        <div class="content">
+            <div style="text-align: center;">
+                <form id="loginForm" action="/login" method="POST">
+                    <div class="value">
+                        <input id="value" type="text" name="value" placeholder="Username or Email" required>
+                    </div>
+                    <div class="password">
+                        <input id="password" type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <br>
+                    <button id="submit"> Login </button>
+                </form>
+            </div>
+            <a href = "/register.html" id="register"> Create Account </a>
+        </div>
+        <div id = "errors"></div>
+    </div>
+  
+</body>
+</html>
