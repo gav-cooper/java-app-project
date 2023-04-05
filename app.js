@@ -42,6 +42,7 @@ const usersValidator = require("./Validators/usersValidator");
 	
 // File uploads
 const fileUpload = require("./fileUpload");
+const musicModel = require("./Models/musicModel");
 
 app.set("view engine", "ejs");
 
@@ -67,6 +68,12 @@ app.get("/fileUploadTest", (req, res) => {
   let user = req.session.user
   res.render('fileUploadTest',{user})
 });
+
+app.get("/post", (req, res) => {
+  const allPost = musicModel.allMusic()
+  let user = req.session.user
+  res.render('post', {allPost, user})
+})
 
 app.get("/users/:username/uploads", usersController.uploadFiles)
 

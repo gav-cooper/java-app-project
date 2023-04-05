@@ -58,13 +58,17 @@ h1,h3 {
     color: #1d1d1d;
 }
 
+#audio{
+    color:blue;
+}
+
 p {
     font-size: 16px;
     color: #1d1d1d;
     line-height: 5px;
 }
 
-.post {
+.post, .YTurl{
     border: none;
     border-radius: 5px;
     margin: auto;
@@ -86,6 +90,8 @@ p {
     margin-right: auto;
 }
 
+    
+}
 .pfp{
     max-height: 8%;
     max-width: 8%;

@@ -10,11 +10,7 @@
 </head>
 <body>
     <nav class="topbar">
-        <a href="main.html">Home</a>
-        <a href="/uploadSong">Upload</a>
-        <a href="#page1">Playlist</a>
-        <a href="/account">Account</a>
-        <a href="logout.html" style="float: right">Logout</a>
+        <%- include ('navbar.ejs') %>
     </nav>
     <div class="post" style="text-align: center;">
         <h1> Let's get started, <%= user.username %>!</h1>
