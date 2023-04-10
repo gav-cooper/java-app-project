@@ -10,25 +10,8 @@
 </head>
 <body>
     <nav class="topbar">
-<<<<<<< HEAD
+
         <%- include ('navbar.ejs') %>
-    </nav>
-    <h1> Hello <%= user.username %>!</h1>
-    <p>This is the recommendation music for you</p>
-    <img style="width:50px"class="pfp" src="<%= user.pfpPath %>">
-    <div class="pfp-wrapper">
-        <form action="/users/<%= user.userID %>/pfp" method="POST" enctype="multipart/form-data">
-            <span>Set profile picture:</span>
-            <input type="file" name="pfp" required>
-            <button>Submit</button>
-        </form>
-=======
-        <a href="main.html">Home</a>
-        <a href="/uploadSong">Upload</a>
-        <a href="#page1">Playlist</a>
-        <a href="account">Account</a>
-        <a href="/recommendation">Recommendation</a>
-        <a href="logout.html" style="float: right">Logout</a>
     </nav>
 
     <div class="post" style="text-align: center;">
@@ -36,6 +19,7 @@
         <p style="line-height: 100%;">We hope that you like this music!!!</p>
         <hr>
         <div class="content">
+
             <p style="line-height: 100%;">This is the sample musics: Rock, Hiphop and Classic</p>
             
             <div>
@@ -63,6 +47,13 @@
                 }
                     
             </script>
+
+            <p>
+                <button id="play">Play</button>
+                <button id="pause">Pause</button>
+                <button id="stop">Stop</button>
+            </p>
+            
             <!-- if to get the music from database it will work
                 <div id="music" value="music.originalName">
                     <p>Playing <%%>!</p>
@@ -111,7 +102,6 @@
             
         </div>
         <div id = "errors"></div>
->>>>>>> refs/remotes/origin/main
     </div>
     
 </body>
