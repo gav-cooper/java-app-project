@@ -11,7 +11,7 @@
     "jsmediatags": "^3.9.7",
     "multer": "^1.4.5-lts.1",
     "nodeman": "^1.1.2",
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "redis": "^3.1.2"
   },
   "scripts": {

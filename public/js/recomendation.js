@@ -108,3 +108,24 @@ window.addEventListener("load", ()=>{
         audio.currentTime = 0;  // 曲の先頭に再生開始位置を戻す
     });
 });
+
+
+/*the music list*/
+const playlist=[
+    "music/rock/sample1.mp3",
+    "music/rock/sample2.mp3", 
+    "music/hiphop/sample1.mp3", 
+    "music/hiphop/sample2.mp3",
+    "music/classic/sample1.mp3", 
+    "music/classic/sample2.mp3" 
+    ]
+    /* audio object */
+    const myaudio = new Audio(playlist);
+
+    /* get random music */
+    function randomplay(list){
+        myaudio.src = list[Math.floor(Math.random()*list.length)];
+        myaudio.play();
+        codument.getElementById("playing").textContent = 
+        "[playing]" + +myaudio.src.match( /[^\/]+$/ );
+    }
