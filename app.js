@@ -43,6 +43,7 @@ const usersValidator = require("./Validators/usersValidator");
 // File uploads
 const fileUpload = require("./fileUpload");
 const musicModel = require("./Models/musicModel");
+const recommendationModel = require("./Models/recomandationModel");
 
 app.set("view engine", "ejs");
 
@@ -77,7 +78,8 @@ app.get("/post", (req, res) => {
 
 app.get("/recommendation", (req, res) => {
   let user = req.session.user
-  res.render('recommendation', {user})
+  const music = recommendationModel.recommandation(user);
+  res.render('recommendation', {user, music})
 });
 app.get("/users/:username/uploads", usersController.uploadFiles);
 

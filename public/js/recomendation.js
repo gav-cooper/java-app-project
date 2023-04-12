@@ -84,28 +84,28 @@ myaudio.onloadstart = () => {
 
 // to start
 window.addEventListener("load", ()=>{
-    // オーディオを取得
+    // get audio
     const audio = new Audio("music/rock/sample1.mp3");
  
-    // ボタンDOM取得
+    // get botton
     const play = document.getElementById("play");
     const pause = document.getElementById("pause");
     const stop = document.getElementById("stop");
  
-    // 再生
+    // play
     play.addEventListener("click", ()=>{
         audio.play();
     });
  
-    // 一時停止
+    // pause
     pause.addEventListener("click", ()=>{
         audio.pause();
     });
  
-    // 停止
+    // stop
     stop.addEventListener("click", ()=>{
         audio.pause();
-        audio.currentTime = 0;  // 曲の先頭に再生開始位置を戻す
+        audio.currentTime = 0;  // to move to start 
     });
 });
 

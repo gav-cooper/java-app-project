@@ -3,32 +3,33 @@
 const db = require("./db");
 
 
-async function recommandation (username){
+async function recommandation (user){
     // to get the number of the user like
     const userID_sql = `
-                    SELECT userID FROM Users WHERE username=@username
+                    SELECT * FROM Users WHERE username=@user
                     `;
 
-    const userID = db.prepare(userID_sql).get();
+    const userID = db.prepare(userID_sql);
+    const ID = userID.get({userID})
 
-    const rock = `
-                    SELECT rock from Preferences
-                    WHERE userID = @userID
+    const music = `
+                    SELECT * from Preferences
+                    WHERE userID = @ID
                     `;
 
-    const hiphop = `
-                    SELECT hiphop from Preferences
+    /*const hiphop = `
+                    SELECT * from Preferences
                     WHERE userID = @userID
                     `;
     const classic = `
-                    SELECT classic from Preferences
+                    SELECT * from Preferences
                     WHERE userID = @userID
-                    `;
+                    `;*/
 
     // to get the number from database
-    const getRock = db.prepare(rock).get();
-    const getHiphop = db.prepare(hiphop).get();
-    const getClassic = db.prepare(classic).get();
+    const getRock = db.prepare(music).get({rock});
+    const getHiphop = db.prepare(music).get({hiphop});
+    const getClassic = db.prepare(music).get({classic});
 
     // to calculate the amount of sum
     amount = getRock + getHiphop + getClassic;
