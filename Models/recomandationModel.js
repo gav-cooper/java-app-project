@@ -16,7 +16,6 @@ function getPreferenceRock(userID){
     const sql = `SELECT rock FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
     const record = stmt.get(userID);
-    console.log(record);
     return record;
 }
 
@@ -37,7 +36,6 @@ function getPreferenceClassic(userID){
 function recommandation (user){
     // to get the number of the user like
     const userID = getUserIDByUsername(user);
-    console.log(userID);
     
     // to get the number of preference
     let getRock = getPreferenceRock(userID);
