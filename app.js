@@ -76,16 +76,7 @@ app.get("/post", (req, res) => {
   res.render('post', {allPost, user})
 })
 
-<<<<<<< HEAD
 app.get("/users/:username/uploads", usersController.uploadFiles)
-=======
-app.get("/recommendation", (req, res) => {
-  let user = req.session.user
-  const music = recommendationModel.recommandation(user.username);
-  res.render('recommendation', {user, music})
-});
-app.get("/users/:username/uploads", usersController.uploadFiles);
->>>>>>> refs/remotes/origin/main
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
