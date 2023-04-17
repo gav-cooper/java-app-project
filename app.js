@@ -76,6 +76,12 @@ app.get("/post", (req, res) => {
   res.render('post', {allPost, user})
 })
 
+app.get("/recommendation", (req, res) => {
+  let user = req.session.user
+  const music = recommendationModel.recommandation(user.username);
+  res.render('recommendation', {user, music})
+});
+
 app.get("/users/:username/uploads", usersController.uploadFiles);
 app.get("/recommendation", recommendationController.getReccomend);
 app.get("/users/:username/uploads", usersController.uploadFiles);

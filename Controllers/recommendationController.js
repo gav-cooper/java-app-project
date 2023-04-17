@@ -26,6 +26,7 @@ async function setPreference(req, res){
     const {username, music} = req.body;
     const user = usersModel.getUserByUsername(username)
     const genre = recommendModel.getGenre(music);
+    
     if(!(await recommendModel.addPreference(user, genre))){
         return res.sendStatus(409);
     }
