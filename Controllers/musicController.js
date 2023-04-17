@@ -24,7 +24,7 @@ function makePost (req, res) {
         type = 0;
     }
     musicModel.addSong(type, name, path, uploader, artist, genre);
-    return res.redirect(`/main`);
+    return res.redirect(`/post`);
 }
 
 function deletePost (req, res) {
