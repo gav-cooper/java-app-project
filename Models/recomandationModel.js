@@ -2,63 +2,82 @@
 
 const db = require("./db");
 
+function getUserIDByUsername(user){
+    const sql = 'SELECT userID FROM Users WHERE username=@user';
+    const stmt = db.prepare(sql);
+    const record = stmt.get({
+        user
+    });
+    return record;
+}
 
-async function recommandation (user){
+function getPreferenceRock(userID){
+    const sql = `SELECT rock FROM Preferences WHERE userID = @userID`;
+    const stmt = db.prepare(sql);
+    const record = stmt.get(userID);
+    return record;
+}
+
+function getPreferenceHiphop(userID){
+    const sql = `SELECT hiphop FROM Preferences WHERE userID = @userID`;
+    const stmt = db.prepare(sql);
+    const record = stmt.get(userID);
+    return record;
+}
+
+function getPreferenceClassic(userID){
+    const sql = `SELECT classic FROM Preferences WHERE userID = @userID`;
+    const stmt = db.prepare(sql);
+    const record = stmt.get(userID);
+    return record;
+}
+
+function recommandation (user){
     // to get the number of the user like
-    const userID_sql = `
-                    SELECT * FROM Users WHERE username=@user
-                    `;
+    const userID = getUserIDByUsername(user);
+    
+    // to get the number of preference
+    let getRock = getPreferenceRock(userID);
+    let getHiphop = getPreferenceHiphop(userID);
+    let getClassic = getPreferenceClassic(userID);
 
-    const userID = db.prepare(userID_sql);
-    const ID = userID.get({userID})
-
-    const music = `
-                    SELECT * from Preferences
-                    WHERE userID = @ID
-                    `;
-
-    /*const hiphop = `
-                    SELECT * from Preferences
-                    WHERE userID = @userID
-                    `;
-    const classic = `
-                    SELECT * from Preferences
-                    WHERE userID = @userID
-                    `;*/
-
-    // to get the number from database
-    const getRock = db.prepare(music).get({rock});
-    const getHiphop = db.prepare(music).get({hiphop});
-    const getClassic = db.prepare(music).get({classic});
+    // to set number in average
+    if(getRock == 0){
+        getRock = 1;
+    }else if(getHiphop == 0){
+        getHiphop = 1;
+    }else if(getClassic == 0){
+        getClassic = 1;
+    }
 
     // to calculate the amount of sum
-    amount = getRock + getHiphop + getClassic;
+    let amount = getRock + getHiphop + getClassic;
+
+    let rockPercent;
+    let hiphopPercent;
+    let classicPercent
 
     // to calculate the percentege of the preference
-    if(aount != 0){
-        rockPercent = getRock / amount;
-        hiphopPercent = getHiphop / amount;
-        classicPercent = getClassic / amount;
-    }
-    else{
-        rockPercent = 100 / 3;
-        hiphopPercent = 100 / 3;
-        classicPercent = (100 / 3) + 1;
-    }
-    
+    rockPercent = getRock / amount;
+    hiphopPercent = getHiphop / amount;
+    classicPercent = getClassic / amount;
 
     // to get the random number 0 - 1
-    recommend = Math.random();
+    const recommend = Math.random();
+
+    // to get the music path
+    let recommandMusic
+    let music
 
     // to choose the recommandation music
-    if(recommend = Range(0-rock)){
+    if(recommend > 0 && recommend < rockPercent){
         music = 'SELECT top(1) * FROM Music WHERE genre = rock order by NEWID()'
         recommandMusic = db.prepare(music).get();
-    }else if(reccomend = Range(rock - rock + hiphop)){
+    }else if(recommend >rockPercent && recommend < rockPercent + hiphopPercent){
         music = 'SELECT top(1) * FROM Music WHERE genre = hiphop order by NEWID()'
         recommandMusic = db.prepare(music).get();
     }else{
-        music = 'SELECT top(1) * FROM Music WHERE genre = classic order by NEWID()'
+        music = 'SELECT * FROM Music ORDER BY RANDOM() LIMIT 1';
         recommandMusic = db.prepare(music).get();
     }
     if(recommandMusic == ""){
