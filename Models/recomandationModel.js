@@ -111,7 +111,7 @@ async function musicPlay(){
     audio.play()
 }
 
-function addPreference(genre, value, user){
+function addPreference(genre, user){
     const userID = `
                     SELECT * FROM Users WHERE username=@user
                     `
