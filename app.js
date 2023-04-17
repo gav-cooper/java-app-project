@@ -43,6 +43,7 @@ const usersValidator = require("./Validators/usersValidator");
 // File uploads
 const fileUpload = require("./fileUpload");
 const musicModel = require("./Models/musicModel");
+const recommendationModel = require("./Models/recomandationModel");
 
 app.set("view engine", "ejs");
 
@@ -75,13 +76,22 @@ app.get("/post", (req, res) => {
   res.render('post', {allPost, user})
 })
 
+<<<<<<< HEAD
 app.get("/users/:username/uploads", usersController.uploadFiles)
+=======
+app.get("/recommendation", (req, res) => {
+  let user = req.session.user
+  const music = recommendationModel.recommandation(user.username);
+  res.render('recommendation', {user, music})
+});
+app.get("/users/:username/uploads", usersController.uploadFiles);
+>>>>>>> refs/remotes/origin/main
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
-app.post("/users/:userID/recommendation", recommendationController.setPreference);
+app.post("/recommendation", recommendationController.setPreference);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);

@@ -1,7 +1,7 @@
 "use strict";
 
 const recommendModel = require("../Models/recomandationModel");
-const userModel = require("../Models/usersModel");
+const usersModel = require("../Models/usersModel");
 
 // to get the recommendation music
 function getReccomend(req, res){
@@ -14,7 +14,10 @@ function getReccomend(req, res){
 
     const user = usersModel.getUserByUsername(req.params.username);
     music = recommendModel.recommandation(req.params.username);
-    return res.render("recommendation.ejs", {user}, {music})
+    if(music == "The database is empty please upload the music"){
+        res.render("main.html")
+    }
+    return res.render("recommendation.ejs", {user, music})
 }
 
 function setPreference(req, res){

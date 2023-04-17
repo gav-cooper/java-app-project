@@ -63,9 +63,9 @@ function appendData(container, message, className) {
 }
 
 function clearInputs() {
-    document.getElementById("rock").value = "";
-    document.getElementById("classic").value = "";    
-    document.getElementById("hiphop").value = "";
+    document.getElementById("preference").value = "";
+    document.getElementById("music").value = "";    
+    document.getElementById("username").value = "";
 }
 
 let myaudio = document.querySelector('audio')
@@ -81,3 +81,51 @@ window.addEventListener('DOMContentLoaded', function(){
 myaudio.onloadstart = () => {
     recommend()
 }
+
+// to start
+window.addEventListener("load", ()=>{
+    // get audio
+    const audio = new Audio("music/rock/sample1.mp3");
+ 
+    // get botton
+    const play = document.getElementById("play");
+    const pause = document.getElementById("pause");
+    const stop = document.getElementById("stop");
+ 
+    // play
+    play.addEventListener("click", ()=>{
+        audio.play();
+    });
+ 
+    // pause
+    pause.addEventListener("click", ()=>{
+        audio.pause();
+    });
+ 
+    // stop
+    stop.addEventListener("click", ()=>{
+        audio.pause();
+        audio.currentTime = 0;  // to move to start 
+    });
+});
+
+
+/*the music list*/
+const playlist=[
+    "music/rock/sample1.mp3",
+    "music/rock/sample2.mp3", 
+    "music/hiphop/sample1.mp3", 
+    "music/hiphop/sample2.mp3",
+    "music/classic/sample1.mp3", 
+    "music/classic/sample2.mp3" 
+    ]
+    /* audio object */
+    const myaudio = new Audio(playlist);
+
+    /* get random music */
+    function randomplay(list){
+        myaudio.src = list[Math.floor(Math.random()*list.length)];
+        myaudio.play();
+        codument.getElementById("playing").textContent = 
+        "[playing]" + +myaudio.src.match( /[^\/]+$/ );
+    }
