@@ -11,10 +11,12 @@ function getUserIDByUsername(user){
     return record;
 }
 
+// work little bit wrong
 function getPreferenceRock(userID){
     const sql = `SELECT rock FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
     const record = stmt.get(userID);
+    console.log(record);
     return record;
 }
 
@@ -35,18 +37,22 @@ function getPreferenceClassic(userID){
 function recommandation (user){
     // to get the number of the user like
     const userID = getUserIDByUsername(user);
+    console.log(userID);
     
     // to get the number of preference
     let getRock = getPreferenceRock(userID);
     let getHiphop = getPreferenceHiphop(userID);
     let getClassic = getPreferenceClassic(userID);
 
+
     // to set number in average
-    if(getRock == 0){
+    if(getRock == undefined){
         getRock = 1;
-    }else if(getHiphop == 0){
+    }
+    if(getHiphop == undefined){
         getHiphop = 1;
-    }else if(getClassic == 0){
+    }
+    if(getClassic == undefined){
         getClassic = 1;
     }
 
@@ -65,9 +71,11 @@ function recommandation (user){
     // to get the random number 0 - 1
     const recommend = Math.random();
 
+
     // to get the music path
     let recommandMusic
     let music
+
 
     // to choose the recommandation music
     if(recommend > 0 && recommend < rockPercent){
@@ -111,27 +119,43 @@ async function musicPlay(){
     audio.play()
 }
 
-function addPreference(genre, user){
-    const userID = `
-                    SELECT * FROM Users WHERE username=@user
-                    `
-    const stmt = db.prepare(userID);
-    const userID_record = stmt.get({userID});
-    
-    const preference = `
-                    SELECT * FROM Preference WHERE useID=@userID_record
-                    `
-    const stmt2 = db.prepare(preference);
-    like = stmt2.get({genre})
-    like = like + value;
+async function addPreference(user, genre, value){
+    const userID = getUserIDByUsername(user);
+
     const sql = `
-                UPDATE Preference SET @genre = @like 
-                WHERE userID = @userID_record
-                `
-    const stmt3 = db.prepare(sql);
+                SELECT @genre FROM Preferences WHERE userID = @userID
+                `;
+    const stmt2 = db.prepare(sql);
+    let like = stmt2.get({genre, userID})
+
+    like = like + value;
+
+    let sql1;
+    if(genre = "rock"){
+        sql1 = `
+                UPDATE Preferences SET rock = @like 
+                WHERE userID = @userID
+                `;
+    }
+    else if(genre = "hiphop"){
+        sql1 = `
+                UPDATE Preferences SET hiphop = @like 
+                WHERE userID = @userID
+                `;
+    }
+    else if(genre = "classic"){
+        sql1 = `
+                UPDATE Preferences SET classic = @like 
+                WHERE userID = @userID
+                `;
+    }
+
+    const stmt3 = db.prepare(sql1);
+
     try {
         stmt3.run({
-            "userID":userID_record,
+            userID,
+            like
         });
         return true;
     } catch (error) {
@@ -141,7 +165,12 @@ function addPreference(genre, user){
 }
 
 function getGenre(music){
-    
+    const sql = `SELECT genre FROM Music WHERE originalName = @music`
+    const stmt = db.prepare(sql);
+    const result = stmt.get({
+        music
+    })
+    return result;
 }
 
 module.exports = {
