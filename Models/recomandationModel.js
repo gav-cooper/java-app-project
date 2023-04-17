@@ -55,7 +55,7 @@ function recommandation (user){
 
     let rockPercent;
     let hiphopPercent;
-    let classicPercent
+    let classicPercent;
 
     // to calculate the percentege of the preference
     rockPercent = getRock / amount;
@@ -71,13 +71,14 @@ function recommandation (user){
 
     // to choose the recommandation music
     if(recommend > 0 && recommend < rockPercent){
-        music = 'SELECT top(1) * FROM Music WHERE genre = rock order by NEWID()'
+        music = `SELECT * FROM Music WHERE genre = 'rock' ORDER BY RANDOM() LIMIT 1`;
         recommandMusic = db.prepare(music).get();
     }else if(recommend >rockPercent && recommend < rockPercent + hiphopPercent){
-        music = 'SELECT top(1) * FROM Music WHERE genre = hiphop order by NEWID()'
+        music = `SELECT * FROM Music WHERE genre = 'hiphop' ORDER BY RANDOM() LIMIT 1`;
         recommandMusic = db.prepare(music).get();
     }else{
-        music = 'SELECT * FROM Music ORDER BY RANDOM() LIMIT 1';
+        //music = 'SELECT * FROM Music ORDER BY RANDOM() LIMIT 1';
+        music = `SELECT * FROM Music WHERE genre = 'classic' ORDER BY RANDOM() LIMIT 1`;
         recommandMusic = db.prepare(music).get();
     }
     if(recommandMusic == ""){
@@ -139,8 +140,8 @@ function addPreference(genre, value, user){
     }
 }
 
-function getGenre(){
-
+function getGenre(music){
+    
 }
 
 module.exports = {

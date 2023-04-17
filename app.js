@@ -87,7 +87,7 @@ app.post("/register", usersValidator.validateRegistration, usersController.creat
 app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
-app.post("/users/:userID/recommendation", recommendationController.setPreference);
+app.post("/recommendation", recommendationController.setPreference);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
