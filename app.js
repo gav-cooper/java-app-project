@@ -76,7 +76,13 @@ app.get("/post", (req, res) => {
   res.render('post', {allPost, user})
 })
 
+<<<<<<< HEAD
 app.get("/users/:username/uploads", usersController.uploadFiles)
+=======
+app.get("/users/:username/uploads", usersController.uploadFiles);
+app.get("/recommendation", recommendationController.getReccomend);
+app.get("/users/:username/uploads", usersController.uploadFiles);
+>>>>>>> refs/remotes/origin/main
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
