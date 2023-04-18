@@ -34,6 +34,14 @@ function getPreferenceClassic(userID){
     return record;
 }
 
+function insertValue(userID, value){
+    const sql = `INSERT INTO Preferences WHERE userID = @userID
+                    (rock, hiphop, classic)
+                 VALUES
+                    (@value, @value, @value)
+                    `;
+}
+
 function recommandation (user){
     // to get the number of the user like
     const userInfo = getUserByUsername(user);
@@ -46,14 +54,9 @@ function recommandation (user){
     console.log(getRock)
 
     // to set number in average
-    if(getRock == undefined){
-        getRock = 1;
-    }
-    if(getHiphop == undefined){
-        getHiphop = 1;
-    }
-    if(getClassic == undefined){
-        getClassic = 1;
+    if(getRock == undefined || getHiphop == undefined || getClassic == undefined){
+        const value = 1;
+        insertValue(userInfo.userID, value);
     }
 
     // to calculate the amount of sum
@@ -117,6 +120,14 @@ async function musicPlay(){
     audio.src = music;
 
     audio.play()
+}
+
+function insertValue(userID, value){
+    const sql = `INSERT INTO Preferences WHERE userID = @userID
+                    (rock, hiphop, classic)
+                 VALUES
+                    (@value, @value, @value)
+                    `;
 }
 
 async function addPreference(user, genre, value){
