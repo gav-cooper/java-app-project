@@ -2,8 +2,8 @@
 
 const db = require("./db");
 
-function getUserIDByUsername(user){
-    const sql = 'SELECT userID FROM Users WHERE username=@user';
+function getUserByUsername(user){
+    const sql = 'SELECT * FROM Users WHERE username=@user';
     const stmt = db.prepare(sql);
     const record = stmt.get({
         user
@@ -15,33 +15,35 @@ function getUserIDByUsername(user){
 function getPreferenceRock(userID){
     const sql = `SELECT rock FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
-    const record = stmt.get(userID);
+    const record = stmt.get({userID});
+    console.log(record)
     return record;
 }
 
 function getPreferenceHiphop(userID){
     const sql = `SELECT hiphop FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
-    const record = stmt.get(userID);
+    const record = stmt.get({userID});
     return record;
 }
 
 function getPreferenceClassic(userID){
     const sql = `SELECT classic FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
-    const record = stmt.get(userID);
+    const record = stmt.get({userID});
     return record;
 }
 
 function recommandation (user){
     // to get the number of the user like
-    const userID = getUserIDByUsername(user);
+    const userInfo = getUserByUsername(user);
     
     // to get the number of preference
-    let getRock = getPreferenceRock(userID);
-    let getHiphop = getPreferenceHiphop(userID);
-    let getClassic = getPreferenceClassic(userID);
+    let getRock = getPreferenceRock(userInfo.userID);
+    let getHiphop = getPreferenceHiphop(userInfo.userID);
+    let getClassic = getPreferenceClassic(userInfo.userID);
 
+    console.log(getRock)
 
     // to set number in average
     if(getRock == undefined){
@@ -118,7 +120,7 @@ async function musicPlay(){
 }
 
 async function addPreference(user, genre, value){
-    const userID = getUserIDByUsername(user);
+    const userID = getUserByUsername(user);
 
     const sql = `
                 SELECT @genre FROM Preferences WHERE userID = @userID
