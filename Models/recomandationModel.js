@@ -13,10 +13,9 @@ function getUserByUsername(user){
 
 // work little bit wrong
 function getPreferenceRock(userID){
-    const sql = `SELECT rock FROM Preferences WHERE userID = @userID`;
+    const sql = `SELECT * FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
     const record = stmt.get({userID});
-    console.log(record)
     return record;
 }
 
@@ -34,12 +33,20 @@ function getPreferenceClassic(userID){
     return record;
 }
 
-function insertValue(userID, value){
-    const sql = `INSERT INTO Preferences WHERE userID = @userID
-                    (rock, hiphop, classic)
-                 VALUES
-                    (@value, @value, @value)
-                    `;
+function  updateValue(userID, value){
+    /*const sql = `UPDATE Preferences SET
+                    rock = @value,
+                    hiphop = @value,
+                    classic = @value
+                 WHERE 
+                    userID = @userID
+                `;*/
+    const sql = `SELECT * FROM Preferences WHERE userID = @userID`
+    const stmt = db.prepare(sql);
+
+    //stmt.run({userID, value});
+    stmt.run({userID});
+    console.log(stmt.run({userID}));
 }
 
 function recommandation (user){
@@ -51,12 +58,15 @@ function recommandation (user){
     let getHiphop = getPreferenceHiphop(userInfo.userID);
     let getClassic = getPreferenceClassic(userInfo.userID);
 
-    console.log(getRock)
-
     // to set number in average
     if(getRock == undefined || getHiphop == undefined || getClassic == undefined){
-        const value = 1;
-        insertValue(userInfo.userID, value);
+        const value = 5;
+        getRock = value;
+        getHiphop = value;
+        getClassic = value;
+        console.log("what")
+        updateValue(userInfo.userID, value);
+        console.log("???");
     }
 
     // to calculate the amount of sum
