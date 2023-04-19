@@ -21,13 +21,6 @@ function getPreference(userID){
 
 
 function  updateValue(userID, rock, hiphop, classic){
-    /*const sql = `UPDATE Preferences SET
-                    rock = @value,
-                    hiphop = @value,
-                    classic = @value
-                 WHERE 
-                    userID = @userID
-                `;*/
     const sql = `INSERT INTO Preferences
                     (userID, rock, hiphop, classic)
                  VALUES
@@ -36,7 +29,6 @@ function  updateValue(userID, rock, hiphop, classic){
     //const sql = `SELECT * FROM Preferences`
     const stmt = db.prepare(sql);
 
-    //stmt.run({userID, value});
     try {
         stmt.run({
             "userID":userID,
@@ -76,8 +68,6 @@ function recommandation (user){
         getHiphop = getPreferenceOfUser.hiphop;
         getClassic = getPreferenceOfUser.classic;
     }
-
-    console.log(getRock);
 
     // to calculate the amount of sum
     let amount = getRock + getHiphop + getClassic;
@@ -143,14 +133,13 @@ async function musicPlay(){
 }
 
 
-async function addPreference(user, genre, value){
-    const userID = getUserByUsername(user);
+function addPreference(user, genre, value){
 
     const sql = `
                 SELECT @genre FROM Preferences WHERE userID = @userID
                 `;
     const stmt2 = db.prepare(sql);
-    let like = stmt2.get({genre, userID})
+    let like = stmt2.get({genre, userID});
 
     like = like + value;
 
