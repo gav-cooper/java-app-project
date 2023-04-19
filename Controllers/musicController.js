@@ -40,7 +40,27 @@ function deletePost (req, res) {
     return res.sendStatus(200);
 }
 
+function likePost(req, res) {
+    if (!req.session.isLoggedIn) {
+        return res.sendStatus(403);
+    }
+    if (!musicModel.getSong(req.params.musicID)) {
+        return res.sendStatus(404);
+    }
+    const {musicID} = req.params;
+    const {userID} = req.session.user;
+
+    // Increment if user hasn't liked the song, decrement otherwise.
+    if (!musicModel.checkLikes(musicID, userID)) {
+        musicModel.incLikes(musicID, userID);
+    } else {
+        musicModel.decLikes(musicID, userID);
+    }
+    res.sendStatus(200);
+}
+
 module.exports = {
     makePost,
-    deletePost
+    deletePost,
+    likePost
 }
