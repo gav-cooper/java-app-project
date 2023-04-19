@@ -22,14 +22,13 @@ function getReccomend(req, res){
 }
 
 // to get the preference
-async function setPreference(username, music, rate){
-    const user = usersModel.getUserByUsername(username);
-    const genre = recommendModel.getGenre(music);
+async function setPreference(userID, genre, rate){
+    const user = userID;
+    const music = genre;
     const value = rate;
-    if(!(await recommendModel.addPreference(user, genre, value))){
+    if(!(await recommendModel.addPreference(user, music, value))){
         return res.sendStatus(409);
     }
-    res.redirect("/recommendation");
 }
 
 module.exports = {

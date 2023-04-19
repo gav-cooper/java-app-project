@@ -2,6 +2,7 @@
 
 const db = require("./db");
 
+
 function getUserByUsername(user){
     const sql = 'SELECT * FROM Users WHERE username=@user';
     const stmt = db.prepare(sql);
@@ -133,15 +134,25 @@ async function musicPlay(){
 }
 
 
-function addPreference(user, genre, value){
-
-    const sql = `
-                SELECT @genre FROM Preferences WHERE userID = @userID
-                `;
+function addPreference(userID, genre, value){
+    const sql = 'SELECT * FROM Preferences WHERE userID = @userID'
     const stmt2 = db.prepare(sql);
     let like = stmt2.get({genre, userID});
+    let number = 0;
 
-    like = like + value;
+    if(genre = "rock"){
+        number = like.rock;
+    }
+    else if(genre = "hiphop"){
+        number = like.hiphop;
+    }
+    else if(genre = "classic"){
+        number = like.classic;
+    }
+
+    like = number + value;
+
+    console.log(like);
 
     let sql1;
     if(genre = "rock"){

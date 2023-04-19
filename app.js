@@ -9,6 +9,7 @@ const RedisStore = require("connect-redis")(session);
 
 const express = require("express");
 
+
 const app = express();
 
 const sessionConfig = {
@@ -79,6 +80,7 @@ app.get("/post", (req, res) => {
 app.get("/recommendation", (req, res) => {
   let user = req.session.user
   const music = recommendationModel.recommandation(user.username);
+  req.session.music = music
   res.render('recommendation', {user, music})
 });
 
@@ -92,12 +94,10 @@ app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
 app.post("/recommendation", (req, res) => {
   let user = req.session.user;
-  let music = ;
+  let music = req.session.music;
   let rate = req.body.rate;
-  console.log(user);
-  console.log(music);
-  console.log(rate);
-  recommendationController.setPreference(user.username, music, rate)
+  recommendationController.setPreference(user.userID, music.genre, rate)
+  res.redirect("/recommendation");
 }, 
 );
 app.post("/users/:userID/pfp", 
