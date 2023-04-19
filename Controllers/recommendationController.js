@@ -22,9 +22,8 @@ function getReccomend(req, res){
 }
 
 // to get the preference
-async function setPreference(req, res){
-    const {username, music, rate} = req.body;
-    const user = usersModel.getUserByUsername(username)
+async function setPreference(username, music, rate){
+    const user = usersModel.getUserByUsername(username);
     const genre = recommendModel.getGenre(music);
     const value = rate;
     if(!(await recommendModel.addPreference(user, genre, value))){

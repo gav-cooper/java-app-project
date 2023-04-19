@@ -90,7 +90,16 @@ app.post("/register", usersValidator.validateRegistration, usersController.creat
 app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
-app.post("/recommendation", recommendationController.setPreference);
+app.post("/recommendation", (req, res) => {
+  let user = req.session.user;
+  let music = ;
+  let rate = req.body.rate;
+  console.log(user);
+  console.log(music);
+  console.log(rate);
+  recommendationController.setPreference(user.username, music, rate)
+}, 
+);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
