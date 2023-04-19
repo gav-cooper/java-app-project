@@ -114,10 +114,96 @@ function deleteSong (user, song) {
 
 }
 
+function incLikes (musicID, userID) {
+    const sql1 = `
+        UPDATE Music
+        SET 
+            likes = (likes + 1)
+        WHERE
+            musicID = @musicID
+    `;
+
+    const sql2 = `
+        INSERT INTO MusicLikes
+            (musicID, userID)
+        VALUES
+            (@musicID, @userID)
+    `;
+
+    const stmt1 = db.prepare(sql1);
+    const stmt2 = db.prepare(sql2);
+
+    try {
+        stmt1.run({musicID});
+        stmt2.run({musicID,userID});
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+function decLikes (musicID, userID) {
+    const sql1 = `
+        UPDATE Music
+        SET 
+            likes = (likes - 1)
+        WHERE
+            musicID = @musicID
+    `;
+
+    const sql2 = `
+        DELETE FROM MusicLikes
+        WHERE
+            userID = @userID
+    `;
+
+    const stmt1 = db.prepare(sql1);
+    const stmt2 = db.prepare(sql2);
+
+    try {
+        stmt1.run({musicID});
+        stmt2.run({userID});
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+function checkLikes (musicID, userID) {
+    const sql =`
+        SELECT * FROM MusicLikes
+        WHERE
+            musicID = @musicID AND
+            userID = @userID
+    `;
+    const stmt = db.prepare(sql);
+    const like = stmt.get({musicID, userID});
+    return like;
+}
+
+function getSong (musicID) {
+    const sql = `
+        SELECT musicID, uploadType, originalName, musicPath, artist, date, likes, username, genre FROM 
+            Music
+        JOIN Users on
+            Music.uploader=Users.username
+        WHERE
+            musicID = (@musicID)
+    `;
+    const stmt = db.prepare(sql);
+    const post = stmt.get({musicID});
+    return post;
+}
 
 
 module.exports = {
     addSong,
     deleteSong,
-    allMusic
+    allMusic,
+    incLikes,
+    decLikes,
+    checkLikes,
+    getSong
 }

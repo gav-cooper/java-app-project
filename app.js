@@ -100,6 +100,7 @@ app.post("/users/:userID/file",
 app.post("/users/:userID/link", 
   fileUpload.music.single("music"),
   musicController.makePost);
+app.post("/post/:musicID/like", musicController.likePost);
 app.delete("/users/:user", usersController.removeAccount);
 module.exports = app;
 app.delete("/users/:username", musicController.deletePost);
