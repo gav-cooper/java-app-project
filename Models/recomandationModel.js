@@ -12,28 +12,15 @@ function getUserByUsername(user){
 }
 
 // work little bit wrong
-function getPreferenceRock(userID){
+function getPreference(userID){
     const sql = `SELECT * FROM Preferences WHERE userID = @userID`;
     const stmt = db.prepare(sql);
     const record = stmt.get({userID});
     return record;
 }
 
-function getPreferenceHiphop(userID){
-    const sql = `SELECT hiphop FROM Preferences WHERE userID = @userID`;
-    const stmt = db.prepare(sql);
-    const record = stmt.get({userID});
-    return record;
-}
 
-function getPreferenceClassic(userID){
-    const sql = `SELECT classic FROM Preferences WHERE userID = @userID`;
-    const stmt = db.prepare(sql);
-    const record = stmt.get({userID});
-    return record;
-}
-
-function  updateValue(userID, value){
+function  updateValue(userID, rock, hiphop, classic){
     /*const sql = `UPDATE Preferences SET
                     rock = @value,
                     hiphop = @value,
@@ -41,12 +28,28 @@ function  updateValue(userID, value){
                  WHERE 
                     userID = @userID
                 `;*/
-    const sql = `SELECT * FROM Preferences WHERE userID = @userID`
+    const sql = `INSERT INTO Preferences
+                    (userID, rock, hiphop, classic)
+                 VALUES
+                    (@userID, @rock, @hiphop, @classic)
+                    `;
+    //const sql = `SELECT * FROM Preferences`
     const stmt = db.prepare(sql);
 
     //stmt.run({userID, value});
-    stmt.run({userID});
-    console.log(stmt.run({userID}));
+    try {
+        stmt.run({
+            "userID":userID,
+            "rock":rock,
+            "hiphop":hiphop,
+            "classic":classic
+        });
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+
 }
 
 function recommandation (user){
@@ -54,20 +57,27 @@ function recommandation (user){
     const userInfo = getUserByUsername(user);
     
     // to get the number of preference
-    let getRock = getPreferenceRock(userInfo.userID);
-    let getHiphop = getPreferenceHiphop(userInfo.userID);
-    let getClassic = getPreferenceClassic(userInfo.userID);
+    let getPreferenceOfUser = getPreference(userInfo.userID);
+
+    let getRock, getHiphop, getClassic;
 
     // to set number in average
-    if(getRock == undefined || getHiphop == undefined || getClassic == undefined){
+    if(getPreferenceOfUser.rock == undefined || 
+       getPreferenceOfUser.hiphop == undefined || 
+       getPreferenceOfUser.classic == undefined){
         const value = 5;
         getRock = value;
         getHiphop = value;
         getClassic = value;
-        console.log("what")
-        updateValue(userInfo.userID, value);
-        console.log("???");
+        updateValue(userInfo.userID, value, value, value);
     }
+    else{
+        getRock = getPreferenceOfUser.rock;
+        getHiphop = getPreferenceOfUser.hiphop;
+        getClassic = getPreferenceOfUser.classic;
+    }
+
+    console.log(getRock);
 
     // to calculate the amount of sum
     let amount = getRock + getHiphop + getClassic;
@@ -132,13 +142,6 @@ async function musicPlay(){
     audio.play()
 }
 
-function insertValue(userID, value){
-    const sql = `INSERT INTO Preferences WHERE userID = @userID
-                    (rock, hiphop, classic)
-                 VALUES
-                    (@value, @value, @value)
-                    `;
-}
 
 async function addPreference(user, genre, value){
     const userID = getUserByUsername(user);
