@@ -9,6 +9,7 @@ const RedisStore = require("connect-redis")(session);
 
 const express = require("express");
 
+
 const app = express();
 
 const sessionConfig = {
@@ -76,6 +77,13 @@ app.get("/post", (req, res) => {
   res.render('post', {allPost, user})
 })
 
+app.get("/recommendation", (req, res) => {
+  let user = req.session.user
+  const music = recommendationModel.recommandation(user.username);
+  req.session.music = music
+  res.render('recommendation', {user, music})
+});
+
 app.get("/users/:username/uploads", usersController.uploadFiles);
 app.get("/recommendation", recommendationController.getReccomend);
 app.get("/users/:username/uploads", usersController.uploadFiles);
@@ -84,7 +92,14 @@ app.post("/register", usersValidator.validateRegistration, usersController.creat
 app.post("/login",usersValidator.validateLogin,usersController.login);
 app.post("/logout",usersController.logout);
 app.post("/testSession",usersController.testSession);
-app.post("/recommendation", recommendationController.setPreference);
+app.post("/recommendation", (req, res) => {
+  let user = req.session.user;
+  let music = req.session.music;
+  let rate = req.body.rate;
+  recommendationController.setPreference(user.userID, music.genre, rate)
+  res.redirect("/recommendation");
+}, 
+);
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
@@ -94,6 +109,7 @@ app.post("/users/:userID/file",
 app.post("/users/:userID/link", 
   fileUpload.music.single("music"),
   musicController.makePost);
+app.post("/post/:musicID/like", musicController.likePost);
 app.delete("/users/:user", usersController.removeAccount);
 module.exports = app;
 app.delete("/users/:username", musicController.deletePost);

@@ -12,15 +12,8 @@
     <nav class="topbar">
         <%- include ('navbar.ejs') %>
     </nav>
-    <h1> Hello <%= user.username %>!</h1>
-    <p>This is the recommendation music for you</p>
     <img style="width:50px"class="pfp" src="<%= user.pfpPath %>">
     <div class="pfp-wrapper">
-        <form action="/users/<%= user.userID %>/pfp" method="POST" enctype="multipart/form-data">
-            <span>Set profile picture:</span>
-            <input type="file" name="pfp" required>
-            <button>Submit</button>
-        </form>
 
     <div class="post" style="text-align: center;">
         <h1 id="username" value="user.username"> Let's get started, <%= user.username %>!</h1>
@@ -77,7 +70,7 @@
                     });
                 });
             </script>
-            <%=music.genre%>
+            
             <marquee behavior="scroll" direction="left" class="song"><%= music.originalName %> 
                 by <%= music.artist %></marquee>
             <hr id="titlebreak">
@@ -96,7 +89,7 @@
 
             <p style="line-height: 100%;">Do you like this music?</p>
             <div class="rate-form">
-                <form id="recommendationForm">
+                <form id="recommendationForm" method="post">
                     <div>
                     <input id="star5" type="radio" name="rate" value="5">
                     <label for="star5">★</label>
@@ -112,6 +105,10 @@
                     <input id="preference" type="submit" value="rate">
                 </form>
             </div>
+            <script>
+                const value = document.getElementById("recommendationForm");
+                console.log(value);
+            </script>
             
         </div>
         <div id = "errors"></div>
