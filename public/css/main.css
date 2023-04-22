@@ -102,6 +102,12 @@ p {
     margin-right: auto;  
 }
 
+/* .liked:hover {
+    filter: hue-rotate(180deg);
+} */
+.unliked {
+    filter: hue-rotate(0deg);
+}
 #heart{
     max-height: 7%;
     max-width: 7%;
@@ -114,5 +120,3 @@ p {
     float: right;
     margin-right: 25px;
 }
-
-

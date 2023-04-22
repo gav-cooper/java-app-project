@@ -36,8 +36,10 @@
                 <% } %>
                 <br>
                 <br>
-                <img src="./images/heart.png" class="like" id="heart">
-                <img src="./images/x.png" class="like" style="display:inline-block;" id="x">
+                <% like = "/post/" + post.musicID + "/like"%> 
+                <form action = <%= like %> method="POST" id="likePost">
+                    <input type="image" src="./images/heart.png" class="liked" id="heart" onclick="buttonColor()">
+                </form>
             </div>
            
         <% } %>
