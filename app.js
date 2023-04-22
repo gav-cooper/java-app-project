@@ -103,10 +103,10 @@ app.post("/recommendation", (req, res) => {
 app.post("/users/:userID/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
-app.post("/users/:userID/file", 
+app.post("/songs/file", 
   fileUpload.music.single("music"),
   musicController.makePost);
-app.post("/users/:userID/link", 
+app.post("/songs/link", 
   fileUpload.music.single("music"),
   musicController.makePost);
 app.post("/post/:musicID/like", musicController.likePost);

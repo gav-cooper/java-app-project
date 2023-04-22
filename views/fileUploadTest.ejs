@@ -28,16 +28,16 @@
         <option value="link">Upload URL</option>
     </select>
     <div class="file-wrapper" style="display:None;">
-        <form action="/users/<%= user.userID %>/file" method="POST" enctype="multipart/form-data">
-            <input id="name" type="text" name="name" placeholder="Song title" required>
-            <input id="genre" type="text" name="genre" placeholder="genre" required>
+        <form action="/songs/file" method="POST" enctype="multipart/form-data">
+            <input id="fname" type="text" name="name" placeholder="Song title" required>
+            <input id="fgenre" type="text" name="genre" placeholder="genre" required>
             <span>Upload music:</span>
             <input type="file" name="music">
             <button>Submit</button>
         </form>
     </div>
     <div class="link-wrapper" style="display:None;">
-        <form action="/users/<%= user.userID %>/link" method="POST">
+        <form action="/songs/link" method="POST">
             <input id="name" type="text" name="name" placeholder="Song title" required>
             <input id="genre" type="text" name="genre" placeholder="genre" required>
             <input id="artist" type="text" name="artist" placeholder="artist" required>
