@@ -11,8 +11,8 @@ const argon2 = require("argon2");
 function makePost (req, res) {
     if (!req.session.isLoggedIn)
         return res.sendStatus(403);
-        console.log(req.body);
-        console.log(req.file);
+
+    // Invalid file type
     if (!!req.file == false && !!req.body.artist == false) {
         return res.sendStatus(404);
     }

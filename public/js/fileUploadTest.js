@@ -4,7 +4,6 @@ const option = document.getElementById("choice-select");
 const file_wrapper = document.querySelector(".file");
 
 option.addEventListener("change", (event) => {
-    console.log(true)
     if (event.target.value === "file") {
         document.querySelector(".link-wrapper").style.display = "None";
         document.querySelector(".file-wrapper").style.display = "flex";
@@ -35,7 +34,6 @@ async function submitFileForm (event) {
             },
             "body": JSON.stringify(body)
         });
-        console.log(response);
         if (response.ok) {      // Account logged in
             window.location.href="/post"; 
 
@@ -70,7 +68,6 @@ async function submitURLForm (event) {
             },
             "body": JSON.stringify(body)
         });
-        console.log(response);
         if (response.ok) {      // Account logged in
             window.location.href="/post"; 
 
