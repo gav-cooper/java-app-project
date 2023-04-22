@@ -150,7 +150,13 @@ function addPreference(userID, genre, value){
         number = like.classic;
     }
 
-    like = number + value;
+    if(number + value - 3 < 0){
+        like = 1;
+    }
+    else{
+        like = number + value - 3;
+    }
+    
 
     console.log(like);
 
