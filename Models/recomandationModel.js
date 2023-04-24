@@ -21,13 +21,12 @@ function getPreference(userID){
 }
 
 
-function  updateValue(userID, rock, hiphop, classic){
+function updateValue(userID, rock, hiphop, classic){
     const sql = `INSERT INTO Preferences
                     (userID, rock, hiphop, classic)
                  VALUES
                     (@userID, @rock, @hiphop, @classic)
                     `;
-    //const sql = `SELECT * FROM Preferences`
     const stmt = db.prepare(sql);
 
     try {
@@ -157,8 +156,6 @@ function addPreference(userID, genre, value){
         like = number + value - 3;
     }
     
-
-    console.log(like);
 
     let sql1;
     if(genre = "rock"){
