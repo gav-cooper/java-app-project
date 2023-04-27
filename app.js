@@ -37,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 const usersController = require("./Controllers/usersController");
 const musicController = require("./Controllers/musicController");
 const recommendationController = require("./Controllers/recommendationController");
+const commentController = require("./Controllers/commentController");
 
 // Validators
 const usersValidator = require("./Validators/usersValidator");
@@ -95,15 +96,10 @@ app.post("/recommendation", (req, res) => {
   let rate = req.body.rate;
   recommendationController.setPreference(user.userID, music.genre, rate)
   res.redirect("/recommendation");
-}, 
+  }, 
 );
-app.post("/post?message=", (req, res) => {
-  let user = req.session.user;
-  let music = req.session.music;
-  let comment = req.body.messages;
-  musicController.setComment(user, music, comment);
-  res.redirect("/post")
-});
+
+
 app.post("/account/:username/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
@@ -115,5 +111,8 @@ app.post("/songs/link",
   musicController.makePost);
 app.post("/post/:musicID/like", musicController.likePost);
 app.delete("/users/:user", usersController.removeAccount);
-module.exports = app;
+
 app.delete("/users/:username", musicController.deletePost);
+
+app.post("/post/comment", commentController.addComment);
+module.exports = app;
