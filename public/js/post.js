@@ -3,11 +3,9 @@
 const jsmediatags = window.jsmediatags;
 
 const covers = document.getElementsByClassName('cover');
-console.log(covers);
 for (let j = 0; j < covers.length; j++){ 
     jsmediatags.read(`http://localhost:8000${covers[j].attributes.path.value}`, {
         onSuccess: function (tag) {
-            console.log(tag.tags.picture.data);
             const data = tag.tags.picture.data;
             const format = tag.tags.picture.format;
             let base64String = "";
