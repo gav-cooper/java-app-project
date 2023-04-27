@@ -80,6 +80,9 @@ async function login(req, res){
     }
 }
 
+/*
+    User can logout
+*/
 function logout (req,res) {
     req.session.destroy((error) =>
         res.redirect("/"));
@@ -90,6 +93,9 @@ function testSession (req, res) {
     res.sendStatus(200)
 }
 
+/*
+
+*/
 function uploadFiles (req, res) {
     if (!req.session.isLoggedIn){
         return res.redirect("/");
@@ -102,6 +108,9 @@ function uploadFiles (req, res) {
     return res.render("fileUploadTest.ejs", {user})
 }
 
+/*
+    Allows users to change their profile picture
+*/
 function setPfp (req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403);
@@ -117,6 +126,9 @@ function setPfp (req, res) {
     return res.sendStatus(200);
 }
 
+/*
+    Allow user to delete their account
+*/
 function removeAccount (req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403)
@@ -129,6 +141,9 @@ function removeAccount (req, res) {
     res.sendStatus(200);
 }
 
+/*
+    Need database info in order to properly render the page
+*/
 function accountPage (req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403);
@@ -142,6 +157,9 @@ function accountPage (req, res) {
   res.render('Account',{user})
 }
 
+/*
+    /account relies on having the user's username. Redirect if possible
+*/
 function accountRedirect (req, res) {
     if (!req.session.isLoggedIn) {
         return res.redirect("/login")

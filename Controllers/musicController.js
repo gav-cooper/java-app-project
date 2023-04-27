@@ -35,6 +35,9 @@ function makePost (req, res) {
     return res.redirect('/post');
 }
 
+/*
+    Allows the user to delete a song they've uploaded
+*/
 function deletePost (req, res) {
     if (!req.session.isLoggedIn)
         return res.sendStatus(403);
@@ -48,6 +51,9 @@ function deletePost (req, res) {
     return res.sendStatus(200);
 }
 
+/* 
+    Allows a user to like a song
+*/ 
 function likePost(req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403);

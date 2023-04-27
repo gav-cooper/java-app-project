@@ -9,7 +9,6 @@ async function submitPfpForm (event) {
 
     const errorsContainer = document.getElementById("errors");
     errorsContainer.innerHTML = "";
-
     
     const formData = new FormData();
     formData.append('pfp', pfpForm.elements.file.files[0]);
@@ -19,7 +18,7 @@ async function submitPfpForm (event) {
             method: 'POST',
             body: formData,
         });
-        if (response.ok) {      // Account logged in
+        if (response.ok) {      // File uploaded successfully
             location.reload();
         }  else if (response.status === 404) {
             appendData(errorsContainer, "Invalid file type!", "error");

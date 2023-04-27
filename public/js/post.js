@@ -1,5 +1,6 @@
 "use strict";
-
+ 
+// Extract album artwork from uploaded song tags
 const jsmediatags = window.jsmediatags;
 
 const covers = document.getElementsByClassName('cover');
@@ -19,8 +20,3 @@ for (let j = 0; j < covers.length; j++){
         }
     })
 }
-
-// for (let j = 0; j < covers.length; j++) {
-//     if (!covers[j].style.backgroundImage)
-//         covers[j].style.backgroundImage = `url(http://localhost:8000/pfp/pfp.png)`
-// }
