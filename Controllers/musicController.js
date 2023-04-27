@@ -77,5 +77,4 @@ module.exports = {
     makePost,
     deletePost,
     likePost,
-    setComment
 }

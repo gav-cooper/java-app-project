@@ -37,11 +37,10 @@
                         <div id="cover" class="cover"path="<%= post.musicPath%>"></div>
                         
                         <b>comment</b>
-                        <form>
+                        <form id="message" action="post/message">
                             <input type="text" name="message" size="60">
                             <input type="submit" value="send">
                         </form>
-                        <div id="messages"></div>
                     </div>
                 <% } %>
                 <br>
