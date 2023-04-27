@@ -97,6 +97,13 @@ app.post("/recommendation", (req, res) => {
   res.redirect("/recommendation");
 }, 
 );
+app.post("/post?message=", (req, res) => {
+  let user = req.session.user;
+  let music = req.session.music;
+  let comment = req.body.messages;
+  musicController.setComment(user, music, comment);
+  res.redirect("/post")
+});
 app.post("/account/:username/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
