@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/fileUploadTest.js" defer></script>
+    <script src="/js/account.js" defer></script>
     <title>Upload New Song!</title>
 </head>
 <body>
     <nav class="topbar">
-        <a href="main.html">Home</a>
+        <a href="/post">Home</a>
         <a href="/uploadSong">Upload</a>
         <a href="#page1">Playlist</a>
         <a href="/account">Account</a>
@@ -20,14 +20,15 @@
     <div class="post" style="text-align: center;">
         <h1> Hello <%= user.username %>!</h1>
         <p>Edit Profile</p>
-        <img style="width:50px"class="pfp" src="<%= user.pfpPath %>">
+        <img style="width:50px" class="pfp" src="<%= user.pfpPath %>">
         <div class="pfp-wrapper">
-            <form action="/users/<%= user.userID %>/pfp" method="POST" enctype="multipart/form-data">
+            <form id="profile" action="/users/:username/pfp" method="POST" enctype="multipart/form-data">
                 <span>Set profile picture:</span>
-                <input type="file" name="pfp" required>
+                <input id="file" type="file" name="pfp" required>
                 <button>Submit</button>
             </form>
         </div>
+        <div id="errors"></div>
     </div>
 </body>
 </html>

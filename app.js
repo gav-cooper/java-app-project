@@ -59,12 +59,9 @@ app.get("/uploadSong", (req, res) => {
   res.render('uploadSong',{user})
 });
 
-app.get("/account", (req, res) => {
-  let user = req.session.user
-  if (!user)
-    return res.redirect("/login")
-  res.render('Account',{user})
-});
+app.get("/account/", usersController.accountRedirect);
+
+app.get("/account/:username", usersController.accountPage);
 
 app.get("/fileUploadTest", (req, res) => {
   let user = req.session.user
@@ -100,7 +97,7 @@ app.post("/recommendation", (req, res) => {
   res.redirect("/recommendation");
 }, 
 );
-app.post("/users/:userID/pfp", 
+app.post("/account/:username/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
 app.post("/songs/file", 

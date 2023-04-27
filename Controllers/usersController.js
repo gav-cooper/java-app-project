@@ -106,12 +106,15 @@ function setPfp (req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403);
     }
-    if (req.params.userID !== req.session.user.userID) {
+    if (req.params.username !== req.session.user.username) {
         return res.sendStatus(403);
+    }
+    if (!req.file) {
+        return res.sendStatus(404);
     }
     const {userID, pfpPath} = usersModel.getUserByUsername(req.session.user.username);
     usersModel.updatePfp(userID, pfpPath, `/pfp/${req.file.filename}`);
-    res.redirect(`/users/${req.session.user.username}/uploads`)
+    return res.sendStatus(200);
 }
 
 function removeAccount (req, res) {
@@ -126,6 +129,27 @@ function removeAccount (req, res) {
     res.sendStatus(200);
 }
 
+function accountPage (req, res) {
+    if (!req.session.isLoggedIn) {
+        return res.sendStatus(403);
+    }
+    if (req.session.user.username !== req.params.username) {
+        return res.sendStatus(403);
+    }
+    const user = usersModel.getUserByUsername(req.session.user.username);
+    if (!!user == false)
+        return res.redirect("/login")
+  res.render('Account',{user})
+}
+
+function accountRedirect (req, res) {
+    if (!req.session.isLoggedIn) {
+        return res.redirect("/login")
+    } else {
+        res.redirect(`/account/${req.session.user.username}`)
+    }
+}
+
 module.exports = {
     createNewUser,
     login,
@@ -133,5 +157,7 @@ module.exports = {
     testSession,
     uploadFiles,
     setPfp,
-    removeAccount
+    removeAccount,
+    accountPage,
+    accountRedirect
 }
