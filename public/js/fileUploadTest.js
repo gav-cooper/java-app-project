@@ -18,36 +18,35 @@ const fileForm = document.getElementById("fileForm");
 
 fileForm.addEventListener("submit", submitFileForm);
 
-async function submitFileForm (event) {
-    event.preventDefault();
-    const errorsContainer = document.getElementById("errors");
-    errorsContainer.innerHTML = "";
+// async function submitFileForm (event) {
+//     event.preventDefault();
+//     const errorsContainer = document.getElementById("errors");
+//     errorsContainer.innerHTML = "";
     
-    const body = getFileInputs();
-    const file = getFile(); 
+//     const file = document.querySelector('input[type="file"]')
 
-    try {
-        const response = await fetch(`/songs/file`, {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": JSON.stringify(body)
-        });
-        if (response.ok) {      // Account logged in
-            window.location.href="/post"; 
+//     const formData = new FormData();
+//     formData.append('music', fileForm.elements.file.files[0]);
 
-        } else if (response.status === 400) {   // Input parameter error
-            clearFileInputs();
-            appendData(errorsContainer, "Must be a youtube link!", "error");
-        } else if( response.status === 404) {  // Invalid account info
-            clearFileInputs();
-            appendData(errorsContainer, "Invalid file type!", "error");
-        }
-    } catch (err) {
-        console.error(err);
-    }
-}
+//     try {
+//         const response = await fetch('/songs/file', {
+//             method: 'POST',
+//             data: formData
+//         });
+//         if (response.ok) {      // Account logged in
+//             window.location.href="/post"; 
+
+//         } else if (response.status === 400) {   // Input parameter error
+//             clearFileInputs();
+//             appendData(errorsContainer, "Must be a youtube link!", "error");
+//         } else if( response.status === 404) {  // Invalid account info
+//             clearFileInputs();
+//             appendData(errorsContainer, "Invalid file type!", "error");
+//         }
+//     } catch (err) {
+//         console.error(err);
+//     }
+// }
 
 const urlForm = document.getElementById("URLForm");
 
@@ -108,11 +107,14 @@ function clearURLInputs() {
 function getFileInputs() {
     const name = document.getElementById("fname").value;
     const genre = document.getElementById("fgenre").value;
+    const file = document.querySelector('input[type="file"]')
 
-    return {
-        name,
-        genre
-    }
+    var data = new FormData(fileForm);
+    data.append("name",name);
+    data.append("genre",genre);
+    data.append("music",file.files[0]);
+      
+    return data;
 }
 
 function getFile() {

@@ -6,8 +6,8 @@
 
 const crypto = require("crypto");
 const multer = require("multer");
-
-const pfp = multer({
+console.log(req.body);
+const music = multer({
   storage: multer.diskStorage({
     destination (req, file, cb) {
       cb(null, "public/music");

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/post.js" defer></script>
+    <script type="module" src="/js/post.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" referrerpolicy="no-referrer"></script>    
     <title>Songs</title>
 </head>
 <body>
@@ -32,6 +33,7 @@
                         <audio controls id="audio">
                             <source src="<%= post.musicPath%>">
                         </audio>
+                        <div id="cover" class="cover"path="<%= post.musicPath%>"></div>
                     </div>
                 <% } %>
                 <br>

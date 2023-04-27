@@ -1,43 +1,28 @@
 "use strict";
 
-const urlForm = document.getElementById("URLForm");
-const fileForm = document.getElementById("fileForm");
+const jsmediatags = window.jsmediatags;
 
+const covers = document.getElementsByClassName('cover');
+console.log(covers);
+for (let j = 0; j < covers.length; j++){ 
+    jsmediatags.read(`http://localhost:8000${covers[j].attributes.path.value}`, {
+        onSuccess: function (tag) {
+            console.log(tag.tags.picture.data);
+            const data = tag.tags.picture.data;
+            const format = tag.tags.picture.format;
+            let base64String = "";
+            for(let i = 0; i < data.length; i++)
+                base64String += String.fromCharCode(data[i]);
 
-form.addEventListener("submit",submitURLForm);
-form.addEventListener("submit", submitFileForm);
-
-async function submitURLForm (event) {
-    event.preventDefault();
-    const errorsContainer = document.getElementById("errors");
-    errorsContainer.innerHTML = "";
-    
-    const body = getInputs();
-
-    try {
-        const response = await fetch("/users/<%= user.userID %>/file", {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": JSON.stringify(body)
-        });
-        if (response.ok) {      // Account logged in
-            window.location.href="/post"; 
-
-        } else if (response.status === 400) {   // Input parameter error
-            const data = await response.json();
-            const errors = data.errors;
+            covers[j].style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+        },
+        onError: function(error ){
             
-            for (const errorMsg of errors) {
-                console.error(errorMsg);
-                appendData(errorsContainer, errorMsg, "error");
-            }
-        } else if( response.status === 404) {  // Invalid account info
-            clearInputs();
-            appendData(errorsContainer, "Invalid username/email or password!", "error");
         }
-    } catch (err) {
-        console.error(err);
-    }
+    })
 }
+
+// for (let j = 0; j < covers.length; j++) {
+//     if (!covers[j].style.backgroundImage)
+//         covers[j].style.backgroundImage = `url(http://localhost:8000/pfp/pfp.png)`
+// }

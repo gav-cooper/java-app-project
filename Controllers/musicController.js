@@ -32,7 +32,7 @@ function makePost (req, res) {
     }
     
     musicModel.addSong(type, name, path, uploader, artist, genre);
-    return res.sendStatus(200);
+    return res.redirect('/post');
 }
 
 function deletePost (req, res) {
