@@ -71,9 +71,14 @@
                 });
             </script>
             
-            <marquee behavior="scroll" direction="left" class="song"><%= music.originalName %> 
-                by <%= music.artist %></marquee>
-            <hr id="titlebreak">
+            <% if(music === "undifined"){%>
+                <b>This database do not have enough music in the database</b>
+            <% } else { %>
+                <marquee behavior="scroll" direction="left" class="song"><%= music.originalName %> 
+                    by <%= music.artist %></marquee>
+                <hr id="titlebreak">
+            <% } %>
+            
             <% if (music.uploadType === 1) {%>
                 <% let url = music.musicPath.split("=") %>
                 <%url = url[1] %>

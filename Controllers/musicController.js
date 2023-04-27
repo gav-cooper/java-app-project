@@ -76,5 +76,5 @@ function likePost(req, res) {
 module.exports = {
     makePost,
     deletePost,
-    likePost
+    likePost,
 }
