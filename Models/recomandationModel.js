@@ -54,9 +54,7 @@ function recommandation (user){
     let getRock, getHiphop, getClassic;
 
     // to set number in average
-    if(getPreferenceOfUser.rock == undefined || 
-       getPreferenceOfUser.hiphop == undefined || 
-       getPreferenceOfUser.classic == undefined){
+    if(getPreferenceOfUser == undefined){
         const value = 5;
         getRock = value;
         getHiphop = value;

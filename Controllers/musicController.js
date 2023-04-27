@@ -73,11 +73,6 @@ function likePost(req, res) {
     return res.sendStatus(200);
 }
 
-function setComment(user, music, comment){
-    user = user;
-    console.log(user);
-}
-
 module.exports = {
     makePost,
     deletePost,
