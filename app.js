@@ -85,6 +85,7 @@ app.get("/recommendation", (req, res) => {
 
   // music is undefined, this is why it is not working; will need to check Model
   console.log(music)
+  
   req.session.music = music
   res.render('recommendation', {user, music})
 });
