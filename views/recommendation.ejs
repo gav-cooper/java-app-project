@@ -71,51 +71,55 @@
                 });
             </script>
             
-            <% if(music === "undefined"){%>
+            <% if (!!music == false) {%>
+
                 <b>This database do not have enough music in the database</b>
+
             <% } else { %>
                 <marquee behavior="scroll" direction="left" class="song"><%= music.originalName %> 
                     by <%= music.artist %></marquee>
                 <hr id="titlebreak">
-            <% } %>
-            
-            <% if (music.uploadType === 1) {%>
+                <% if (music.uploadType === 1) {%>
                 <% let url = music.musicPath.split("=") %>
                 <%url = url[1] %>
                 <% link = "https://www.youtube.com/embed/" + url %>
                 <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            <% } else { %>
-                <div>
-                    <audio controls id="audio">
-                        <source src="<%= music.musicPath%>">
-                    </audio>
-                </div>
-            <% } %>
-
-            <p style="line-height: 100%;">Do you like this music?</p>
-            <p style="line-height: 100%;">★=hate, ★★=dislike, ★★★=normal</p>
-            <p style="line-height: 100%;">★★★★=like, ★★★★★=love</p>
-            <div class="rate-form">
-                <form id="recommendationForm" method="post">
+                <% } else { %>
                     <div>
-                    <input id="star5" type="radio" name="rate" value="5">
-                    <label for="star5">★</label>
-                    <input id="star4" type="radio" name="rate" value="4">
-                    <label for="star4">★</label>
-                    <input id="star3" type="radio" name="rate" value="3">
-                    <label for="star3">★</label>
-                    <input id="star2" type="radio" name="rate" value="2">
-                    <label for="star2">★</label>
-                    <input id="star1" type="radio" name="rate" value="1">
-                    <label for="star1">★</label>
+                        <audio controls id="audio">
+                            <source src="<%= music.musicPath%>">
+                        </audio>
                     </div>
-                    <input id="preference" type="submit" value="rate">
-                </form>
-            </div>
-            <script>
-                const value = document.getElementById("recommendationForm");
-                console.log(value);
-            </script>
+                <% } %>
+                <p style="line-height: 100%;">Do you like this music?</p>
+                <p style="line-height: 100%;">★=hate, ★★=dislike, ★★★=normal</p>
+                <p style="line-height: 100%;">★★★★=like, ★★★★★=love</p>
+                <div class="rate-form">
+                    <form id="recommendationForm" method="post">
+                        <div>
+                        <input id="star5" type="radio" name="rate" value="5">
+                        <label for="star5">★</label>
+                        <input id="star4" type="radio" name="rate" value="4">
+                        <label for="star4">★</label>
+                        <input id="star3" type="radio" name="rate" value="3">
+                        <label for="star3">★</label>
+                        <input id="star2" type="radio" name="rate" value="2">
+                        <label for="star2">★</label>
+                        <input id="star1" type="radio" name="rate" value="1">
+                        <label for="star1">★</label>
+                        </div>
+                        <input id="preference" type="submit" value="rate">
+                    </form>
+                </div>
+                <script>
+                    const value = document.getElementById("recommendationForm");
+                    console.log(value);
+                </script>
+            <% } %>
+            
+            
+
+            
             
         </div>
         <div id = "errors"></div>
