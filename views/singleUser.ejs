@@ -13,7 +13,7 @@
         <%- include ('navbar.ejs') %>
     </nav>
     <% if (user.account == false) { %>
-        <div><%=user.username%> hasn't uploaded any songs!</div>
+        <div id="noSong"><%=user.username%> hasn't uploaded any songs!</div>
     <% } else { %> 
     <div id="user-container" style="border: 1px solid black; margin-bottom: 50px;">
         <%=user[0].username%>

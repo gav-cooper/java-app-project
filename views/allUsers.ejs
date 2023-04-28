@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="module" src="/js/allUsers.js" defer></script>
+    <link rel="stylesheet" href="/css/main.css">
     <title>Users</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
     </nav>
     <div id="users-wrapper">
         <% for (const user of users) { %>
-            <div id="user-container" style="border:1px solid black;">
+            <div id="user-container">
                 <img style="width:50px; height:50px;" class="pfp" src="<%= user.pfpPath %>">
                 <p>Username: <a href="/users/<%=user.username%>"><%=user.username%></a></p>
                 <% if (admin && username != user.username) { %>
