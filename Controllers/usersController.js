@@ -1,6 +1,7 @@
 "use strict";
 
 const usersModel = require("../Models/usersModel");
+const musicModel = require("../Models/musicModel");
 const argon2 = require("argon2");
 
 /*
@@ -133,11 +134,11 @@ function removeAccount (req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403)
     }
-    if (req.session.user.userID !== req.params.user) {
+    const {admin} = usersModel.getUserByUsername(req.session.user.username)
+    if (!admin) {
         return res.sendStatus(403)
     }
-    usersModel.deleteUser(req.session.user.userID);
-    req.session.destroy();
+    usersModel.deleteUser(req.params.user);
     res.sendStatus(200);
 }
 
@@ -168,6 +169,27 @@ function accountRedirect (req, res) {
     }
 }
 
+function displayAllUsers (req, res) {
+    if (!req.session.isLoggedIn) {
+        return res.redirect("/login")
+    }
+    const users = usersModel.getAllUsers();
+    const {admin, username} = usersModel.getUserByUsername(req.session.user.username);
+    res.render('allUsers', {users, admin, username})
+}
+
+function displaySingleUser (req, res) {
+    if (!req.session.isLoggedIn)
+        return res.redirect("/login")
+    let user = musicModel.getMusicByUser(req.params.username);
+    if (user.length <= 0) {
+        user = usersModel.getUserByUsername(req.params.username);
+        user.account = false;
+    }
+    const {admin, username} = usersModel.getUserByUsername(req.session.user.username);
+    res.render('singleUser', {user, admin, username})
+}
+
 module.exports = {
     createNewUser,
     login,
@@ -177,5 +199,7 @@ module.exports = {
     setPfp,
     removeAccount,
     accountPage,
-    accountRedirect
+    accountRedirect,
+    displayAllUsers,
+    displaySingleUser
 }

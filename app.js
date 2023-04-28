@@ -89,6 +89,9 @@ app.get("/users/:username/uploads", usersController.uploadFiles);
 // app.get("/recommendation", recommendationController.getReccomend);
 app.get("/users/:username/uploads", usersController.uploadFiles);
 app.get("/post/:musicID", musicController.displaySingle);
+app.get("/users", usersController.displayAllUsers);
+app.get("/users/:username", usersController.displaySingleUser);
+
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
@@ -117,7 +120,7 @@ app.post("/post/:musicID/like", musicController.likePost);
 
 app.delete("/users/:user", usersController.removeAccount);
 
-app.delete("/users/:username", musicController.deletePost);
+app.delete("/music/:musicID/:username", musicController.deletePost);
 
 app.post("/post/comment/:musicID", commentController.addComment);
 module.exports = app;
