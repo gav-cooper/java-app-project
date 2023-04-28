@@ -102,7 +102,7 @@ function deleteSong (user, song) {
         console.log(user, song);
         const {musicPath} = getPathByName(user, song);
         const {uploadType} = checkType(user,song);
-        stmt.run({song, user});
+        stmt.run({song});
         if (uploadType === 0) {
             fs.unlinkSync("public"+musicPath);
         }
