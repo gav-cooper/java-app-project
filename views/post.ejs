@@ -30,24 +30,15 @@
                     
                 <% } else { %>
                     <div>
+                        <div id="cover" class="cover" path="<%= post.musicPath%>"></div>
                         <audio controls id="audio">
                             <source src="<%= post.musicPath%>">
                         </audio>
-                        <div id="cover" class="cover"path="<%= post.musicPath%>"></div>
-                        
-                        <b>comment</b>
-                        <form id="message" action="post/message">
-                            <input type="text" name="message" size="60">
-                            <input type="submit" value="send">
-                        </form>
                     </div>
                 <% } %>
                 <br>
                 <br>
-                <% like = "/post/" + post.musicID + "/like"%> 
-                <form action = <%= like %> method="POST" id="likePost">
-                    <input name="submit" type="image" src="./images/heart.png" onclick="buttonColor()" id="heart" path=<%=post.postID%>  >
-                </form>
+                <input class="button" path="<%=post.musicID%>" name="submit" type="image" src="/images/heart.png" >
             </div>
         <% }) %>
     <!-- link only reads until v= if URLs-->

@@ -51,7 +51,10 @@ const { music } = require("./fileUpload");
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.redirect('/login')
+    if (!req.session.isLoggedIn)
+      res.redirect('/login');
+    else
+      res.redirect('/post');
 });
 
 app.get("/uploadSong", (req, res) => {
@@ -89,6 +92,7 @@ app.get("/recommendation", (req, res) => {
 app.get("/users/:username/uploads", usersController.uploadFiles);
 // app.get("/recommendation", recommendationController.getReccomend);
 app.get("/users/:username/uploads", usersController.uploadFiles);
+app.get("/post/:musicID", musicController.displaySingle);
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
@@ -119,5 +123,5 @@ app.delete("/users/:user", usersController.removeAccount);
 
 app.delete("/users/:username", musicController.deletePost);
 
-app.post("/post/comment", commentController.addComment);
+app.post("/post/comment/:musicID", commentController.addComment);
 module.exports = app;
