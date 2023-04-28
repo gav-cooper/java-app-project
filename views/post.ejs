@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/post.js" defer></script>
+    <script type="module" src="/js/post.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" referrerpolicy="no-referrer"></script>    
     <title>Songs</title>
 </head>
 <body>
@@ -26,11 +27,19 @@
                     <%url = url[1] %>
                     <% link = "https://www.youtube.com/embed/" + url %>
                     <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    
                 <% } else { %>
                     <div>
                         <audio controls id="audio">
                             <source src="<%= post.musicPath%>">
                         </audio>
+                        <div id="cover" class="cover"path="<%= post.musicPath%>"></div>
+                        
+                        <b>comment</b>
+                        <form id="message" action="post/message">
+                            <input type="text" name="message" size="60">
+                            <input type="submit" value="send">
+                        </form>
                     </div>
                 <% } %>
                 <br>

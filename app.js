@@ -37,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 const usersController = require("./Controllers/usersController");
 const musicController = require("./Controllers/musicController");
 const recommendationController = require("./Controllers/recommendationController");
+const commentController = require("./Controllers/commentController");
 
 // Validators
 const usersValidator = require("./Validators/usersValidator");
@@ -60,12 +61,9 @@ app.get("/uploadSong", (req, res) => {
   res.render('uploadSong',{user})
 });
 
-app.get("/account", (req, res) => {
-  let user = req.session.user
-  if (!user)
-    return res.redirect("/login")
-  res.render('Account',{user})
-});
+app.get("/account/", usersController.accountRedirect);
+
+app.get("/account/:username", usersController.accountPage);
 
 app.get("/fileUploadTest", (req, res) => {
   let user = req.session.user
@@ -99,9 +97,11 @@ app.post("/recommendation", (req, res) => {
   let rate = req.body.rate;
   recommendationController.setPreference(user.userID, music.genre, rate)
   res.redirect("/recommendation");
-}, 
+  }, 
 );
-app.post("/users/:userID/pfp", 
+
+
+app.post("/account/:username/pfp", 
   fileUpload.pfp.single("pfp"),
   usersController.setPfp);
 app.post("/songs/file", 
@@ -113,5 +113,8 @@ app.post("/songs/link",
 app.post("/post/:musicID/like", musicController.likePost);
 
 app.delete("/users/:user", usersController.removeAccount);
-module.exports = app;
+
 app.delete("/users/:username", musicController.deletePost);
+
+app.post("/post/comment", commentController.addComment);
+module.exports = app;

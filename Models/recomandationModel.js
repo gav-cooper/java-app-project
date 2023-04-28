@@ -21,13 +21,12 @@ function getPreference(userID){
 }
 
 
-function  updateValue(userID, rock, hiphop, classic){
+function updateValue(userID, rock, hiphop, classic){
     const sql = `INSERT INTO Preferences
                     (userID, rock, hiphop, classic)
                  VALUES
                     (@userID, @rock, @hiphop, @classic)
                     `;
-    //const sql = `SELECT * FROM Preferences`
     const stmt = db.prepare(sql);
 
     try {
@@ -55,9 +54,7 @@ function recommandation (user){
     let getRock, getHiphop, getClassic;
 
     // to set number in average
-    if(getPreferenceOfUser.rock == undefined || 
-       getPreferenceOfUser.hiphop == undefined || 
-       getPreferenceOfUser.classic == undefined){
+    if(getPreferenceOfUser == undefined){
         const value = 5;
         getRock = value;
         getHiphop = value;
@@ -157,8 +154,6 @@ function addPreference(userID, genre, value){
         like = number + value - 3;
     }
     
-
-    console.log(like);
 
     let sql1;
     if(genre = "rock"){

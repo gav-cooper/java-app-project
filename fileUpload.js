@@ -49,6 +49,7 @@ const music = multer({
       cb(null, `${randomName}.${extension}`);
     },
   }),
+  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter (req, file, cb) {      
     if (!req.session) {
       return cb(null, false); // reject if the user is not logged in

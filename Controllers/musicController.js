@@ -11,8 +11,8 @@ const argon2 = require("argon2");
 function makePost (req, res) {
     if (!req.session.isLoggedIn)
         return res.sendStatus(403);
-        console.log(req.body);
-        console.log(req.file);
+
+    // Invalid file type
     if (!!req.file == false && !!req.body.artist == false) {
         return res.sendStatus(404);
     }
@@ -32,9 +32,12 @@ function makePost (req, res) {
     }
     
     musicModel.addSong(type, name, path, uploader, artist, genre);
-    return res.sendStatus(200);
+    return res.redirect('/post');
 }
 
+/*
+    Allows the user to delete a song they've uploaded
+*/
 function deletePost (req, res) {
     if (!req.session.isLoggedIn)
         return res.sendStatus(403);
@@ -48,6 +51,9 @@ function deletePost (req, res) {
     return res.sendStatus(200);
 }
 
+/* 
+    Allows a user to like a song
+*/ 
 function likePost(req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403);
@@ -70,5 +76,5 @@ function likePost(req, res) {
 module.exports = {
     makePost,
     deletePost,
-    likePost
+    likePost,
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict"
 
 // const { likePost } = require("../../Controllers/musicController");
@@ -34,3 +35,27 @@ document.querySelector(".likePost").addEventListener("submit", function(event){
 // $('.likePost').on('click', function(event){
 //     event.preventDefault();
 //    });
+=======
+"use strict";
+ 
+// Extract album artwork from uploaded song tags
+const jsmediatags = window.jsmediatags;
+
+const covers = document.getElementsByClassName('cover');
+for (let j = 0; j < covers.length; j++){ 
+    jsmediatags.read(`http://localhost:8000${covers[j].attributes.path.value}`, {
+        onSuccess: function (tag) {
+            const data = tag.tags.picture.data;
+            const format = tag.tags.picture.format;
+            let base64String = "";
+            for(let i = 0; i < data.length; i++)
+                base64String += String.fromCharCode(data[i]);
+
+            covers[j].style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+        },
+        onError: function(error ){
+            
+        }
+    })
+}
+>>>>>>> refs/remotes/origin/main

@@ -3,6 +3,15 @@ html {
     font-size: 30px;
 }
 
+#cover {
+    margin:auto;
+    width:200px;
+    height:200px;
+    background-position:center;
+    background-size:cover;
+    background-image: url(/pfp/music.png);
+}
+
 body{
     margin: 0 auto;
     background-image: url("/images/background.jpg");
@@ -91,7 +100,7 @@ p {
 }
 
     
-}
+
 .pfp{
     max-height: 8%;
     max-width: 8%;

@@ -4,7 +4,6 @@ const option = document.getElementById("choice-select");
 const file_wrapper = document.querySelector(".file");
 
 option.addEventListener("change", (event) => {
-    console.log(true)
     if (event.target.value === "file") {
         document.querySelector(".link-wrapper").style.display = "None";
         document.querySelector(".file-wrapper").style.display = "flex";
@@ -21,28 +20,27 @@ fileForm.addEventListener("submit", submitFileForm);
 
 async function submitFileForm (event) {
     event.preventDefault();
+
     const errorsContainer = document.getElementById("errors");
     errorsContainer.innerHTML = "";
-    
-    const body = getFileInputs();
-    const file = getFile(); 
 
+    const formData = new FormData();
+    formData.append('name',document.getElementById("fname").value);
+    formData.append('genre',document.getElementById("fgenre").value);
+    formData.append('music', fileForm.elements.file.files[0]);
+    
     try {
-        const response = await fetch(`/songs/file`, {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": JSON.stringify(body)
+        const response = await fetch('/songs/file', {
+            method: 'POST',
+            body: formData,
         });
-        console.log(response);
-        if (response.ok) {      // Account logged in
+        if (response.ok) {      // File uploaded
             window.location.href="/post"; 
 
-        } else if (response.status === 400) {   // Input parameter error
+        } else if (response.status === 400) {   // Invalid data
             clearFileInputs();
             appendData(errorsContainer, "Must be a youtube link!", "error");
-        } else if( response.status === 404) {  // Invalid account info
+        } else if( response.status === 404) {  // Invalid file type
             clearFileInputs();
             appendData(errorsContainer, "Invalid file type!", "error");
         }
@@ -70,14 +68,13 @@ async function submitURLForm (event) {
             },
             "body": JSON.stringify(body)
         });
-        console.log(response);
-        if (response.ok) {      // Account logged in
+        if (response.ok) {      // Link uploaded
             window.location.href="/post"; 
 
-        } else if (response.status === 400) {   // Input parameter error
+        } else if (response.status === 400) {   // Invalid data
             clearURLInputs();
             appendData(errorsContainer, "Must be a youtube link!", "error");
-        } else if( response.status === 404) {  // Invalid account info
+        } else if( response.status === 404) {  // Invalid file type
             clearURLInputs();
             appendData(errorsContainer, "Invalid file type!", "error");
         }
@@ -111,11 +108,14 @@ function clearURLInputs() {
 function getFileInputs() {
     const name = document.getElementById("fname").value;
     const genre = document.getElementById("fgenre").value;
+    const file = document.querySelector('input[type="file"]')
 
-    return {
-        name,
-        genre
-    }
+    var data = new FormData(fileForm);
+    data.append("name",name);
+    data.append("genre",genre);
+    data.append("music",file.files[0]);
+      
+    return data;
 }
 
 function getFile() {
