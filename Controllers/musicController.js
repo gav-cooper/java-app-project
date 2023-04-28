@@ -84,8 +84,6 @@ function displaySingle(req, res) {
     const liked = musicModel.checkLikes(musicID, req.session.user.userID);
 
     const comments = commentModel.getMusicComments(musicID);
-    console.log(music)
-    console.log("hello")
     return res.render("displaySingle", {music, liked, comments});
 
 }
