@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/displaySingle.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="/css/displaySingle.css">
+    <title><%= music.originalName %></title>
+</head>
+<body>
+    <p>Posted by: <a href="/users/<%= music.username %>"><%= music.username %></a></p>
+    <div class="post-wrapper">
+        <h1 id="subject"><%= music.originalName %></h1>
+        <span id="date"> Posted on <%= new Date(music.date).toLocaleDateString("en-US", {timeZone: "America/Chicago"}) %> </span>
+        <span id="time"> at <%= new Date(music.date).toLocaleTimeString("en-US", {timeZone: "America/Chicago"}) %> </span>
+        <% if (music.uploadType === 1) {%>
+            <% let url = music.musicPath.split("=") %>
+            <%url = url[1] %>
+            <% link = "https://www.youtube.com/embed/" + url %>
+            <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            
+        <% } else { %>
+            <div>
+                <div id="cover" class="cover"path="<%= music.musicPath%>"></div>
+                <audio controls id="audio">
+                    <source src="<%= music.musicPath%>">
+                </audio>
+            </div>
+        <% } %>
+        <div id="likes-wrapper">
+            <p id="likes" <% if (liked) { %>
+                class="liked"
+            <% } else{ %>
+                class="unliked"
+            <% } %>
+            >
+                Likes: <span id="numLikes"><%= music.likes %></span>
+            </p>
+            <button id="likePost">
+                <% if (liked) { %>
+                    Unlike
+                <% } else { %>
+                    Like
+                <% } %>
+            </button>
+        </div>
+    </div>
+    <div class="comment-wrapper">
+        <div>
+            <h3 id="comment-header">Leave a comment...</h3>
+        </div>
+        <div>
+            <form action="/post/comment/<%= music.musicID%>" method="POST">
+                <textarea id="message" name="message"></textarea>
+                <input type="submit" id="message-submit" value="Submit">
+            </form>
+        </div>
+        <% for (const comment of comments) { %>
+            <div id="comment-container">
+                <p><%= new Date(comment.date).toLocaleString("en-US", {timeZone: "America/Chicago"}) %></p>
+                <p><%= comment.message%> </p>
+            </div>
+        <% } %>
+    </div>
+    
+</body>
+</html>

@@ -10,16 +10,14 @@ function addComment(req, res){
     if (!req.session.isLoggedIn) {
         return res.redirect("/")
     }
-    if(req.session.user.username !== req.body.username)
-        return res.sendStatus(400);
-    const {userID} = usersModel.getUserByUsername(req.body.username);
-    const {musicID} = req.body;
+    const {userID} = usersModel.getUserByUsername(req.session.user.username);
+    const {musicID} = req.params;
     let {message} = req.body;
 
     message = filter.clean(message);
     
     if (commentModel.addComment(musicID, message, userID))
-        return res.sendStatus(200);
+        return res.redirect(`/post/${musicID}`);
     else
         return res.sendStatus(400);
 }

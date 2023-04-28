@@ -1,0 +1,11 @@
+#cover {
+    width:200px;
+    height:200px;
+    background-position:center;
+    background-size:cover;
+    background-image: url(/pfp/music.png);
+}
+
+#comment-container {
+    border: 1px solid black;
+}

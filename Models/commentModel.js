@@ -27,6 +27,20 @@ function addComment(musicID, message, userID){
     }
 }
 
+function getMusicComments(musicID) {
+    const sql = `SELECT * FROM Comments WHERE musicID = @musicID ORDER BY date DESC`;
+
+    const stmt = db.prepare(sql);
+
+    const comments = stmt.all({musicID});
+    
+    if (comments) 
+        return comments;
+    else
+        return false;
+}
+
 module.exports = {
-    addComment
+    addComment,
+    getMusicComments
 }

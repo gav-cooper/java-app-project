@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use strict"
 
 // const { likePost } = require("../../Controllers/musicController");
@@ -26,17 +25,15 @@ function buttonColor(){
     }
 }
 
-document.querySelector(".likePost").addEventListener("submit", function(event){
-    event.preventDefault();
-  });
+// document.querySelector(".likePost").addEventListener("submit", function(event){
+//     event.preventDefault();
+//   });
 
 
 
 // $('.likePost').on('click', function(event){
 //     event.preventDefault();
 //    });
-=======
-"use strict";
  
 // Extract album artwork from uploaded song tags
 const jsmediatags = window.jsmediatags;
@@ -58,4 +55,30 @@ for (let j = 0; j < covers.length; j++){
         }
     })
 }
->>>>>>> refs/remotes/origin/main
+
+let button = document.getElementsByClassName("button");
+for (let i = 0; i < button.length; i++) {
+    button[i].addEventListener("click", likePost);
+}
+
+/*  Deletes a user's post by extracting the ID from the event and sending a
+    delete request
+*/
+async function likePost(event) {
+    // get post id from the event
+    const musicID = event.target.attributes.path.value;
+    try {
+        const response = await fetch(`/post/${musicID}/like`, {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            }
+        });
+        // reload the page
+        if (response.ok)
+            location.reload();
+    } catch(error) {
+        console.log("Could not like")
+        location.reload();
+    }
+}

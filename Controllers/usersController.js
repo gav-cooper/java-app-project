@@ -154,7 +154,7 @@ function accountPage (req, res) {
     const user = usersModel.getUserByUsername(req.session.user.username);
     if (!!user == false)
         return res.redirect("/login")
-  res.render('Account',{user})
+  return res.render('Account',{user})
 }
 
 /*

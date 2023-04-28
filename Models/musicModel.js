@@ -193,8 +193,8 @@ function getSong (musicID) {
             musicID = (@musicID)
     `;
     const stmt = db.prepare(sql);
-    const post = stmt.get({musicID});
-    return post;
+    const music = stmt.get({musicID});
+    return music;
 }
 
 

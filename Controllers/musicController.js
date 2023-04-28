@@ -1,6 +1,7 @@
 "use strict";
 
 const musicModel = require("../Models/musicModel");
+const commentModel = require("../Models/commentModel");
 const argon2 = require("argon2");
 
 /*
@@ -73,8 +74,24 @@ function likePost(req, res) {
     return res.sendStatus(200);
 }
 
+function displaySingle(req, res) {
+    if (!req.session.isLoggedIn)
+        return res.redirect("/");
+    const {musicID} = req.params;
+    const music = musicModel.getSong(musicID);
+    console.log(music);
+
+    const liked = musicModel.checkLikes(musicID, req.session.user.userID);
+
+    const comments = commentModel.getMusicComments(musicID);
+
+    return res.render("displaySingle", {music, liked, comments});
+
+}
+
 module.exports = {
     makePost,
     deletePost,
     likePost,
+    displaySingle
 }
