@@ -110,7 +110,18 @@ p {
     margin-left: auto;
     margin-right: auto;  
 }
-
+button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+  }
+/* .liked:hover {
+    filter: hue-rotate(180deg);
+} */
+.unliked {
+    filter: hue-rotate(0deg);
+}
 #heart{
     max-height: 7%;
     max-width: 7%;
@@ -123,5 +134,3 @@ p {
     float: right;
     margin-right: 25px;
 }
-
-
