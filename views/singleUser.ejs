@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
     <script type="module" src="/js/singleUser.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" referrerpolicy="no-referrer"></script>    
     <title><%=user.username%></title>
 </head>
 <body>
@@ -40,8 +41,9 @@
                         </audio>
                     </div>
                 <% } %>
-                <button class="button" path="<%=post.musicID%>" id="<%=post.username%>" name="submit">Delete</button>
-
+                <% if (admin) { %> 
+                    <button class="button" path="<%=post.musicID%>" id="<%=post.username%>" name="submit">Delete</button>
+                <% } %>
                 <br>
                 <br>
             </div>
