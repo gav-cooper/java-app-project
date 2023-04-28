@@ -67,6 +67,7 @@ for (let i = 0; i < button.length; i++) {
 async function likePost(event) {
     // get post id from the event
     const musicID = event.target.attributes.path.value;
+    console.log(event);
     try {
         const response = await fetch(`/post/${musicID}/like`, {
             "method": "POST",
