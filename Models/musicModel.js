@@ -99,7 +99,6 @@ function deleteSong (user, song) {
 
     const stmt = db.prepare(sql);
     try {
-        console.log(user, song);
         const {musicPath} = getPathByName(user, song);
         const {uploadType} = checkType(user,song);
         stmt.run({song});
