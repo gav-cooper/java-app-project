@@ -101,7 +101,12 @@ p {
     margin-left: auto;
     margin-right: auto;  
 }
-
+button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+  }
 /* .liked:hover {
     filter: hue-rotate(180deg);
 } */

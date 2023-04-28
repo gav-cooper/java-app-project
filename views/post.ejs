@@ -15,8 +15,7 @@
     <p style="text-align: center;">Take a listen!</p>
     
     <div  style="text-align: left;">
-
-        <% for (const post of allPost) { %>
+        <% allPost.forEach(function(post) { %>
             <div class="YTurl">
                 <%= post.uploader %>
                 <marquee behavior="scroll" direction="left" class="song"><%= post.originalName %> 
@@ -37,12 +36,10 @@
                 <br>
                 <br>
                 <% like = "/post/" + post.musicID + "/like"%> 
-                <form action = <%= like %> method="POST" id="likePost">
-                    <input type="image" src="./images/heart.png" class="liked" id="heart" onclick="buttonColor()">
+                    <input name="submit" type="image" src="./images/heart.png" onclick="buttonColor()" >
                 </form>
             </div>
-           
-        <% } %>
+        <% }) %>
     <!-- link only reads until v= if URLs-->
         <!-- <img src="./images/album.jpeg" class="album"> -->
         <!-- <button class="ignore" type="submit"><img src="./images/play.png" id="play"></button> -->

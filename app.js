@@ -45,6 +45,7 @@ const usersValidator = require("./Validators/usersValidator");
 const fileUpload = require("./fileUpload");
 const musicModel = require("./Models/musicModel");
 const recommendationModel = require("./Models/recomandationModel");
+const { music } = require("./fileUpload");
 
 app.set("view engine", "ejs");
 
@@ -110,6 +111,7 @@ app.post("/songs/link",
   fileUpload.music.single("music"),
   musicController.makePost);
 app.post("/post/:musicID/like", musicController.likePost);
+
 app.delete("/users/:user", usersController.removeAccount);
 module.exports = app;
 app.delete("/users/:username", musicController.deletePost);
