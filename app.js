@@ -78,12 +78,15 @@ app.get("/post", musicController.displayAll)
 app.get("/recommendation", (req, res) => {
   let user = req.session.user
   const music = recommendationModel.recommandation(user.username);
+
+  // music is undefined, this is why it is not working; will need to check Model
+  console.log(music)
   req.session.music = music
   res.render('recommendation', {user, music})
 });
 
 app.get("/users/:username/uploads", usersController.uploadFiles);
-app.get("/recommendation", recommendationController.getReccomend);
+// app.get("/recommendation", recommendationController.getReccomend);
 app.get("/users/:username/uploads", usersController.uploadFiles);
 app.get("/post/:musicID", musicController.displaySingle);
 
