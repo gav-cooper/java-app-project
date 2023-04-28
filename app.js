@@ -51,7 +51,10 @@ const { music } = require("./fileUpload");
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.redirect('/login')
+    if (!req.session.isLoggedIn)
+      res.redirect('/login');
+    else
+      res.redirect('/post');
 });
 
 app.get("/uploadSong", (req, res) => {
