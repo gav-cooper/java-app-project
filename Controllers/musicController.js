@@ -79,7 +79,6 @@ function displaySingle(req, res) {
         return res.redirect("/");
     const {musicID} = req.params;
     const music = musicModel.getSong(musicID);
-    console.log(music);
 
     const liked = musicModel.checkLikes(musicID, req.session.user.userID);
 
@@ -89,9 +88,23 @@ function displaySingle(req, res) {
 
 }
 
+function displayAll( req, res) {
+    const allPost = musicModel.allMusic()
+    for (const post of allPost) {
+        if (musicModel.checkLikes(post.musicID, req.session.user.userID))
+            post.liked = true;
+        else
+            post.liked = false;
+    }
+
+    let user = req.session.user
+    res.render('post', {allPost, user})
+}
+
 module.exports = {
     makePost,
     deletePost,
     likePost,
-    displaySingle
+    displaySingle,
+    displayAll,
 }

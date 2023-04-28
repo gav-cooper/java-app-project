@@ -73,11 +73,7 @@ app.get("/fileUploadTest", (req, res) => {
   res.render('fileUploadTest',{user})
 });
 
-app.get("/post", (req, res) => {
-  const allPost = musicModel.allMusic()
-  let user = req.session.user
-  res.render('post', {allPost, user})
-})
+app.get("/post", musicController.displayAll)
 
 app.get("/recommendation", (req, res) => {
   let user = req.session.user

@@ -1,44 +1,5 @@
-<<<<<<< HEAD
 "use strict";
-=======
-"use strict"
 
-// const { likePost } = require("../../Controllers/musicController");
-
-// const e = require("express");
-
-
-// const likePost = document.getElementById("likePost")
-
-    // var clicked = document.querySelector(".likePost");
-    // if (clicked.style.filter == "hue-rotate(180deg)"){
-    //     clicked.style.filter = "hue-rotate(0deg)"
-    // } else {
-    //     clicked.style.filter = "hue-rotate(180deg)"
-    // }
-
-// // @whoami9613
-function buttonColor(){
-    
-    var clicked = document.querySelector("img[src='./images/heart.png]'");
-    if (clicked.style.filter == "hue-rotate(180deg)"){
-        clicked.style.filter = "hue-rotate(0deg)"
-    } else {
-        clicked.style.filter = "hue-rotate(180deg)"
-    }
-}
-
-// document.querySelector(".likePost").addEventListener("submit", function(event){
-//     event.preventDefault();
-//   });
-
-
-
-// $('.likePost').on('click', function(event){
-//     event.preventDefault();
-//    });
->>>>>>> refs/remotes/origin/main
- 
 // Extract album artwork from uploaded song tags
 const jsmediatags = window.jsmediatags;
 
@@ -59,32 +20,8 @@ for (let j = 0; j < covers.length; j++){
         }
     })
 }
-
-<<<<<<< HEAD
-async function likePost(event){
-    likePost = document.querySelector("#likePost")
-    document.addEventListener('click', likePost);
-    event.preventDefault();
-    const postID = event.target.attributes.postID.value;
-    const response = await fetch(`${window.location}/${postID}/like`, {
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json"
-                }
-            });
-    // const likeButton = document.querySelector("#likePost");
-    // const postID = event.target.attributes.postID.value
-    // try {
-    //     const response = await fetch(`${window.location}/${postID}/like`, {
-    //         "method": "POST",
-    //         "headers": {
-    //             "Content-Type": "application/json"
-    //         }
-    //     })
-
     
 
-=======
 let button = document.getElementsByClassName("button");
 for (let i = 0; i < button.length; i++) {
     button[i].addEventListener("click", likePost);
@@ -96,6 +33,7 @@ for (let i = 0; i < button.length; i++) {
 async function likePost(event) {
     // get post id from the event
     const musicID = event.target.attributes.path.value;
+    console.log(event);
     try {
         const response = await fetch(`/post/${musicID}/like`, {
             "method": "POST",
@@ -110,5 +48,4 @@ async function likePost(event) {
         console.log("Could not like")
         location.reload();
     }
->>>>>>> refs/remotes/origin/main
 }

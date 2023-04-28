@@ -155,7 +155,7 @@ function decLikes (musicID, userID) {
     const sql2 = `
         DELETE FROM MusicLikes
         WHERE
-            userID = @userID
+            userID = @userID AND musicID = @musicID
     `;
 
     const stmt1 = db.prepare(sql1);
@@ -163,7 +163,7 @@ function decLikes (musicID, userID) {
 
     try {
         stmt1.run({musicID});
-        stmt2.run({userID});
+        stmt2.run({userID, musicID});
         return true;
     } catch (error) {
         console.log(error);
