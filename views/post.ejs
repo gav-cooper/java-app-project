@@ -45,7 +45,8 @@
                 <br>
                 <br>
                 <% like = "/post/" + post.musicID + "/like"%> 
-                    <input name="submit" type="image" src="./images/heart.png" onclick="buttonColor()" >
+                <form action = <%= like %> method="POST" id="likePost">
+                    <input name="submit" type="image" src="./images/heart.png" onclick="buttonColor()" id="heart" path=<%=post.postID%>  >
                 </form>
             </div>
         <% }) %>
