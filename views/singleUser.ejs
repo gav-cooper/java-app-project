@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <script type="module" src="/js/singleUser.js" defer></script>
+    <title><%=user.username%></title>
+</head>
+<body>
+    <nav class="topbar">
+        <%- include ('navbar.ejs') %>
+    </nav>
+    <% if (user.account == false) { %>
+        <div><%=user.username%> hasn't uploaded any songs!</div>
+    <% } else { %> 
+    <div id="user-container" style="border: 1px solid black; margin-bottom: 50px;">
+        <%=user[0].username%>
+        <img style="width:50px; height:50px;" class="pfp" src="<%= user[0].pfpPath %>">
+    </div>
+
+    <div  style="text-align: left;">
+        <% user.forEach(function(post) { %>
+            <div class="YTurl">
+                <%= post.uploader %>
+                <marquee behavior="scroll" direction="left" class="song"><%= post.originalName %> 
+                    by <%= post.artist %></marquee>
+                <hr id="titlebreak">
+                <% if (post.uploadType === 1) {%>
+                    <% let url = post.musicPath.split("=") %>
+                    <%url = url[1] %>
+                    <% link = "https://www.youtube.com/embed/" + url %>
+                    <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <% } else { %>
+                    <div>
+                        <a href="/post/<%=post.musicID%>"><div id="cover" class="cover" path="<%= post.musicPath%>"></div></a>
+                        <audio controls id="audio">
+                            <source src="<%= post.musicPath%>">
+                        </audio>
+                    </div>
+                <% } %>
+                <button class="button" path="<%=post.musicID%>" id="<%=post.username%>" name="submit">Delete</button>
+
+                <br>
+                <br>
+            </div>
+        <% }) %>
+    </div>
+    <%}%>
+</body>
+</html>

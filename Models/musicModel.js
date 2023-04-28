@@ -52,7 +52,7 @@ function getPathByName (uploader, name) {
     const sql = `
         SELECT musicPath 
         FROM Music
-        WHERE uploader = @uploader and originalName = @name
+        WHERE uploader = @uploader and musicID = @name
     `;
 
     const stmt = db.prepare(sql);
@@ -63,7 +63,7 @@ function checkType (user, song) {
     const sql = `
         SELECT uploadType
         FROM Music
-        WHERE uploader = @user AND originalName = @song
+        WHERE uploader = @user AND musicID = @song
         `;
 
         const stmt = db.prepare(sql);
@@ -94,11 +94,12 @@ function allMusic () {
 function deleteSong (user, song) {
     const sql = `
         DELETE FROM Music
-        WHERE originalName = @song AND uploader = @user
+        WHERE musicID = @song
         `;
 
     const stmt = db.prepare(sql);
     try {
+        console.log(user, song);
         const {musicPath} = getPathByName(user, song);
         const {uploadType} = checkType(user,song);
         stmt.run({song, user});
@@ -197,6 +198,20 @@ function getSong (musicID) {
     return music;
 }
 
+function getMusicByUser (username) {
+    const sql = `
+        SELECT musicID, uploadType, originalName, musicPath, artist, date, likes, username, genre, pfpPath FROM 
+            Music
+        JOIN Users on
+            Music.uploader=Users.username
+        WHERE
+            Users.username = @username
+    `;
+    const stmt = db.prepare(sql);
+    const music = stmt.all({username});
+    return music;
+}
+
 
 module.exports = {
     addSong,
@@ -205,5 +220,6 @@ module.exports = {
     incLikes,
     decLikes,
     checkLikes,
-    getSong
+    getSong,
+    getMusicByUser
 }

@@ -2,6 +2,7 @@
 
 const musicModel = require("../Models/musicModel");
 const commentModel = require("../Models/commentModel");
+const usersModel = require("../Models/usersModel");
 const argon2 = require("argon2");
 
 /*
@@ -42,13 +43,14 @@ function makePost (req, res) {
 function deletePost (req, res) {
     if (!req.session.isLoggedIn)
         return res.sendStatus(403);
-    if (req.session.user.username != req.params.username)
-        return res.sendStatus(403);
-    
-    const {username} = req.session.user;
-    const {song} = req.body;
 
-    musicModel.deleteSong(username, song);
+    const {admin} = usersModel.getUserByUsername(req.session.user.username);
+    if (!admin)
+        return res.sendStatus(403);
+    console.log('here')
+    
+    const {musicID, username} = req.params;
+    musicModel.deleteSong(username, musicID);
     return res.sendStatus(200);
 }
 
@@ -97,7 +99,6 @@ function displayAll( req, res) {
         else
             post.liked = false;
     }
-
     let user = req.session.user
     res.render('post', {allPost, user})
 }

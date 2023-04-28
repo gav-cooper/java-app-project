@@ -7,12 +7,6 @@ const argon2 = require('argon2');
 
 const fs = require('fs');
 
-// Sessions
-const redis = require('redis');
-const session = require("express-session");
-const { getMaxListeners } = require("process");
-//
-
 async function addUser (username, email, password) {
     const uuid = crypto.randomUUID();
     const hash = await argon2.hash(password);
@@ -112,11 +106,26 @@ function deleteUser (userID) {
     stmt.run({userID})
 }
 
+function getAllUsers () {
+    try{
+        const sql = `
+        SELECT *
+        FROM Users
+        `;
+
+        return db.prepare(sql).all();
+    } catch (error) {
+            console.log(error);
+            return false;
+    }
+}
+
 module.exports = {
     addUser,
     getUserByUsername,
     getUserByEmail,
     updatePfp,
     deleteUser,
+    getAllUsers,
     getUserByID
 }
