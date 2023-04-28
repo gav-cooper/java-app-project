@@ -94,8 +94,17 @@ p {
 }
 
 
-select,button{
-    border: none;
+select{
+   
+    background-color: #E8B35A; 
+    color: #f0f0f0;
+    padding: 10px 22px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.submit{
+   
     background-color: #E8B35A; 
     color: #f0f0f0;
     padding: 10px 22px;

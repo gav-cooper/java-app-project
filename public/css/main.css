@@ -134,3 +134,19 @@ button {
     float: right;
     margin-right: 25px;
 }
+
+.comments{
+    text-decoration: none;
+    color:#aaaaaa;
+    font-size: 14px;
+}
+
+#heart{
+    margin: auto;
+    float: right;
+    position: relative;
+    bottom: 50px;
+    /* padding-bottom: 500px; */
+    max-height: 7%;
+    max-width: 7%;
+}

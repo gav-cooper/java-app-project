@@ -56,6 +56,18 @@ function getUserByUsername(username) {
     return record;
 }
 
+function getUserByID(userID) {
+    const sql = `
+        SELECT username FROM Users WHERE userID = @userID;
+        `;
+    const stmt = db.prepare(sql);
+    const record = stmt.get({
+        userID
+    });
+    
+    return record;
+}
+
 
 function getUserByEmail(email) {
     const sql = `
@@ -114,5 +126,6 @@ module.exports = {
     getUserByEmail,
     updatePfp,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    getUserByID
 }

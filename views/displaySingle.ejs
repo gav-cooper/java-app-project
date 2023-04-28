@@ -10,17 +10,23 @@
     <title><%= music.originalName %></title>
 </head>
 <body>
-    <p>Posted by: <a href="/users/<%= music.username %>"><%= music.username %></a></p>
+    <nav class="topbar">
+        <%- include ('navbar.ejs') %>
+    </nav>
+    <div class="box">
+    <h1 id="subject" style="text-align:center;"><%= music.originalName %></h1>
     <div class="post-wrapper">
-        <h1 id="subject"><%= music.originalName %></h1>
-        <span id="date"> Posted on <%= new Date(music.date).toLocaleDateString("en-US", {timeZone: "America/Chicago"}) %> </span>
-        <span id="time"> at <%= new Date(music.date).toLocaleTimeString("en-US", {timeZone: "America/Chicago"}) %> </span>
+        <p style="text-align:center;">Posted by: <a href="/users/<%= music.username %>"><%= music.username %></a></p>
+        
         <% if (music.uploadType === 1) {%>
             <% let url = music.musicPath.split("=") %>
             <%url = url[1] %>
             <% link = "https://www.youtube.com/embed/" + url %>
-            <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            
+            <iframe class="song" width="700" height="400" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div style="text-align:center;" class="postedOn">
+                <span id="date" > Uploaded:  <%= new Date(music.date).toLocaleDateString("en-US", {timeZone: "America/Chicago"}) %> </span>
+                <span id="time"> at <%= new Date(music.date).toLocaleTimeString("en-US", {timeZone: "America/Chicago"}) %> </span>
+            </div>
         <% } else { %>
             <div>
                 <div id="cover" class="cover"path="<%= music.musicPath%>"></div>
@@ -28,9 +34,13 @@
                     <source src="<%= music.musicPath%>">
                 </audio>
             </div>
+            <div class="postedOn" style="text-align:center;">
+                <span id="date" > Uploaded:  <%= new Date(music.date).toLocaleDateString("en-US", {timeZone: "America/Chicago"}) %> </span>
+                <span id="time"> at <%= new Date(music.date).toLocaleTimeString("en-US", {timeZone: "America/Chicago"}) %> </span>
+            </div>
         <% } %>
         <div id="likes-wrapper">
-            <p id="likes" <% if (liked) { %>
+            <p style="text-align:center;" id="likes" <% if (liked) { %>
                 class="liked"
             <% } else{ %>
                 class="unliked"
@@ -48,19 +58,18 @@
         </div>
     </div>
     <div class="comment-wrapper">
-        <div>
-            <h3 id="comment-header">Leave a comment...</h3>
-        </div>
-        <div>
+        <div class="comment-box">
             <form action="/post/comment/<%= music.musicID%>" method="POST">
-                <textarea id="message" name="message"></textarea>
-                <input type="submit" id="message-submit" value="Submit">
+                <textarea id="message" name="message" display="auto" placeholder="Leave a comment"></textarea>
+                <br>
+                <input type="submit" id="message-submit" value="Submit" >
             </form>
         </div>
         <% for (const comment of comments) { %>
             <div id="comment-container">
-                <p><%= new Date(comment.date).toLocaleString("en-US", {timeZone: "America/Chicago"}) %></p>
-                <p><%= comment.message%> </p>
+                <span><%= comment.username %></span>
+                <span id="datespan"><%= new Date(comment.date).toLocaleString("en-US", {timeZone: "America/Chicago"}) %></span>
+                <p id="words"><%= comment.message%> </p>
             </div>
         <% } %>
     </div>

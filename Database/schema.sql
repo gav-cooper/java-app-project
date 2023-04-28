@@ -39,10 +39,12 @@ CREATE TABLE IF NOT EXISTS Comments (
     commentID TEXT PRIMARY KEY,
     musicID TEXT,
     userID TEXT,
+    username TEXT,
     message TEXT,
     date INT NOT NULL,
     FOREIGN KEY(userID) REFERENCES Users(userID),
-    FOREIGN KEY(musicID) REFERENCES Music(musicID)
+    FOREIGN KEY(musicID) REFERENCES Music(musicID),
+    FOREIGN KEY (username) REFERENCES Users(username)
 );
 
 CREATE TABLE IF NOT EXISTS MusicLikes (
