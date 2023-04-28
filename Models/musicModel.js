@@ -81,7 +81,7 @@ function allMusic () {
     try{
         const sql = `
         SELECT *
-        FROM Music
+        FROM Music ORDER BY date DESC
         `;
 
         return db.prepare(sql).all();

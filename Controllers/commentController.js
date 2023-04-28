@@ -11,12 +11,13 @@ function addComment(req, res){
         return res.redirect("/")
     }
     const {userID} = usersModel.getUserByUsername(req.session.user.username);
+    const {username} = usersModel.getUserByID(userID);
     const {musicID} = req.params;
     let {message} = req.body;
 
     message = filter.clean(message);
     
-    if (commentModel.addComment(musicID, message, userID))
+    if (commentModel.addComment(musicID, message, userID, username))
         return res.redirect(`/post/${musicID}`);
     else
         return res.sendStatus(400);

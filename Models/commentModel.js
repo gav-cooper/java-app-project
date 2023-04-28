@@ -3,13 +3,13 @@
 const db = require("./db");
 const crypto = require("crypto");
 
-function addComment(musicID, message, userID){
+function addComment(musicID, message, userID, username){
     const commentID = crypto.randomUUID();
 
     const date = Date.now();
 
-    const sql = `INSERT INTO Comments (commentID, musicID, userID, message, date) 
-                VALUES (@commentID, @musicID, @userID, @message, @date)`;
+    const sql = `INSERT INTO Comments (commentID, musicID, userID, username, message, date) 
+                VALUES (@commentID, @musicID, @userID, @username, @message, @date)`;
     const add_comment = db.prepare(sql);
 
     try {
@@ -17,6 +17,7 @@ function addComment(musicID, message, userID){
             commentID,
             musicID,
             userID,
+            username,
             message,
             date
         });

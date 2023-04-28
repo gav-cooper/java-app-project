@@ -27,7 +27,7 @@
                     <%url = url[1] %>
                     <% link = "https://www.youtube.com/embed/" + url %>
                     <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    <a href="/post/<%=post.musicID%>">Comments</a>
+                    <a href="/post/<%=post.musicID%>" class="comments">View comments</a>
                 <% } else { %>
                     <div>
                         <a href="/post/<%=post.musicID%>"><div id="cover" class="cover" path="<%= post.musicPath%>"></div></a>
@@ -39,9 +39,9 @@
                 <br>
                 <br>
                 <% if (post.liked) { %>
-                    <input likeCheck="true" class="button" path="<%=post.musicID%>" name="submit" type="image" src="/images/heart-like.png">
+                    <input likeCheck="true" class="button"  path="<%=post.musicID%>" name="submit" type="image" src="/images/heart-like.png" id="heart">
                 <%} else { %>
-                    <input likeCheck="false" class="button" path="<%=post.musicID%>" name="submit" type="image" src="/images/heart.png">
+                    <input likeCheck="false" class="button" path="<%=post.musicID%>" name="submit" type="image" src="/images/heart.png" id="heart">
                 <% }%> 
             </div>
         <% }) %>
