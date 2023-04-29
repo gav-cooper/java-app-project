@@ -138,6 +138,11 @@ function removeAccount (req, res) {
     if (!admin) {
         return res.sendStatus(403)
     }
+    const {username} = usersModel.getUserByID(req.params.user)
+    let songList = musicModel.getMusicByUser(username);
+    songList = songList.map(row => row.musicID);
+    for (const song of songList)
+        musicModel.deleteSong(username, song);
     usersModel.deleteUser(req.params.user);
     res.sendStatus(200);
 }
@@ -175,6 +180,7 @@ function displayAllUsers (req, res) {
     }
     const users = usersModel.getAllUsers();
     const {admin, username} = usersModel.getUserByUsername(req.session.user.username);
+    
     res.render('allUsers', {users, admin, username})
 }
 
@@ -182,15 +188,19 @@ function displaySingleUser (req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/login")
     let user = musicModel.getMusicByUser(req.params.username);
+    let flag = true;
     if (user.length <= 0) {
         user = usersModel.getUserByUsername(req.params.username);
         user.account = false;
+        flag = false;
     }
-    for (const post of user) {
-        if (musicModel.checkLikes(post.musicID, req.session.user.userID))
-            post.liked = true;
-        else
-            post.liked = false;
+    if (flag){
+        for (const post of user) {
+            if (musicModel.checkLikes(post.musicID, req.session.user.userID))
+                post.liked = true;
+            else
+                post.liked = false;
+        }
     }
     const {admin, username} = usersModel.getUserByUsername(req.session.user.username);
     res.render('singleUser', {user, admin, username})

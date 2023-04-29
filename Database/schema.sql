@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS Preferences (
     hiphop INTEGER,
     classic INTEGER,
     FOREIGN KEY(userID) REFERENCES Users(userID)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Creates (
@@ -33,6 +34,7 @@ CREATE TABLE IF NOT EXISTS Music (
     likes INTEGER NOT NULL DEFAULT 0 CHECK (likes >= 0),
     genre TEXT,
     FOREIGN KEY (uploader) REFERENCES Users(username)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Comments (
@@ -45,6 +47,7 @@ CREATE TABLE IF NOT EXISTS Comments (
     FOREIGN KEY(userID) REFERENCES Users(userID),
     FOREIGN KEY(musicID) REFERENCES Music(musicID),
     FOREIGN KEY (username) REFERENCES Users(username)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS MusicLikes (
@@ -54,6 +57,7 @@ CREATE TABLE IF NOT EXISTS MusicLikes (
     PRIMARY KEY(userID, musicID),
     FOREIGN KEY(userID) REFERENCES Users(userID),
     FOREIGN KEY(musicID) REFERENCES Music(musicID)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS CommentsLikes (
