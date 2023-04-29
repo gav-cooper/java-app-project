@@ -93,6 +93,15 @@ p {
     font-size: 14px;
 }
 
+.selectGenre{
+    background-color: #E8B35A; 
+    color: #f0f0f0;
+    text-align: left!important;
+    width:150px;
+    padding: 10px 22px;
+    font-size: 14px;
+}
+
 
 select{
    
