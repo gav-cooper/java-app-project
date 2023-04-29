@@ -15,7 +15,8 @@ function addComment(req, res){
     const {musicID} = req.params;
     let {message} = req.body;
 
-    message = filter.clean(message);
+    if (message.replace(/\s/g, '').length)
+        message = filter.clean(message);
     
     if (commentModel.addComment(musicID, message, userID, username))
         return res.redirect(`/post/${musicID}`);
