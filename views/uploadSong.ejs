@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/fileUpload.css">  
+    <link rel="stylesheet" href="/css/fileUpload.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,13 +32,8 @@
         <div class="file-wrapper" style="display:None;" >
             <form id="fileForm" action="/songs/file" method="POST" enctype="multipart/form-data">
                 <input id="fname" type="text" name="name" placeholder="Song title" required>
-                <!--<input id="fgenre" type="text" name="genre" placeholder="Genre" required>-->
-                <select class="selectGenre" id="fgenre" name="genre" aria-required="true">
-                    <option value="rock">rock</object>
-                    <option value="hiphop">hiphop</option>
-                    <option value="classic">classic</option>
-                </select>
-    
+                <input id="fgenre" type="text" name="genre" placeholder="Genre" required>
+                
                 <input id="file" type="file" name="music">
                 <br>
                 <button class="submit">Submit</button>
@@ -47,11 +42,7 @@
         <div class="link-wrapper" style="display:None;">
             <form id="URLForm" action="/songs/link" method="POST">
                 <input id="name" type="text" name="name" placeholder="Song title" required>
-                <select class="selectGenre" id="genre" name="genre" aria-required="true">
-                    <option value="rock">rock</object>
-                    <option value="hiphop">hiphop</option>
-                    <option value="classic">classic</option>
-                </select>
+                <input id="genre" type="text" name="genre" placeholder="Genre" required>
                 <input id="artist" type="text" name="artist" placeholder="Artist" required>
                 <input id="path" type="text" name="path" placeholder="Enter URL" required>
                 <br>
