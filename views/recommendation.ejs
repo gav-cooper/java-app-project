@@ -18,7 +18,7 @@
     <div class="post" style="text-align: center;">
         <h1 id="username" value="user.username"> Let's get started, <%= user.username %>!</h1>
         <p style="line-height: 100%;">We hope that you like this music!!!</p>
-        <hr>
+        <!--<hr>
         <div class="content">
 
             <p style="line-height: 100%;">This is the sample musics: Rock, Hiphop and Classic</p>
@@ -69,7 +69,7 @@
                         myaudio.currentTime = 0;  // to move to start 
                     });
                 });
-            </script>
+            </script>-->
             
             <% if (!!music == false) {%>
 
@@ -79,13 +79,14 @@
                 <marquee behavior="scroll" direction="left" class="song"><%= music.originalName %> 
                     by <%= music.artist %></marquee>
                 <hr id="titlebreak">
-                <% if (music.uploadType === 1) {%>
-                <% let url = music.musicPath.split("=") %>
-                <%url = url[1] %>
-                <% link = "https://www.youtube.com/embed/" + url %>
-                <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <% if (music.uploadType === 1) {%>
+                    <% let url = music.musicPath.split("=") %>
+                    <%url = url[1] %>
+                    <% link = "https://www.youtube.com/embed/" + url %>
+                    <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <% } else { %>
                     <div>
+                        <div id="cover" class="cover" path="<%= music.musicPath%>"></div>
                         <audio controls id="audio">
                             <source src="<%= music.musicPath%>">
                         </audio>
@@ -117,7 +118,7 @@
                 </script>
             <% } %>
             
-            
+
 
             
             
