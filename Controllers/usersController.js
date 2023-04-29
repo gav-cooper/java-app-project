@@ -186,6 +186,12 @@ function displaySingleUser (req, res) {
         user = usersModel.getUserByUsername(req.params.username);
         user.account = false;
     }
+    for (const post of user) {
+        if (musicModel.checkLikes(post.musicID, req.session.user.userID))
+            post.liked = true;
+        else
+            post.liked = false;
+    }
     const {admin, username} = usersModel.getUserByUsername(req.session.user.username);
     res.render('singleUser', {user, admin, username})
 }

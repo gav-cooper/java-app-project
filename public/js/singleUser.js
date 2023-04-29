@@ -49,3 +49,31 @@ for (let j = 0; j < covers.length; j++){
         }
     })
 }
+
+let likeButton = document.getElementsByClassName("likeButton");
+for (let i = 0; i < likeButton.length; i++) {
+    likeButton[i].addEventListener("click", likePost);
+}
+
+/*  Deletes a user's post by extracting the ID from the event and sending a
+    delete request
+*/
+async function likePost(event) {
+    // get post id from the event
+    const musicID = event.target.attributes.path.value;
+    console.log(event);
+    try {
+        const response = await fetch(`/post/${musicID}/like`, {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            }
+        });
+        // reload the page
+        if (response.ok)
+            location.reload();
+    } catch(error) {
+        console.log("Could not like")
+        location.reload();
+    }
+}

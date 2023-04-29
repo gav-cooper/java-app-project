@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
-    <script type="module" src="/js/singleUser.js" defer></script>
+    <script type="module" src="/js/post.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" referrerpolicy="no-referrer"></script>    
     <title><%=user.username%></title>
 </head>
@@ -13,16 +13,12 @@
     <nav class="topbar">
         <%- include ('navbar.ejs') %>
     </nav>
-    <% if (user.account == false) { %>
-        <div id="noSong"><%=user.username%> hasn't uploaded any songs!</div>
+    <% if (recSongs.recommend == false) { %>
+        <div id="noSong">No recommended songs yet!</div>
     <% } else { %> 
-    <div id="user-container" style="border: 1px solid black; margin-bottom: 50px;">
-        <%=user[0].username%>
-        <img style="width:50px; height:50px;" class="pfp" src="<%= user[0].pfpPath %>">
-    </div>
 
     <div  style="text-align: left;">
-        <% user.forEach(function(post) { %>
+        <% recSongs.forEach(function(post) { %>
             <div class="YTurl">
                 <%= post.uploader %>
                 <marquee behavior="scroll" direction="left" class="song"><%= post.originalName %> 
@@ -44,14 +40,7 @@
                 <a href="/post/<%=post.musicID%>" class="comments"><img id="comment-file" style="display:inline; white-space: nowrap;" src="/images/comment-button.png"></a>
                 <br>
                 <br>
-                <% if (post.liked) { %>
-                    <input likeCheck="true" class="likeButton"  path="<%=post.musicID%>" name="submit" type="image" style="display:inline; white-space:nowrap" src="/images/heart-like.png" id="heart">
-                <%} else { %>
-                    <input likeCheck="false" class="likeButton" path="<%=post.musicID%>" name="submit" type="image"  style="display:inline;white-space:nowrap" src="/images/heart.png" id="heart">
-                <% }%> 
-                <% if (admin) { %> 
-                    <button class="button" path="<%=post.musicID%>" id="<%=post.username%>" name="submit" style="display:inline;white-space:nowrap">Delete</button>
-                <% } %>
+                <input class="button" path="<%=post.musicID%>" name="submit" type="image"  style="display:inline;white-space:nowrap" src="/images/heart.png" id="heart">
             </div>
         <% }) %>
     </div>

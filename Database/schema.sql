@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS Comments (
 CREATE TABLE IF NOT EXISTS MusicLikes (
     userID TEXT,
     musicID TEXT,
+    date INT NOT NULL,
     PRIMARY KEY(userID, musicID),
     FOREIGN KEY(userID) REFERENCES Users(userID),
     FOREIGN KEY(musicID) REFERENCES Music(musicID)
