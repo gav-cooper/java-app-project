@@ -18,7 +18,6 @@ function makePost (req, res) {
     if (!!req.file == false && !!req.body.artist == false) {
         return res.sendStatus(404);
     }
-    
     const {name, genre} = req.body;
     const uploader = req.session.user.username;
     let {artist, path} = req.body

@@ -85,7 +85,7 @@ async function submitURLForm (event) {
 
 function getURLInputs() {
     const name = document.getElementById("name").value;
-    const artist = document.getElementById("genre").value;
+    const artist = document.getElementById("artist").value;
     const genre = document.getElementById("genre").value;
     const path = document.getElementById("path").value;
     
