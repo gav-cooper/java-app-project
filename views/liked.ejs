@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/main.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/main.css">
-    <script type="module" src="/js/singleUser.js" defer></script>
+    <script type="module" src="/js/post.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" referrerpolicy="no-referrer"></script>    
-    <title><%=user.username%></title>
+    <title>Songs</title>
 </head>
 <body>
     <nav class="topbar">
         <%- include ('navbar.ejs') %>
     </nav>
-    <% if (user.account == false) { %>
-        <div id="noSong"><%=user.username%> hasn't uploaded any songs!</div>
-    <% } else { %> 
-    <div id="user-container" style="border: 1px solid black; margin-bottom: 50px;">
-        <%=user[0].username%>
-        <img style="width:50px; height:50px;" class="pfp" src="<%= user[0].pfpPath %>">
-    </div>
-
+    <p style="text-align: center;">Your liked songs:</p>
+    
     <div  style="text-align: left;">
-        <% user.forEach(function(post) { %>
+        <% allPost.forEach(function(post) { %>
             <div class="YTurl">
                 <%= post.uploader %>
                 <marquee behavior="scroll" direction="left" class="song"><%= post.originalName %> 
@@ -33,28 +27,30 @@
                     <%url = url[1] %>
                     <% link = "https://www.youtube.com/embed/" + url %>
                     <iframe width="430" height="315" src= "<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <a href="/post/<%=post.musicID%>" class="comments"><img id="comment-pic" style="display:inline; white-space: nowrap;" src="/images/comment-button.png"></a>
                 <% } else { %>
-                    <div>
+                    <br>
+                    <div class="audio">
                         <a href="/post/<%=post.musicID%>"><div id="cover" class="cover" path="<%= post.musicPath%>"></div></a>
                         <audio controls id="audio">
                             <source src="<%= post.musicPath%>">
                         </audio>
                     </div>
+                    <a href="/post/<%=post.musicID%>" class="comments"><img id="comment-file" style="display:inline; white-space: nowrap;" src="/images/comment-button.png"></a>
                 <% } %>
-                <a href="/post/<%=post.musicID%>" class="comments"><img id="comment-file" style="display:inline; white-space: nowrap;" src="/images/comment-button.png"></a>
                 <br>
                 <br>
                 <% if (post.liked) { %>
-                    <input likeCheck="true" class="likeButton"  path="<%=post.musicID%>" name="submit" type="image" style="display:inline; white-space:nowrap" src="/images/heart-like.png" id="heart">
+                    <input likeCheck="true" class="button"  path="<%=post.musicID%>" name="submit" type="image" style="display:inline; white-space:nowrap" src="/images/heart-like.png" id="heart">
                 <%} else { %>
-                    <input likeCheck="false" class="likeButton" path="<%=post.musicID%>" name="submit" type="image"  style="display:inline;white-space:nowrap" src="/images/heart.png" id="heart">
+                    <input likeCheck="false" class="button" path="<%=post.musicID%>" name="submit" type="image"  style="display:inline;white-space:nowrap" src="/images/heart.png" id="heart">
                 <% }%> 
-                <% if (admin) { %> 
-                    <button class="button" path="<%=post.musicID%>" id="<%=post.username%>" name="submit" style="display:inline;white-space:nowrap">Delete</button>
-                <% } %>
             </div>
         <% }) %>
+    <!-- link only reads until v= if URLs-->
+        <!-- <img src="./images/album.jpeg" class="album"> -->
+        <!-- <button class="ignore" type="submit"><img src="./images/play.png" id="play"></button> -->
+
     </div>
-    <%}%>
 </body>
 </html>

@@ -115,6 +115,7 @@ function deleteSong (user, song) {
 }
 
 function incLikes (musicID, userID) {
+    const date = Date.now();
     const sql1 = `
         UPDATE Music
         SET 
@@ -125,9 +126,9 @@ function incLikes (musicID, userID) {
 
     const sql2 = `
         INSERT INTO MusicLikes
-            (musicID, userID)
+            (musicID, userID, date)
         VALUES
-            (@musicID, @userID)
+            (@musicID, @userID, @date)
     `;
 
     const stmt1 = db.prepare(sql1);
@@ -135,7 +136,7 @@ function incLikes (musicID, userID) {
 
     try {
         stmt1.run({musicID});
-        stmt2.run({musicID,userID});
+        stmt2.run({musicID,userID, date});
         return true;
     } catch (error) {
         console.log(error);
@@ -211,6 +212,18 @@ function getMusicByUser (username) {
     return music;
 }
 
+function getLikedSongs (userID) {
+    const sql = `
+            SELECT * FROM Music
+            Music JOIN MusicLikes
+            ON Music.musicID = MusicLikes.musicID
+            WHERE userID = @userID
+            ORDER BY MusicLikes.date DESC
+            `;
+    const stmt = db.prepare(sql);
+    const music = stmt.all({userID});
+    return music;
+}
 
 module.exports = {
     addSong,
@@ -220,5 +233,6 @@ module.exports = {
     decLikes,
     checkLikes,
     getSong,
-    getMusicByUser
+    getMusicByUser,
+    getLikedSongs
 }

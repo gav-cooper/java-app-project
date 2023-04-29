@@ -38,6 +38,7 @@ const usersController = require("./Controllers/usersController");
 const musicController = require("./Controllers/musicController");
 const recommendationController = require("./Controllers/recommendationController");
 const commentController = require("./Controllers/commentController");
+const recController = require("./Controllers/recController");
 
 // Validators
 const usersValidator = require("./Validators/usersValidator");
@@ -46,6 +47,7 @@ const usersValidator = require("./Validators/usersValidator");
 const fileUpload = require("./fileUpload");
 const musicModel = require("./Models/musicModel");
 const recommendationModel = require("./Models/recomandationModel");
+const recModel = require("./Models/recModel");
 const { music } = require("./fileUpload");
 
 app.set("view engine", "ejs");
@@ -86,13 +88,15 @@ app.get("/recommendation", (req, res) => {
   res.render('recommendation', {user, music})
 });
 
+app.get("/recommend", recController.recommendedSongs);
+
 app.get("/users/:username/uploads", usersController.uploadFiles);
 // app.get("/recommendation", recommendationController.getReccomend);
 app.get("/users/:username/uploads", usersController.uploadFiles);
 app.get("/post/:musicID", musicController.displaySingle);
 app.get("/users", usersController.displayAllUsers);
 app.get("/users/:username", usersController.displaySingleUser);
-
+app.get("/liked", musicController.displayLiked);
 
 app.post("/register", usersValidator.validateRegistration, usersController.createNewUser);
 app.post("/login",usersValidator.validateLogin,usersController.login);
