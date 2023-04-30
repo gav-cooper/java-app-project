@@ -2,6 +2,7 @@
 
 const usersModel = require("../Models/usersModel");
 const musicModel = require("../Models/musicModel");
+const commentModel = require("../Models/commentModel");
 const argon2 = require("argon2");
 
 /*
@@ -141,13 +142,16 @@ function removeAccount (req, res) {
     const {username} = usersModel.getUserByID(req.params.user)
     let songList = musicModel.getMusicByUser(username);
     songList = songList.map(row => row.musicID);
-    for (const song of songList)
+    for (const song of songList){
+        commentModel.deleteAllCommentsByMusicID(song);
         musicModel.deleteSong(username, song);
+    }
 
     let likedSongs = musicModel.getLikedSongs(req.params.user);
     likedSongs = likedSongs.map(row => row.musicID);
     for (const song of likedSongs)
         musicModel.decLikes(song, req.params.user);
+
     usersModel.deleteUser(req.params.user);
     res.sendStatus(200);
 }
