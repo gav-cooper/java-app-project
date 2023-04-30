@@ -47,6 +47,8 @@ function deletePost (req, res) {
     if (!admin)
         return res.sendStatus(403);
     const {musicID, username} = req.params;
+
+    // Remove all likes and comments for the song, then delet
     musicModel.deleteAllLikesByMusicID(musicID);
     commentModel.deleteAllCommentsByMusicID(musicID);
     musicModel.deleteSong(username, musicID);
@@ -75,10 +77,15 @@ function likePost(req, res) {
     return res.sendStatus(200);
 }
 
+/*
+    Displays information for a single song in the database. Shows comments
+*/
 function displaySingle(req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/");
     const {musicID} = req.params;
+
+    // If the page doesn't exist, display error
     if (!musicModel.checkExists(musicID))
         return res.render("error", {status:404,message:`Couldn't find /post/${req.params.musicID}`});
     const music = musicModel.getSong(musicID);
@@ -90,6 +97,9 @@ function displaySingle(req, res) {
 
 }
 
+/*
+    Displays every song in the database
+*/
 function displayAll( req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/");
@@ -104,6 +114,9 @@ function displayAll( req, res) {
     res.render('post', {allPost, user})
 }
 
+/*
+    Displays the liked songs for the logged in user
+*/
 function displayLiked(req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/");

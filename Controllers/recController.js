@@ -3,6 +3,9 @@
 const recModel = require("../Models/recModel");
 const usersModel = require("../Models/usersModel");
 
+/*
+    This recommends songs to the user by comparing their interests to other users.
+*/
 function recommendedSongs (req, res) {
     if (!req.session.isLoggedIn) {
         return res.redirect("/");

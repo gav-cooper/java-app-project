@@ -90,13 +90,16 @@ function logout (req,res) {
         res.redirect("/"));
 }
 
+/*
+    Used solely for testing
+*/
 function testSession (req, res) {
     console.log(req.session),
     res.sendStatus(200)
 }
 
 /*
-
+    Used solely for testing
 */
 function uploadFiles (req, res) {
     if (!req.session.isLoggedIn){
@@ -140,6 +143,8 @@ function removeAccount (req, res) {
         return res.sendStatus(403)
     }
     const {username} = usersModel.getUserByID(req.params.user)
+
+    // Remove every entry made by the user in the comments and music table
     let songList = musicModel.getMusicByUser(username);
     songList = songList.map(row => row.musicID);
     for (const song of songList){
@@ -147,6 +152,7 @@ function removeAccount (req, res) {
         musicModel.deleteSong(username, song);
     }
 
+    // Remove all of their liked songs
     let likedSongs = musicModel.getLikedSongs(req.params.user);
     likedSongs = likedSongs.map(row => row.musicID);
     for (const song of likedSongs)
@@ -163,6 +169,7 @@ function accountPage (req, res) {
     if (!req.session.isLoggedIn) {
         return res.sendStatus(403);
     }
+    // Display an error if they try accessing someone else's account
     if (req.session.user.username !== req.params.username) {
         return res.render("error", {status:403, message:`You can't access their account!`});
     }
@@ -183,6 +190,9 @@ function accountRedirect (req, res) {
     }
 }
 
+/*
+    Lists all the users active on the site
+*/
 function displayAllUsers (req, res) {
     if (!req.session.isLoggedIn) {
         return res.redirect("/login")
@@ -193,9 +203,14 @@ function displayAllUsers (req, res) {
     res.render('allUsers', {users, admin, username})
 }
 
+/*
+    Displays all of the songs posted by a specific user
+*/
 function displaySingleUser (req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/login")
+
+    // Display an error if the user doesn't exist
     let userCheck = usersModel.getUserByUsername(req.params.username);
     if (!userCheck)
         return res.render("error", {status:404, message:`Couldn't find /users/${req.params.username}`});
