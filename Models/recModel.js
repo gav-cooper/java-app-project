@@ -13,7 +13,7 @@ function getLikedSongsByUserID (userID) {
                 ON Likes.musicID = Music.musicID
                 WHERE userID = @userID`;
     const stmt = db.prepare(sql);
-    const likedSongs = stmt.all({userID}).map(row => row.musicID).join(',');
+    const likedSongs = stmt.all({userID}).map(row => row.musicID);
     return likedSongs;
 }
 
@@ -23,11 +23,11 @@ function getLikedSongsByUserID (userID) {
 function likedByOthers (likedSongs, userID) {
     const sql= `SELECT DISTINCT userID 
                 FROM MusicLikes 
-                WHERE musicID IN (@likedSongs) 
-                AND userID != @userID
+                WHERE musicID IN (${likedSongs.map(() => '?').join(',')}) 
+                AND userID != ?
                 `;
     const stmt = db.prepare(sql);
-    const otherUsers = stmt.all({likedSongs, userID}).map(row => row.userID).join(',');
+    const otherUsers = stmt.all([...likedSongs, userID]).map(row => row.userID);
     return otherUsers;
 }
 
@@ -39,11 +39,11 @@ function recommendSongs (otherUsers, likedSongs) {
     const sql = `SELECT DISTINCT * 
                  FROM MusicLikes 
                  JOIN Music ON MusicLikes.musicID = Music.musicID
-                 WHERE userID IN (@otherUsers) 
-                 AND MusicLikes.musicID NOT IN (@likedSongs)
+                 WHERE userID IN (${otherUsers.map(() => '?').join(',')}) 
+                 AND MusicLikes.musicID NOT IN (${likedSongs.map(() => '?').join(',')})
                 `;
     const stmt = db.prepare(sql);
-    const recommendedSongs = stmt.all({otherUsers,likedSongs});
+    const recommendedSongs = stmt.all([...otherUsers,...likedSongs]);
     return recommendedSongs;
 }
 

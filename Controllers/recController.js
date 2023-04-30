@@ -16,7 +16,6 @@ function recommendedSongs (req, res) {
     const likedSongs = recModel.getLikedSongsByUserID(userID);
     const otherUsers = recModel.likedByOthers(likedSongs, userID);
     const recSongs = recModel.recommendSongs(otherUsers, likedSongs);
-
     if (recSongs.length <= 0)
         recSongs.recommend = false;
     else
