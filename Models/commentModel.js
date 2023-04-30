@@ -41,7 +41,18 @@ function getMusicComments(musicID) {
         return false;
 }
 
+function deleteAllCommentsByMusicID(musicID) {
+    const sql = `
+    DELETE FROM Comments
+    WHERE musicID = @musicID
+    `;
+
+const stmt = db.prepare(sql);
+stmt.run({musicID})
+}
+
 module.exports = {
     addComment,
-    getMusicComments
+    getMusicComments,
+    deleteAllCommentsByMusicID
 }

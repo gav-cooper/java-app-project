@@ -225,6 +225,31 @@ function getLikedSongs (userID) {
     return music;
 }
 
+function deleteAllLikesByMusicID (musicID) {
+    const sql = `
+                DELETE FROM MusicLikes
+                WHERE musicID = @musicID
+                `;
+
+    const stmt = db.prepare(sql);
+    stmt.run({musicID})
+}
+
+function checkExists (musicID) {
+    const sql = `
+                SELECT originalName
+                FROM Music
+                WHERE musicID = @musicID
+                `;
+
+    const stmt = db.prepare(sql);
+    const music = stmt.get({musicID});
+    if (!!music)
+        return true;
+    else
+        return false;
+}
+
 module.exports = {
     addSong,
     deleteSong,
@@ -234,5 +259,7 @@ module.exports = {
     checkLikes,
     getSong,
     getMusicByUser,
-    getLikedSongs
+    getLikedSongs,
+    checkExists,
+    deleteAllLikesByMusicID
 }

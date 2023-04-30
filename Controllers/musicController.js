@@ -78,6 +78,8 @@ function displaySingle(req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/");
     const {musicID} = req.params;
+    if (!musicModel.checkExists(musicID))
+        return res.render("error", {status:404,message:`Couldn't find /post/${req.params.musicID}`});
     const music = musicModel.getSong(musicID);
 
     const liked = musicModel.checkLikes(musicID, req.session.user.userID);
