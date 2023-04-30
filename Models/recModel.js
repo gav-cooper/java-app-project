@@ -18,7 +18,11 @@ function getLikedSongsByUserID (userID) {
 }
 
 /*
-    Finds all users who like the same songs as a user
+    Finds all users who like the same songs as a user.
+    .map() will create a new array of '?'. The array then get's joined to create
+    a comma separated string of '?'s which allows for a dynamic amount of parameters.
+    The '...' in '...likedSongs' splits the array into individual parts. Essentially,
+    it maps each individual element of the array to a '?'.
 */
 function likedByOthers (likedSongs, userID) {
     const sql= `SELECT DISTINCT userID 
