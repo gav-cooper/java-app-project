@@ -46,8 +46,9 @@ function deletePost (req, res) {
     const {admin} = usersModel.getUserByUsername(req.session.user.username);
     if (!admin)
         return res.sendStatus(403);
-    
     const {musicID, username} = req.params;
+    musicModel.deleteAllLikesByMusicID(musicID);
+    commentModel.deleteAllCommentsByMusicID(musicID);
     musicModel.deleteSong(username, musicID);
     return res.sendStatus(200);
 }
