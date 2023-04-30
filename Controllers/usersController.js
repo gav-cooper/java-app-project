@@ -143,6 +143,11 @@ function removeAccount (req, res) {
     songList = songList.map(row => row.musicID);
     for (const song of songList)
         musicModel.deleteSong(username, song);
+
+    let likedSongs = musicModel.getLikedSongs(req.params.user);
+    likedSongs = likedSongs.map(row => row.musicID);
+    for (const song of likedSongs)
+        musicModel.decLikes(song, req.params.user);
     usersModel.deleteUser(req.params.user);
     res.sendStatus(200);
 }
@@ -155,7 +160,7 @@ function accountPage (req, res) {
         return res.sendStatus(403);
     }
     if (req.session.user.username !== req.params.username) {
-        return res.sendStatus(403);
+        return res.render("error", {status:403, message:`You can't access their account!`});
     }
     const user = usersModel.getUserByUsername(req.session.user.username);
     if (!!user == false)
@@ -187,6 +192,10 @@ function displayAllUsers (req, res) {
 function displaySingleUser (req, res) {
     if (!req.session.isLoggedIn)
         return res.redirect("/login")
+    let userCheck = usersModel.getUserByUsername(req.params.username);
+    if (!userCheck)
+        return res.render("error", {status:404, message:`Couldn't find /users/${req.params.username}`});
+
     let user = musicModel.getMusicByUser(req.params.username);
     let flag = true;
     if (user.length <= 0) {
