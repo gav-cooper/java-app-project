@@ -41,6 +41,7 @@ function recommendSongs (otherUsers, likedSongs) {
                  JOIN Music ON MusicLikes.musicID = Music.musicID
                  WHERE userID IN (${otherUsers.map(() => '?').join(',')}) 
                  AND MusicLikes.musicID NOT IN (${likedSongs.map(() => '?').join(',')})
+                 ORDER BY date DESC
                 `;
     const stmt = db.prepare(sql);
     const recommendedSongs = stmt.all([...otherUsers,...likedSongs]);
