@@ -42,7 +42,7 @@ Node.js v18+
 
 npm
 
-MySQL (or another SQL-compatible DB if you adapt it)
+MySQL (or another SQL-compatible DB)
 
 Installation
 bash
